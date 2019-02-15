@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include it_management *.css
+recursive-include it_management *.csv
+recursive-include it_management *.html
+recursive-include it_management *.ico
+recursive-include it_management *.js
+recursive-include it_management *.json
+recursive-include it_management *.md
+recursive-include it_management *.png
+recursive-include it_management *.py
+recursive-include it_management *.svg
+recursive-include it_management *.txt
+recursive-exclude it_management *.pyc
