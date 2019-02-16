@@ -4,7 +4,7 @@ from frappe import _
 def get_data():
 	return {
 		'heatmap': True,
-		'heatmap_message': _('TBD'),
+		'heatmap_message': _('Activity based on ?'),
 		'fieldname': 'configuration_item',
 		'transactions': [
 			{
