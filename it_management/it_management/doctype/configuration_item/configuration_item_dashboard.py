@@ -17,7 +17,7 @@ def get_data():
 			},
       {
 				'label': _('Software'),
-				'items': ['Licence', 'Software Version']
+				'items': ['Software Instance']
 			},
       {
 				'label': _('Hardware'),
