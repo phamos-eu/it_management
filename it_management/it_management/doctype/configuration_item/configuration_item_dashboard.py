@@ -9,7 +9,7 @@ def get_data():
 		'transactions': [
 			{
 				'label': _('Location'),
-				'items': ['Location Room', 'Location Address']
+				'items': ['Location Room']
 			},
       {
 				'label': _('Network'),
