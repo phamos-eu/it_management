@@ -11,7 +11,7 @@ def get_data():
 			},
       {
 				'label': _('Network'),
-				'items': ['IP Address', 'Host Domain']
+				'items': ['Network Interface Controller']
 			},
       {
 				'label': _('Software'),
