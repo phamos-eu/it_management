@@ -9,7 +9,7 @@
  "custom": 0, 
  "docstatus": 0, 
  "doctype": "DocType", 
- "document_type": "Setup", 
+ "document_type": "Other", 
  "editable_grid": 1, 
  "engine": "InnoDB", 
  "fields": [
@@ -146,7 +146,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2019-02-16 19:59:55.327045", 
+ "modified": "2019-02-26 20:30:49.773896", 
  "modified_by": "Administrator", 
  "module": "IT Management", 
  "name": "Subnet Block", 

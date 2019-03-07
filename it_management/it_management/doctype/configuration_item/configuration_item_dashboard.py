@@ -6,20 +6,16 @@ def get_data():
 		'fieldname': 'configuration_item',
 		'transactions': [
 			{
-				'label': _('Location'),
-				'items': ['Location Room']
+				'label': _('Support History'),
+				'items': ['Task']
 			},
       {
-				'label': _('Network'),
+				'label': _('Hardware'),
 				'items': ['Network Interface Controller']
 			},
       {
 				'label': _('Software'),
-				'items': ['Software Instance']
-			},
-      {
-				'label': _('Hardware'),
-				'items': ['Manufacturer', 'Item']
+				'items': ['Software Instance','User Account','Solution']
 			},
 		]
 	}
