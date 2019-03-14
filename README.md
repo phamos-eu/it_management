@@ -1,8 +1,8 @@
 ## IT Management
 
-ERPNext App zum Management von IT-Bausteinen. Hierzu gehören IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, Dienstleistungsverträge, Accounts und Internetleistungen.
+ERPNext App for the management of IT components. This includes IT equipment and IT solutions such as servers, computers, networks and e-mail servers as well as backups, service contracts, accounts and Internet services.
 
-Funktioniert ab ERPNext Version 11.
+Works with ERPNext Version 11 and higher.
 
 #### Hardware
 * Configuration Item
