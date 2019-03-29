@@ -1,2 +1,2 @@
-it_management.patches.0_1.task_checklist
-it_management.patches.0_1.configuration_item_table
+it_management.it_management.patches.0_1.task_checklist
+it_management.it_management.patches.0_1.configuration_item_table
