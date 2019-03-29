@@ -8,13 +8,18 @@ Works with ERPNext Version 11 and higher.
 ![DocType Licence](img/licence.png)
 
 #### Hardware
+
 * Configuration Item
+
+    Notebook, Server, Monitor...
+
 * Internal Hardware Configuration
 * Solution
 
 #### Networking
+
 * Ethernet Jack
-* Ip Address
+* IP Address
 * Network Interface Controller
 * Subnet
 * Subnet Block
@@ -22,16 +27,25 @@ Works with ERPNext Version 11 and higher.
 * Socket
 
 #### Software
+
 * Licence
+
+    Licence to use a Software Instance
+
 * Software Version
 * Software Instance
+
+    Actual installation of a software (Software is an `Item`)
+
 * User Account
+
+    Account to access a Software Instance
+
 * User Group
 
 #### Other
-* Task Checklist
+
 * Customer Prefix
-* Access Account
 * Location
 * Location Room
 * Peripheral
