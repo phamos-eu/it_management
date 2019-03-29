@@ -9,6 +9,9 @@ WHERE linked_configuration_item is not NULL and configuration_item is NULL
 """
 
 def execute():
+    if not frappe.get_last_doc("Configuration Item Table"):
+        return
+
     filters={'linked_configuration_item':("!=", ""), 'configuration_item':("=", "")}
     cit_list = frappe.get_list("Configuration Item Table", filters=filters)
 

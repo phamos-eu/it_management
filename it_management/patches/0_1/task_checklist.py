@@ -5,6 +5,9 @@ import frappe
 """
 
 def execute():
+    if not frappe.get_last_doc("Task Checklist"):
+        return
+
     tc_list = frappe.get_list("Task Checklist", filters={'parentfield':'checklist_table'})
 
     for name in tc_list:
