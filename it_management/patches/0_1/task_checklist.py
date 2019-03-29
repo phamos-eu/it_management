@@ -1,11 +1,14 @@
 import frappe
+from frappe.exceptions import DoesNotExistError
 
 """
 `checklist_table` in `Task` has been renamed to `task_checklist`
 """
 
 def execute():
-    if not frappe.get_last_doc("Task Checklist"):
+    try:
+        frappe.get_last_doc("Task Checklist")
+    except DoesNotExistError:
         return
 
     tc_list = frappe.get_list("Task Checklist", filters={'parentfield':'checklist_table'})
