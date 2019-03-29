@@ -8,10 +8,11 @@ SET configuration_item = linked_configuration_item
 WHERE linked_configuration_item is not NULL and configuration_item is NULL
 """
 
-filters={'linked_configuration_item':("!=", ""), 'configuration_item':("=", "")}
-cit_list = frappe.get_list("Configuration Item Table", filters=filters)
+def execute():
+    filters={'linked_configuration_item':("!=", ""), 'configuration_item':("=", "")}
+    cit_list = frappe.get_list("Configuration Item Table", filters=filters)
 
-for name in cit_list:
-    tl = frappe.get_doc("Configuration Item Table", name)
-    tl.configuration_item = tl.linked_configuration_item
-    tl.save()
+    for name in cit_list:
+        tl = frappe.get_doc("Configuration Item Table", name)
+        tl.configuration_item = tl.linked_configuration_item
+        tl.save()
