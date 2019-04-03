@@ -1,5 +1,6 @@
 {
  "allow_copy": 0, 
+ "allow_events_in_timeline": 0, 
  "allow_guest_to_view": 0, 
  "allow_import": 0, 
  "allow_rename": 0, 
@@ -15,6 +16,7 @@
  "fields": [
   {
    "allow_bulk_edit": 0, 
+   "allow_in_quick_entry": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -37,16 +39,18 @@
    "precision": "", 
    "print_hide": 0, 
    "print_hide_if_no_value": 0, 
-   "read_only": 1, 
+   "read_only": 0, 
    "remember_last_selected_value": 0, 
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
    "set_only_once": 0, 
+   "translatable": 0, 
    "unique": 0
   }, 
   {
    "allow_bulk_edit": 0, 
+   "allow_in_quick_entry": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -68,16 +72,18 @@
    "precision": "", 
    "print_hide": 0, 
    "print_hide_if_no_value": 0, 
-   "read_only": 1, 
+   "read_only": 0, 
    "remember_last_selected_value": 0, 
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
    "set_only_once": 0, 
+   "translatable": 0, 
    "unique": 0
   }, 
   {
    "allow_bulk_edit": 0, 
+   "allow_in_quick_entry": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -104,6 +110,7 @@
    "reqd": 0, 
    "search_index": 0, 
    "set_only_once": 0, 
+   "translatable": 0, 
    "unique": 0
   }
  ], 
@@ -117,8 +124,8 @@
  "issingle": 0, 
  "istable": 1, 
  "max_attachments": 0, 
- "modified": "2019-03-06 10:50:24.479301", 
- "modified_by": "wolfram.schmidt@tueit.de", 
+ "modified": "2019-04-03 17:47:13.164836", 
+ "modified_by": "Administrator", 
  "module": "IT Management", 
  "name": "Network Interface Controller Table", 
  "name_case": "", 
@@ -131,5 +138,6 @@
  "sort_field": "modified", 
  "sort_order": "DESC", 
  "track_changes": 1, 
- "track_seen": 0
+ "track_seen": 0, 
+ "track_views": 0
 }
