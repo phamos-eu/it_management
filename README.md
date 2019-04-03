@@ -4,15 +4,22 @@ ERPNext App for the management of IT components. This includes IT equipment and 
 
 Works with ERPNext Version 11 and higher.
 
+![Overview IT Management](img/overview.png)
+![DocType Licence](img/licence.png)
+
 #### Hardware
+
 * Configuration Item
-* Storage
+
+    Notebook, Server, Monitor...
+
 * Internal Hardware Configuration
 * Solution
 
 #### Networking
+
 * Ethernet Jack
-* Ip Address
+* IP Address
 * Network Interface Controller
 * Subnet
 * Subnet Block
@@ -20,21 +27,29 @@ Works with ERPNext Version 11 and higher.
 * Socket
 
 #### Software
+
 * Licence
-* Software Solution
+
+    Licence to use a Software Instance
+
 * Software Version
 * Software Instance
+
+    Actual installation of a software (Software is an `Item`)
+
 * User Account
+
+    Account to access a Software Instance
+
 * User Group
 
 #### Other
-* Task Checklist
+
 * Customer Prefix
-* Access Account
 * Location
 * Location Room
 * Peripheral
 
 #### License
 
-GPL
+GPLv3
