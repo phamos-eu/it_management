@@ -9,13 +9,9 @@ def get_data():
 				'label': _('Support History'),
 				'items': ['Task']
 			},
-      {
-				'label': _('Hardware'),
-				'items': ['Network Interface Controller']
-			},
-      {
+			{
 				'label': _('Software'),
-				'items': ['Software Instance','User Account','Solution']
+				'items': ['Software Instance', 'User Account', 'Solution']
 			},
 		]
 	}
