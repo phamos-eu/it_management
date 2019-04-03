@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Location', {
-	refresh: function(frm) {
-
+	address: function(frm) {
+		erpnext.utils.get_address_display(frm, 'address');
 	}
 });
