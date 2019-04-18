@@ -5,7 +5,6 @@ ERPNext App for the management of IT components. This includes IT equipment and 
 Works with ERPNext Version 11 and higher.
 
 ![Overview IT Management](img/overview.png)
-![DocType Licence](img/licence.png)
 
 #### Hardware
 
