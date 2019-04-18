@@ -13,18 +13,16 @@ Works with ERPNext Version 11 and higher.
 
     Notebook, Server, Monitor...
 
-* Internal Hardware Configuration
 * Solution
+* Socket
+* Network Jack
 
 #### Networking
 
-* Ethernet Jack
 * IP Address
-* Network Interface Controller
 * Subnet
 * Subnet Block
 * Host Domain
-* Socket
 
 #### Software
 
@@ -43,12 +41,11 @@ Works with ERPNext Version 11 and higher.
 
 * User Group
 
-#### Other
+#### Locations
 
-* Customer Prefix
+* Address
 * Location
 * Location Room
-* Peripheral
 
 #### License
 

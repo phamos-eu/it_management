@@ -6,7 +6,6 @@ def get_data():
     return [
         {
             "label": _("Configuration Management"),
-            # "icon": "fa fa-bank",
             "items": [
                 {
                     "type": "doctype",
@@ -36,7 +35,6 @@ def get_data():
         },
         {
             "label": _("Software"),
-            # "icon": "fa fa-wrench",
             "items": [
                 {
                     "type": "doctype",
@@ -67,6 +65,58 @@ def get_data():
                     "name": "Software Version",
                     "label": _("Software Version"),
                     "description": _("Software Version")
+                }
+            ]
+        },
+        {
+            "label": _("Locations"),
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "Location",
+                    "label": _("Location"),
+                    "description": _("Location")
+                },
+                {
+                    "type": "doctype",
+                    "name": "Address",
+                    "label": _("Address"),
+                    "description": _("Address")
+                },
+                {
+                    "type": "doctype",
+                    "name": "Location Room",
+                    "label": _("Location Room"),
+                    "description": _("Location Room")
+                }
+            ]
+        },
+        {
+            "label": _("Network"),
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "Host Domain",
+                    "label": _("Host Domain"),
+                    "description": _("Host Domain")
+                },
+                {
+                    "type": "doctype",
+                    "name": "IP Address",
+                    "label": _("IP Address"),
+                    "description": _("IP Address")
+                },
+                {
+                    "type": "doctype",
+                    "name": "Subnet",
+                    "label": _("Subnet"),
+                    "description": _("Subnet")
+                },
+                {
+                    "type": "doctype",
+                    "name": "Subnet Block",
+                    "label": _("Subnet Block"),
+                    "description": _("Subnet Block")
                 }
             ]
         }
