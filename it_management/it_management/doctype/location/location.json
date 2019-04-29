@@ -4,7 +4,7 @@
  "allow_guest_to_view": 0, 
  "allow_import": 0, 
  "allow_rename": 0, 
- "autoname": "format:{title}-{address}", 
+ "autoname": "field:title", 
  "beta": 0, 
  "creation": "2018-11-23 16:48:35.862779", 
  "custom": 0, 
@@ -44,7 +44,7 @@
    "search_index": 0, 
    "set_only_once": 0, 
    "translatable": 0, 
-   "unique": 0
+   "unique": 1
   }, 
   {
    "allow_bulk_edit": 0, 
@@ -155,8 +155,8 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2019-04-05 23:32:47.199647", 
- "modified_by": "Administrator", 
+ "modified": "2019-04-29 20:01:29.973824", 
+ "modified_by": "raffael.meyer@tueit.de", 
  "module": "IT Management", 
  "name": "Location", 
  "name_case": "", 
