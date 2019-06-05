@@ -2,6 +2,17 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Incident', {
+	onload: function(frm){
+		// restrict Dynamic Links to IT Mnagement
+		frm.set_query("dynamic_type", "it_management_table", function() {
+			return {
+				"filters": {
+					"module": "IT Management",
+					"istable": 0,
+				}
+			};
+		});
+	},
 	refresh: function (frm) {
 		frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
 	},
