@@ -29,13 +29,23 @@ frappe.ui.form.on('Incident', {
 		});
 	},
 	customer: function (frm) {
-		// restrict contact to customer
 		frm.set_query("contact", function () {
+			// restrict contact to customer
 			if (frm.doc.customer) {
 				return {
 					filters: {
 						link_doctype: "Customer",
 						link_name: frm.doc.customer,
+					}
+				};
+			}
+		});
+		frm.set_query("project", function () {
+			// restrict project to customer
+			if (frm.doc.customer) {
+				return {
+					"filters": {
+						"customer": frm.doc.customer,
 					}
 				};
 			}
