@@ -12,23 +12,6 @@ frappe.ui.form.on('Incident', {
 				}
 			};
 		});
-	},
-	refresh: function (frm) {
-		frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
-	},
-	project: function (frm) {
-		// restrict tasks to project
-		frm.set_query('task', function () {
-			if (frm.doc.project) {
-				return {
-					'filters': {
-						'project': frm.doc.project,
-					}
-				};
-			}
-		});
-	},
-	customer: function (frm) {
 		frm.set_query('contact', function () {
 			// restrict contact to customer
 			if (frm.doc.customer) {
@@ -50,6 +33,19 @@ frappe.ui.form.on('Incident', {
 				};
 			}
 		});
+		frm.set_query('task', function () {
+			// restrict tasks to project
+			if (frm.doc.project) {
+				return {
+					'filters': {
+						'project': frm.doc.project,
+					}
+				};
+			}
+		});
+	},
+	refresh: function (frm) {
+		frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
 	},
 	add_activity: function (frm) {
 		incident_activity_dialog(frm);
