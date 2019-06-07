@@ -19,21 +19,26 @@ frappe.ui.form.on('Incident', {
 	project: function (frm) {
 		// restrict tasks to project
 		frm.set_query("task", function () {
-			return {
-				"filters": {
-					"project": frm.doc.project,
-				}
-			};
+			if (frm.doc.project) {
+				return {
+					"filters": {
+						"project": frm.doc.project,
+					}
+				};
+			}
 		});
 	},
 	customer: function (frm) {
 		// restrict contact to customer
 		frm.set_query("contact", function () {
-			return {
-				"filters": {
-					"customer": frm.doc.customer,
-				}
-			};
+			if (frm.doc.customer) {
+				return {
+					filters: {
+						link_doctype: "Customer",
+						link_name: frm.doc.customer,
+					}
+				};
+			}
 		});
 	},
 	add_activity: function (frm) {
