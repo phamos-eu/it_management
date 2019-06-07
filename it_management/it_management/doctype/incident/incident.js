@@ -2,9 +2,9 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Incident', {
-	onload: function(frm){
+	onload: function (frm) {
 		// restrict Dynamic Links to IT Mnagement
-		frm.set_query("dynamic_type", "it_management_table", function() {
+		frm.set_query("dynamic_type", "it_management_table", function () {
 			return {
 				"filters": {
 					"module": "IT Management",
@@ -15,6 +15,26 @@ frappe.ui.form.on('Incident', {
 	},
 	refresh: function (frm) {
 		frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
+	},
+	project: function (frm) {
+		// restrict tasks to project
+		frm.set_query("task", function () {
+			return {
+				"filters": {
+					"project": frm.doc.project,
+				}
+			};
+		});
+	},
+	customer: function (frm) {
+		// restrict contact to customer
+		frm.set_query("contact", function () {
+			return {
+				"filters": {
+					"customer": frm.doc.customer,
+				}
+			};
+		});
 	},
 	add_activity: function (frm) {
 		incident_activity_dialog(frm);
@@ -42,12 +62,6 @@ function incident_activity_dialog(frm) {
 				default: 0.25
 			},
 			{
-				fieldtype: 'Check',
-				fieldname: 'billable',
-				label: __("Bill"),
-				default: 1
-			},
-			{
 				fieldtype: 'Section Break',
 				fieldname: 'sb_1',
 			},
@@ -67,8 +81,10 @@ function incident_activity_dialog(frm) {
 			time_logs: [
 				{
 					from_time: dialog.from_time,
+					to_time: (new moment(dialog.from_time)).add(dialog.hours, 'hours').format('YYYY-MM-DD HH:mm:ss'),
 					hours: dialog.hours,
-					project: frm.project,
+					project: frm.doc.project,
+					task: frm.doc.task,
 					billable: dialog.billable,
 				}
 			]
