@@ -4,11 +4,11 @@
 frappe.ui.form.on('Incident', {
 	onload: function (frm) {
 		// restrict Dynamic Links to IT Mnagement
-		frm.set_query("dynamic_type", "it_management_table", function () {
+		frm.set_query('dynamic_type', 'it_management_table', function () {
 			return {
-				"filters": {
-					"module": "IT Management",
-					"istable": 0,
+				'filters': {
+					'module': 'IT Management',
+					'istable': 0,
 				}
 			};
 		});
@@ -18,34 +18,34 @@ frappe.ui.form.on('Incident', {
 	},
 	project: function (frm) {
 		// restrict tasks to project
-		frm.set_query("task", function () {
+		frm.set_query('task', function () {
 			if (frm.doc.project) {
 				return {
-					"filters": {
-						"project": frm.doc.project,
+					'filters': {
+						'project': frm.doc.project,
 					}
 				};
 			}
 		});
 	},
 	customer: function (frm) {
-		frm.set_query("contact", function () {
+		frm.set_query('contact', function () {
 			// restrict contact to customer
 			if (frm.doc.customer) {
 				return {
 					filters: {
-						link_doctype: "Customer",
+						link_doctype: 'Customer',
 						link_name: frm.doc.customer,
 					}
 				};
 			}
 		});
-		frm.set_query("project", function () {
+		frm.set_query('project', function () {
 			// restrict project to customer
 			if (frm.doc.customer) {
 				return {
-					"filters": {
-						"customer": frm.doc.customer,
+					'filters': {
+						'customer': frm.doc.customer,
 					}
 				};
 			}
@@ -62,9 +62,15 @@ function incident_activity_dialog(frm) {
 		fields: [
 			{
 				fieldtype: 'Datetime',
-				label: __("From Time"),
+				label: __('From Time'),
 				fieldname: 'from_time',
 				default: frappe.datetime.now_datetime()
+			},
+			{
+				fieldtype: 'Link',
+				label: __('Activity Type'),
+				fieldname: 'activity_type',
+				options: 'Activity Type',
 			},
 			{
 				fieldtype: 'Column Break',
@@ -73,7 +79,7 @@ function incident_activity_dialog(frm) {
 			{
 				fieldtype: 'Float',
 				fieldname: 'hours',
-				label: __("Hours"),
+				label: __('Hours'),
 				default: 0.25
 			},
 			{
@@ -87,14 +93,15 @@ function incident_activity_dialog(frm) {
 		],
 	})
 
-	activity.set_primary_action(__("Save"), (dialog) => {
-		frm.timeline.insert_comment("Comment", dialog.note);
+	activity.set_primary_action(__('Save'), (dialog) => {
+		frm.timeline.insert_comment('Comment', dialog.note);
 
 		let timesheet = {
-			doctype: "Timesheet",
+			doctype: 'Timesheet',
 			note: dialog.note,
 			time_logs: [
 				{
+					activity_type: dialog.activity_type,
 					from_time: dialog.from_time,
 					to_time: (new moment(dialog.from_time)).add(dialog.hours, 'hours').format('YYYY-MM-DD HH:mm:ss'),
 					hours: dialog.hours,
@@ -112,8 +119,8 @@ function incident_activity_dialog(frm) {
 		frappe.db.get_value('Employee', options, fields)
 			.then(({ message: employee }) => {
 				if (employee) {
-					timesheet["employee"] = employee.name;
-					timesheet["company"] = employee.company;
+					timesheet['employee'] = employee.name;
+					timesheet['company'] = employee.company;
 				}
 			})
 			.then(() => {
