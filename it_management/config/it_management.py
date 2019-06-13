@@ -31,6 +31,12 @@ def get_data():
                     "label": _("Network Jack"),
                     "description": _("Network Jack")
                 },
+                {
+                    "type": "doctype",
+                    "name": "Incident",
+                    "label": _("Incident"),
+                    "description": _("Incident")
+                }
             ]
         },
         {
