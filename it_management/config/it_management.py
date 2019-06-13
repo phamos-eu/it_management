@@ -33,9 +33,9 @@ def get_data():
                 },
                 {
                     "type": "doctype",
-                    "name": "Incident",
-                    "label": _("Incident"),
-                    "description": _("Incident")
+                    "name": "IT Ticket",
+                    "label": _("IT Ticket"),
+                    "description": _("IT Ticket")
                 }
             ]
         },

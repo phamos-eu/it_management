@@ -4,7 +4,7 @@
  "allow_guest_to_view": 0, 
  "allow_import": 0, 
  "allow_rename": 1, 
- "autoname": "INC-.######", 
+ "autoname": "ITT-.#######", 
  "beta": 0, 
  "creation": "2019-05-28 22:57:42.242826", 
  "custom": 0, 
@@ -661,7 +661,7 @@
  "modified": "2019-06-07 13:12:41.821332", 
  "modified_by": "raffael.meyer@tueit.de", 
  "module": "IT Management", 
- "name": "Incident", 
+ "name": "IT Ticket", 
  "name_case": "", 
  "owner": "wolfram.schmidt@tueit.de", 
  "permissions": [
