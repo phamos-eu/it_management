@@ -8,4 +8,5 @@ from frappe.model.document import Document
 
 class ITTicket(Document):
     def onload(self):
-        self.set_onload('contact_list', [self.contact])
+        # load contact data to be displayed
+        self.set_onload('contact_list', [frappe.get_doc("Contact", self.contact)])
