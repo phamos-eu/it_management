@@ -48,6 +48,8 @@ frappe.ui.form.on('IT Ticket', {
 		if (!frm.is_new()) {
 			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
 			frappe.contacts.render_address_and_contact(frm);
+			// hide "New Contact" Button
+			$('.btn-contact').hide();
 		}
 	},
 	add_activity: function (frm) {
