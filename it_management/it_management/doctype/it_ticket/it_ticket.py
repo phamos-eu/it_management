@@ -7,4 +7,5 @@ import frappe
 from frappe.model.document import Document
 
 class ITTicket(Document):
-	pass
+    def onload(self):
+        self.set_onload('contact_list', [self.contact])

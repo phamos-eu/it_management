@@ -45,7 +45,10 @@ frappe.ui.form.on('IT Ticket', {
 		});
 	},
 	refresh: function (frm) {
-		frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
+		if (!frm.is_new()) {
+			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
+			frappe.contacts.render_address_and_contact(frm);
+		}
 	},
 	add_activity: function (frm) {
 		it_ticket_activity_dialog(frm);
@@ -53,10 +56,10 @@ frappe.ui.form.on('IT Ticket', {
 });
 
 function it_ticket_activity_dialog(frm) {
-        if (frm.is_new()) {
-            show_alert(__('Please save the IT Ticket first'));
-            return;
-        }
+	if (frm.is_new()) {
+		show_alert(__('Save the document first.'));
+		return;
+	}
 	const activity = new frappe.ui.Dialog({
 		title: __('New Activity'),
 		fields: [
@@ -98,7 +101,7 @@ function it_ticket_activity_dialog(frm) {
 
 		let timesheet = {
 			doctype: 'Timesheet',
-                        it_ticket: frm.doc.name,
+			it_ticket: frm.doc.name,
 			note: dialog.note,
 			time_logs: [
 				{
