@@ -10,7 +10,7 @@ def get_data():
 		'transactions': [
 			{
 				'label': _('Service'),
-				'items': ['IT Ticket', 'Task']
+				'items': ['IT Ticket', 'Project', 'Task']
 			},
 			{
 				'label': _('Software'),
