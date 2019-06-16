@@ -1,6 +1,6 @@
 frappe.ui.form.on('Communication', {
 	refresh: function (frm) {
-		cur_frm.add_custom_button('Incident', function () { frm.trigger('make_incident') }, 'Make');
+		cur_frm.add_custom_button('IT Ticket', function () { frm.trigger('make_ticket') }, 'Make');
 		frm.trigger('load_ref_doc')
 	},
 	reference_name: function (frm) {
@@ -25,7 +25,7 @@ frappe.ui.form.on('Communication', {
 			);
 		}
 	},
-	make_incident: function (frm) {
+	make_ticket: function (frm) {
 		let options = {
 			'title': frm.doc.subject,
 			'description': frm.doc.content,
@@ -42,6 +42,6 @@ frappe.ui.form.on('Communication', {
 				options['project'] = locals['Task'][frm.doc.reference_name].project;
 			}
 		}
-		frappe.new_doc('Incident', options);
+		frappe.new_doc('IT Ticket', options);
 	}
 });

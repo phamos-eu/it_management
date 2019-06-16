@@ -6,5 +6,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 
-class Incident(Document):
-	pass
+class ITTicket(Document):
+    def onload(self):
+        # load contact data to be displayed
+        self.set_onload('contact_list', [frappe.get_doc("Contact", self.contact)])

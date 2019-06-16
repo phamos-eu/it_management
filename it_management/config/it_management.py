@@ -30,12 +30,6 @@ def get_data():
                     "name": "Network Jack",
                     "label": _("Network Jack"),
                     "description": _("Network Jack")
-                },
-                {
-                    "type": "doctype",
-                    "name": "Incident",
-                    "label": _("Incident"),
-                    "description": _("Incident")
                 }
             ]
         },
@@ -123,6 +117,23 @@ def get_data():
                     "name": "Subnet Block",
                     "label": _("Subnet Block"),
                     "description": _("Subnet Block")
+                }
+            ]
+        },
+        {
+            "label": _("Service"),
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "IT Ticket",
+                    "label": _("IT Ticket"),
+                    "description": _("IT Ticket")
+                },
+                {
+                    "type": "doctype",
+                    "name": "Timesheet",
+                    "label": _("Timesheet"),
+                    "description": _("Timesheet")
                 }
             ]
         }

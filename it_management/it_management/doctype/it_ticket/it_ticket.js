@@ -1,7 +1,7 @@
 // Copyright (c) 2019, IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Incident', {
+frappe.ui.form.on('IT Ticket', {
 	onload: function (frm) {
 		// restrict Dynamic Links to IT Mnagement
 		frm.set_query('dynamic_type', 'it_management_table', function () {
@@ -45,14 +45,23 @@ frappe.ui.form.on('Incident', {
 		});
 	},
 	refresh: function (frm) {
-		frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
+		if (!frm.is_new()) {
+			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
+			frappe.contacts.render_address_and_contact(frm);
+			// hide "New Contact" Button
+			$('.btn-contact').hide();
+		}
 	},
 	add_activity: function (frm) {
-		incident_activity_dialog(frm);
+		it_ticket_activity_dialog(frm);
 	},
 });
 
-function incident_activity_dialog(frm) {
+function it_ticket_activity_dialog(frm) {
+	if (frm.is_new()) {
+		show_alert(__('Save the document first.'));
+		return;
+	}
 	const activity = new frappe.ui.Dialog({
 		title: __('New Activity'),
 		fields: [
@@ -94,6 +103,7 @@ function incident_activity_dialog(frm) {
 
 		let timesheet = {
 			doctype: 'Timesheet',
+			it_ticket: frm.doc.name,
 			note: dialog.note,
 			time_logs: [
 				{
