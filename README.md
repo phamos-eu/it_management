@@ -46,6 +46,12 @@ Works with ERPNext Version 11 and higher.
 * Location
 * Location Room
 
+#### Service
+
+* IT Ticket
+
+    Turn Communication into IT Tickets and have all relevant information in one place.
+
 #### License
 
 GPLv3
