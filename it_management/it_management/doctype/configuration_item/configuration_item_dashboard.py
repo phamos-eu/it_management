@@ -14,7 +14,7 @@ def get_data():
 			},
 			{
 				'label': _('Software'),
-				'items': ['Software Instance', 'User Account', 'Solution']
-			}
+				'items': ['Software Instance', 'User Account']
+			},
 		]
 	}
