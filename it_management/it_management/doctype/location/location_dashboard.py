@@ -1,13 +1,21 @@
 from __future__ import unicode_literals
 from frappe import _
 
+
 def get_data():
-	return {
-		'fieldname': 'location',
-		'transactions': [
-			{
-				'label': _('Rooms'),
-				'items': ['Location Room']
-			}
-		]
-	}
+    return {
+        'fieldname': 'location',
+        'non_standard_fieldnames': {
+            'IT Ticket': 'dynamic_name'
+        },
+        'transactions': [
+            {
+                'label': _('Rooms'),
+                'items': ['Location Room']
+            },
+            {
+                'label': _('Service'),
+                'items': ['IT Ticket']
+            }
+        ]
+    }

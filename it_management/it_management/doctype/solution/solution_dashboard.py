@@ -10,10 +10,6 @@ def get_data():
         },
         'transactions': [
             {
-                'label': _('Service'),
-                'items': ['IT Ticket', 'Project', 'Task']
-            },
-            {
                 'label': _('User Accounts and Groups'),
                 'items': ['User Account', 'User Group']
             },
@@ -25,5 +21,9 @@ def get_data():
                 'label': _('Configuration Items & Solutions'),
                 'items': ['Configuration Item', 'Solution']
             },
+            {
+                'label': _('Service'),
+                'items': ['IT Ticket']
+            }
         ]
     }
