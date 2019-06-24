@@ -76,11 +76,17 @@ function it_ticket_activity_dialog(frm) {
 				fieldname: 'cb_1',
 			},
 			{
-				fieldtype: 'Float',
-				fieldname: 'hours',
-				label: __('Hours'),
-				default: 0.25
+				fieldtype: 'Datetime',
+				fieldname: 'to_time',
+				label: __('To Time'),
+				default: frappe.datetime.now_datetime(),
 			},
+			// {
+			// 	fieldtype: 'Float',
+			// 	fieldname: 'hours',
+			// 	label: __('Hours'),
+			// 	default: 0.25
+			// },
 			{
 				fieldtype: 'Section Break',
 				fieldname: 'sb_1',
@@ -103,8 +109,9 @@ function it_ticket_activity_dialog(frm) {
 				{
 					activity_type: dialog.activity_type,
 					from_time: dialog.from_time,
-					to_time: (new moment(dialog.from_time)).add(dialog.hours, 'hours').format('YYYY-MM-DD HH:mm:ss'),
-					hours: dialog.hours,
+					to_time: dialog.to_time,
+					// to_time: (new moment(dialog.from_time)).add(dialog.hours, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+					hours: moment(dialog.to_time).diff(moment(dialog.from_time), "seconds") / 3600,
 					project: frm.doc.project,
 					task: frm.doc.task,
 					billable: dialog.billable,
