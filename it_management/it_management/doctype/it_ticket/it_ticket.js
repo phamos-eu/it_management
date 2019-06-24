@@ -12,7 +12,8 @@ frappe.ui.form.on('IT Ticket', {
 				}
 			};
 		});
-		frm.set_query('contact', function () {
+		/* Test without this restriction to also assign internal contacs or contractors 
+                frm.set_query('contact', function () {
 			// restrict contact to customer
 			if (frm.doc.customer) {
 				return {
@@ -22,7 +23,7 @@ frappe.ui.form.on('IT Ticket', {
 					}
 				};
 			}
-		});
+		}); */
 		frm.set_query('project', function () {
 			// restrict project to customer
 			if (frm.doc.customer) {
