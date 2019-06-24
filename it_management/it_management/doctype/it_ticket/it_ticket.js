@@ -100,6 +100,7 @@ function it_ticket_activity_dialog(frm) {
 
 	activity.set_primary_action(__('Save'), (dialog) => {
 		frm.timeline.insert_comment('Comment', dialog.note);
+		const hours = moment(dialog.to_time).diff(moment(dialog.from_time), "seconds") / 3600;
 
 		let timesheet = {
 			doctype: 'Timesheet',
@@ -111,10 +112,11 @@ function it_ticket_activity_dialog(frm) {
 					from_time: dialog.from_time,
 					to_time: dialog.to_time,
 					// to_time: (new moment(dialog.from_time)).add(dialog.hours, 'hours').format('YYYY-MM-DD HH:mm:ss'),
-					hours: moment(dialog.to_time).diff(moment(dialog.from_time), "seconds") / 3600,
+					hours: hours,
 					project: frm.doc.project,
 					task: frm.doc.task,
-					billable: dialog.billable,
+					billable: 1,
+					billing_hours: hours,
 				}
 			]
 		};
