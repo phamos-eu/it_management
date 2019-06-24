@@ -1,9 +1,9 @@
+"""
+IT Ticket: Change fieldname `title` to `subject` for better EMail compatibility.
+"""
 import frappe
 from frappe.exceptions import DoesNotExistError
 
-"""
-`checklist_table` in `Task` has been renamed to `task_checklist`
-"""
 
 def execute():
     try:
