@@ -21,6 +21,8 @@ def execute():
         "Sonstiges"
     ]
 
+    frappe.reload_doc('it_management', 'doctype', 'configuration_item_type')
+
     for name in ci_types:
         try:
             ci_type = frappe.get_doc({

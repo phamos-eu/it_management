@@ -13,6 +13,8 @@ def execute():
         "Change"
     ]
 
+    frappe.reload_doc('it_management', 'doctype', 'it_ticket_type')
+
     for name in ticket_types:
         try:
             itt = frappe.get_doc({

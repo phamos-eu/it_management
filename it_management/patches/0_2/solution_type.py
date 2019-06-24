@@ -14,6 +14,8 @@ def execute():
         "Other"
     ]
 
+    frappe.reload_doc('it_management', 'doctype', 'solution_type')
+
     for name in solution_types:
         try:
             solution_type = frappe.get_doc({
