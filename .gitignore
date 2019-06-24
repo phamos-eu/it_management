@@ -4,3 +4,4 @@
 *.swp
 tags
 it_management/docs/current
+.vscode

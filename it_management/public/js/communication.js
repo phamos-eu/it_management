@@ -27,9 +27,10 @@ frappe.ui.form.on('Communication', {
 	},
 	make_ticket: function (frm) {
 		let options = {
-			'title': frm.doc.subject,
+			'doctype': 'IT Ticket',
+			'subject': frm.doc.subject,
 			'description': frm.doc.content,
-		}
+		};
 		if ((frm.doc.reference_doctype) && (frm.doc.reference_name)) {
 			if (frm.doc.reference_doctype === 'Customer') {
 				options['customer'] = frm.doc.reference_name;
@@ -42,6 +43,19 @@ frappe.ui.form.on('Communication', {
 				options['project'] = locals['Task'][frm.doc.reference_name].project;
 			}
 		}
-		frappe.new_doc('IT Ticket', options);
+
+		frappe.db.insert(options).then((doc) => {
+			frappe.call({
+				method: "frappe.email.relink",
+				args: {
+					"name": frm.doc.name,
+					"reference_doctype": doc.doctype,
+					"reference_name": doc.name
+				},
+				callback: function () {
+					frm.refresh();
+				}
+			});
+		});
 	}
 });
