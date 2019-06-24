@@ -28,9 +28,9 @@ frappe.ui.form.on('Communication', {
 	make_ticket: function (frm) {
 		let options = {
 			'doctype': 'IT Ticket',
-			'title': frm.doc.subject,
+			'subject': frm.doc.subject,
 			'description': frm.doc.content,
-		}
+		};
 		if ((frm.doc.reference_doctype) && (frm.doc.reference_name)) {
 			if (frm.doc.reference_doctype === 'Customer') {
 				options['customer'] = frm.doc.reference_name;
