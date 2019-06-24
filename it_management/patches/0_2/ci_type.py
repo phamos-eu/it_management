@@ -22,8 +22,11 @@ def execute():
     ]
 
     for name in ci_types:
-        ci_type = frappe.get_doc({
-            "doctype": "Configuration Item Type",
-            "title": name
-        })
-        ci_type.save()
+        try:
+            ci_type = frappe.get_doc({
+                "doctype": "Configuration Item Type",
+                "title": name
+            })
+            ci_type.save()
+        except frappe.DuplicateEntryError:
+            continue
