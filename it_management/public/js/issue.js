@@ -49,7 +49,8 @@ frappe.ui.form.on('Issue', {
 				frappe.set_route('Form', 'IT Ticket', doc.name)
 			});
 
-			frm.timeline.insert_comment('Comment', `IT Ticket ${doc.name} created.`);
+			frm.timeline.insert_comment('Comment', `${doc.doctype} <a href="${
+				frappe.utils.get_form_link(doc.doctype, doc.name)}">${doc.name}</a> created.`);
 		});
 	}
 });
