@@ -36,14 +36,19 @@ frappe.ui.form.on('IT Ticket', {
 	refresh: function (frm) {
 		if (!frm.is_new()) {
 			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
-			frm.trigger('render_contact');
 		}
+		frm.trigger('render_contact');
 	},
+	contact: function (frm) {
+        frm.trigger('render_contact');
+    },
 	render_contact: function (frm) {
-		if (frm.doc.contact) {
+		if (frm.doc.contact && frm.doc.hasOwnProperty('__onload')) {
 			frappe.contacts.render_address_and_contact(frm);
 			// hide "New Contact" Button
 			$('.btn-contact').hide();
+		} else {
+			cur_frm.fields_dict.contact_html.html();
 		}
 	},
 	add_activity: function (frm) {
