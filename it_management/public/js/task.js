@@ -7,7 +7,6 @@ frappe.ui.form.on('Task', {
 			'doctype': 'IT Ticket',
 			'subject': frm.get_field('subject').get_value(),
 			'description': frm.get_field('description').get_value(),
-			'customer': frm.get_field('customer').get_value(),
 			'priority': frm.get_field('priority').get_value(),
 			'task': frm.doc.name,
 			'project': frm.get_field('project').get_value(),
