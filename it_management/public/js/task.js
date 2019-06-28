@@ -1,4 +1,15 @@
 frappe.ui.form.on('Task', {
+	onload: function (frm) {
+		// restrict Dynamic Links to IT Mnagement
+		frm.set_query('dynamic_type', 'it_management_table', function () {
+			return {
+				'filters': {
+					'module': 'IT Management',
+					'istable': 0,
+				}
+			};
+		});
+	},
 	refresh: function (frm) {
 		cur_frm.add_custom_button('IT Ticket', function () { frm.trigger('make_ticket') }, 'Make');
 	},
