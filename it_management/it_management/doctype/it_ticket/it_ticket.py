@@ -13,6 +13,11 @@ class ITTicket(Document):
             # load contact data to be displayed
             self.set_onload("contact_list", [frappe.get_doc("Contact", self.contact)])
 
+    def before_insert(self):
+        if self.project and not self.customer:
+            self.customer = frappe.get_value(
+                "Project", self.project, "customer")
+
 
 @frappe.whitelist()
 def relink_email(doctype, name, it_ticket):
