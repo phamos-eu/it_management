@@ -6,8 +6,13 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 
+
 class ITTicket(Document):
     def onload(self):
         if self.contact:
             # load contact data to be displayed
-            self.set_onload('contact_list', [frappe.get_doc("Contact", self.contact)])
+            self.set_onload("contact_list", [frappe.get_doc("Contact", self.contact)])
+
+    def before_insert(self):
+        if self.project and not self.customer:
+            self.customer = frappe.get_value("Project", self.project, "customer")
