@@ -1,29 +1,6 @@
 frappe.ui.form.on('Communication', {
 	refresh: function (frm) {
 		cur_frm.add_custom_button('IT Ticket', function () { frm.trigger('make_ticket') }, 'Make');
-		frm.trigger('load_ref_doc')
-	},
-	reference_name: function (frm) {
-		frm.trigger('load_ref_doc');
-	},
-	load_ref_doc: function (frm) {
-        // load the referenced document into locals to use them later, without delay
-		if ((frm.doc.reference_doctype) && (frm.doc.reference_name)) {
-			frappe.db.get_doc(frm.doc.reference_doctype, frm.doc.reference_name).then(
-				(doc) => {
-					if (locals.hasOwnProperty(frm.doc.reference_doctype)) {
-						// add to documents of this type
-						locals[frm.doc.reference_doctype][frm.doc.reference_name] = doc;
-					}
-					else {
-						// or create a new dict with one entry
-						locals[frm.doc.reference_doctype] = {
-							[frm.doc.reference_name]: doc,
-						}
-					}
-				}
-			);
-		}
 	},
 	make_ticket: function (frm) {
 		let options = {
@@ -33,32 +10,31 @@ frappe.ui.form.on('Communication', {
 		};
 		if ((frm.doc.reference_doctype) && (frm.doc.reference_name)) {
 			if (frm.doc.reference_doctype === 'Customer') {
-				options['customer'] = frm.doc.reference_name;
+				options['customer'] = frm.get_field('reference_name').get_value();
 			}
 			if (frm.doc.reference_doctype === 'Project') {
-				options['project'] = frm.doc.reference_name;
-				options['customer'] = locals['Project'][frm.doc.reference_name].customer;
+				options['project'] = frm.get_field('reference_name').get_value();
 			}
 			if (frm.doc.reference_doctype === 'Task') {
-				options['project'] = locals['Task'][frm.doc.reference_name].project;
+				options['task'] = frm.get_field('reference_name').get_value();
 			}
 		}
 
-		frappe.db.insert(options).then((doc) => {
+		frappe.db.insert(options).then((ticket) => {
 			frappe.call({
-				method: "frappe.email.relink",
+				method: 'frappe.email.relink',
 				args: {
-					"name": frm.doc.name,
-					"reference_doctype": doc.doctype,
-					"reference_name": doc.name
+					'name': frm.doc.name,
+					'reference_doctype': 'IT Ticket',
+					'reference_name': ticket.name
 				},
 				callback: function () {
 					frm.refresh();
 				}
 			});
 
-			frm.timeline.insert_comment('Comment', `${doc.doctype} <a href="${
-				frappe.utils.get_form_link(doc.doctype, doc.name)}">${doc.name}</a> created.`);
+			frm.timeline.insert_comment('Comment', `${ticket.doctype} <a href="${
+				frappe.utils.get_form_link(ticket.doctype, ticket.name)}">${ticket.name}</a> created.`);
 		});
 	}
 });
