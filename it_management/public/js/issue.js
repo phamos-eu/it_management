@@ -13,7 +13,7 @@ frappe.ui.form.on('Issue', {
 			'contact': frm.get_field('contact').get_value(),
 		};
 
-		frappe.db.insert(options).then((doc) => {
+		frappe.db.insert(options).then((it_ticket) => {
 			frappe.call({
 				method: "it_management.it_management.doctype.it_ticket.it_ticket.relink_email",
 				args: {
@@ -25,13 +25,13 @@ frappe.ui.form.on('Issue', {
 
 			frappe.show_alert({
 				indicator: 'green',
-				message: __(`IT Ticket ${doc.name} created.`), 
+				message: __(`IT Ticket ${it_ticket.name} created.`), 
 			}).click(() => {
-				frappe.set_route('Form', 'IT Ticket', doc.name)
+				frappe.set_route('Form', 'IT Ticket', it_ticket.name)
 			});
 
-			frm.timeline.insert_comment('Comment', `${doc.doctype} <a href="${
-				frappe.utils.get_form_link(doc.doctype, doc.name)}">${doc.name}</a> created.`);
+			frm.timeline.insert_comment('Comment', `${it_ticket.doctype} <a href="${
+				frappe.utils.get_form_link(it_ticket.doctype, it_ticket.name)}">${it_ticket.name}</a> created.`);
 		});
 	}
 });
