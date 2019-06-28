@@ -50,4 +50,4 @@ def relink_email(doctype, name, it_ticket):
 
     if doc._comments:
         for comment in json.loads(doc._comments):
-            ticket.add_comment(comment.comment)
+            ticket.add_comment(comment["comment"])
