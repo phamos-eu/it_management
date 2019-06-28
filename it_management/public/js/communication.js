@@ -56,6 +56,9 @@ frappe.ui.form.on('Communication', {
 					frm.refresh();
 				}
 			});
+
+			frm.timeline.insert_comment('Comment', `${doc.doctype} <a href="${
+				frappe.utils.get_form_link(doc.doctype, doc.name)}">${doc.name}</a> created.`);
 		});
 	}
 });

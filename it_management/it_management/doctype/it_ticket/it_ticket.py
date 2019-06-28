@@ -15,4 +15,27 @@ class ITTicket(Document):
 
     def before_insert(self):
         if self.project and not self.customer:
-            self.customer = frappe.get_value("Project", self.project, "customer")
+            self.customer = frappe.get_value(
+                "Project", self.project, "customer")
+
+
+@frappe.whitelist()
+def relink_email(doctype, name, it_ticket):
+    """Relink Email to IT Ticket.
+
+    params:
+    doctype -- Doctype of the reference document
+    name -- Name of the reference document
+    ticket_name -- Name of the IT Ticket
+    """
+    comm_list = frappe.get_list("Communication", filters={
+        "reference_doctype": doctype,
+        "reference_name": name,
+    })
+
+    for email in comm_list:
+        frappe.email.relink(
+            name=email.name,
+            reference_doctype="IT Ticket",
+            reference_name=it_ticket
+        )
