@@ -5,42 +5,23 @@ frappe.ui.form.on('Issue', {
 	make_ticket: function (frm) {
 		let options = {
 			'doctype': 'IT Ticket',
-			'subject': frm.doc.subject,
-			'description': frm.doc.description,
+			'subject': frm.get_field('subject').get_value(),
+			'description': frm.get_field('description').get_value(),
+			'project': frm.get_field('project').get_value(),
+			'priority': frm.get_field('priority').get_value(),
+			'customer': frm.get_field('customer').get_value(),
+			'contact': frm.get_field('contact').get_value(),
 		};
 
-		if (frm.doc.project) {
-			options['project'] = frm.doc.project;
-		}
-		if (frm.doc.contact) {
-			options['contact'] = frm.doc.contact;
-		}
-		if (frm.doc.customer) {
-			options['customer'] = frm.doc.customer;
-		}
-		if (frm.doc.priority) {
-			options['priority'] = frm.doc.priority;
-		}
-
 		frappe.db.insert(options).then((doc) => {
-			const filters = {
-				'reference_doctype': frm.doc.doctype,
-				'reference_name': frm.doc.name,
-			};
-			frappe.db.get_list('Communication', { filters: filters })
-				.then((comm_list) => {
-					comm_list.forEach(communication => {
-						frappe.call({
-							method: "frappe.email.relink",
-							args: {
-								"name": communication.name,
-								"reference_doctype": doc.doctype,
-								"reference_name": doc.name
-							}
-						});
-					});
-				})
-				.then(() => frm.refresh());
+			frappe.call({
+				method: "it_management.it_management.doctype.it_ticket.it_ticket.relink_email",
+				args: {
+					"doctype": "Issue",
+					"name": frm.doc.name,
+					"it_ticket": it_ticket.name,
+				}
+			}).then(() => frm.refresh());
 
 			frappe.show_alert({
 				indicator: 'green',
