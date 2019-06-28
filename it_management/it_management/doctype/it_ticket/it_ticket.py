@@ -17,8 +17,10 @@ class ITTicket(Document):
 
     def before_insert(self):
         if self.project and not self.customer:
-            self.customer = frappe.get_value(
-                "Project", self.project, "customer")
+            self.customer = frappe.get_value("Project", self.project, "customer")
+
+        if self.task and not self.project:
+            self.project = frappe.get_value("Task", self.task, "project")
 
 
 @frappe.whitelist()
