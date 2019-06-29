@@ -1,4 +1,15 @@
-frappe.ui.form.on('Issue', {
+frappe.ui.form.on('Task', {
+	onload: function (frm) {
+		// restrict Dynamic Links to IT Mnagement
+		frm.set_query('dynamic_type', 'it_management_table', function () {
+			return {
+				'filters': {
+					'module': 'IT Management',
+					'istable': 0,
+				}
+			};
+		});
+	},
 	refresh: function (frm) {
 		cur_frm.add_custom_button('IT Ticket', function () { frm.trigger('make_ticket') }, 'Make');
 	},
@@ -7,17 +18,16 @@ frappe.ui.form.on('Issue', {
 			'doctype': 'IT Ticket',
 			'subject': frm.get_field('subject').get_value(),
 			'description': frm.get_field('description').get_value(),
-			'project': frm.get_field('project').get_value(),
 			'priority': frm.get_field('priority').get_value(),
-			'customer': frm.get_field('customer').get_value(),
-			'contact': frm.get_field('contact').get_value(),
+			'task': frm.doc.name,
+			'project': frm.get_field('project').get_value(),
 		};
 
 		frappe.db.insert(options).then((it_ticket) => {
 			frappe.call({
 				method: "it_management.it_management.doctype.it_ticket.it_ticket.relink_email",
 				args: {
-					"doctype": "Issue",
+					"doctype": "Task",
 					"name": frm.doc.name,
 					"it_ticket": it_ticket.name,
 				}
