@@ -4,7 +4,7 @@ from frappe import _
 
 def get_data():
     return {
-        'fieldname': 'licence',
+        'fieldname': 'software_instance',
         'non_standard_fieldnames': {
             'IT Ticket': 'dynamic_name'
         },
