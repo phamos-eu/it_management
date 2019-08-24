@@ -6,9 +6,9 @@ def get_data():
         'fieldname': 'it_ticket',
         'transactions': [
             {
-                'label': _('Timesheet'),
-                'items': ['Timesheet']
-            }	
+                'label': _('Transactions'),
+                'items': ['Timesheet', 'Purchase Order', 'Delivery Note']
+            }
         ]
     }
 
