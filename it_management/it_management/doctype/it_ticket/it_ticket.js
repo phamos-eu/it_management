@@ -57,12 +57,15 @@ frappe.ui.form.on('IT Ticket', {
 		it_ticket_activity_dialog(frm);
 	},
 	make_purchase_order: function (frm) {
-		frappe.new_doc("Purchase Order");
+		frappe.new_doc("Purchase Order", {
+			"it_ticket": frm.doc.name
+		});
 	},
 	make_delivery_note: function (frm) {
 		frappe.new_doc("Delivery Note", {
 			"customer": frm.doc.customer,
 			"project" : frm.doc.project,
+			"it_ticket": frm.doc.name
 		});
 	}
 });
