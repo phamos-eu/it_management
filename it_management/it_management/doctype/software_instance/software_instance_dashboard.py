@@ -15,7 +15,7 @@ def get_data():
             },
             {
                 'label': _('Service'),
-                'items': ['IT Ticket', 'Solution']
+                'items': ['IT Ticket']
             }
         ]
     }
