@@ -38,6 +38,8 @@ frappe.ui.form.on('IT Ticket', {
 			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
 			frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
+			frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
+			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
 		}
 		frm.trigger('render_contact');
 	},
@@ -66,6 +68,25 @@ frappe.ui.form.on('IT Ticket', {
 			"customer": frm.doc.customer,
 			"project" : frm.doc.project,
 			"it_ticket": frm.doc.name
+		});
+	},
+	make_it_service_report: function (frm) {
+		frappe.new_doc("IT Service Report", {
+			"it_ticket": frm.doc.name
+		});
+	},
+	make_sales_invoice: function (frm) {
+		frappe.call({
+			"method": "it_management.it_management.doctype.it_ticket.it_ticket.create_sinv",
+			"args": {
+				"it_ticket": frm.doc.name
+			},
+			"callback": function(r) {
+				if (r.message) {
+					frappe.model.sync(r.message);
+					frappe.set_route("Form", r.message.doctype, r.message.name);
+				}
+			}
 		});
 	}
 });
