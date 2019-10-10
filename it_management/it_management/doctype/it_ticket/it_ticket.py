@@ -8,6 +8,7 @@ from frappe.model.document import Document
 import json
 from frappe import _
 from frappe.utils.data import nowdate
+from frappe.utils import flt
 
 
 class ITTicket(Document):
@@ -56,39 +57,38 @@ def relink_email(doctype, name, it_ticket):
             ticket.add_comment(comment["comment"])
 
 @frappe.whitelist()
-def create_sinv(it_ticket):
-	it_ticket = frappe.get_doc("IT Ticket", it_ticket)
-	if not it_ticket.customer:
-		frappe.throw(_("Please define Customer!"))
-	if len(get_timesheet_details_for_sinv(it_ticket.name)) < 1:
-		frappe.throw(_("The Timesheets are already billed!"))
-	sinv = frappe.get_doc({"doctype": "Sales Invoice"})
-	sinv.due_date = nowdate()
-	sinv.customer = it_ticket.customer
-	# which item should be taken?
-	sinv.append('items', {
-				'item_code': 'test_item',
-				'qty': 1
-			})
-	sinv.insert()
-	add_timesheets_to_sinv(it_ticket.name, sinv)
-	return sinv
+def make_sales_invoice(source_name, item_code=None, customer=None):
+	target = frappe.new_doc("Sales Invoice")
+	total_hours = 0
+	timesheet_list = frappe.db.sql("""SELECT `name` FROM `tabTimesheet` WHERE `it_ticket` = '{it_ticket}'""".format(it_ticket=source_name), as_dict=1)
+	
+	for _timesheet in timesheet_list:
+		timesheet = frappe.get_doc('Timesheet', _timesheet.name)
+		if timesheet.total_billable_hours:
+			if not timesheet.total_billable_hours == timesheet.total_billed_hours:
+				hours = flt(timesheet.total_billable_hours) - flt(timesheet.total_billed_hours)
+				billing_amount = flt(timesheet.total_billable_amount) - flt(timesheet.total_billed_amount)
+				billing_rate = billing_amount / hours
+				
+				target.append('timesheets', {
+					'time_sheet': timesheet.name,
+					'billing_hours': hours,
+					'billing_amount': billing_amount
+				})
+				
+				total_hours += hours
+				
+	if customer:
+		target.customer = customer
 
-def add_timesheets_to_sinv(it_ticket, sinv):
-	sinv.set('timesheets', [])
-	for data in get_timesheet_details_for_sinv(it_ticket):
-		sinv.append('timesheets', {
-				'time_sheet': data.parent,
-				'billing_hours': data.billing_hours,
-				'billing_amount': data.billing_amt,
-				'timesheet_detail': data.name
-			})
+	if item_code:
+		target.append('items', {
+			'item_code': item_code,
+			'qty': total_hours,
+			'rate': billing_rate
+		})
+		
+	target.run_method("calculate_billing_amount_for_timesheet")
+	target.run_method("set_missing_values")
 
-	sinv.calculate_billing_amount_for_timesheet()
-	sinv.save()
-
-def get_timesheet_details_for_sinv(it_ticket):
-	timesheet_list = """SELECT `name` FROM `tabTimesheet` WHERE `it_ticket` = '{it_ticket}'""".format(it_ticket=it_ticket)
-	return frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` as `billing_amt`
-		FROM `tabTimesheet Detail` WHERE `parenttype` = 'Timesheet' AND `docstatus` = 1 AND `parent` IN ({timesheet_list}) AND `billable` = 1
-		AND `sales_invoice` IS NULL""".format(timesheet_list=timesheet_list), as_dict=1)
+	return target

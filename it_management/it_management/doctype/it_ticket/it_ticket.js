@@ -76,18 +76,36 @@ frappe.ui.form.on('IT Ticket', {
 		});
 	},
 	make_sales_invoice: function (frm) {
-		frappe.call({
-			"method": "it_management.it_management.doctype.it_ticket.it_ticket.create_sinv",
-			"args": {
-				"it_ticket": frm.doc.name
-			},
-			"callback": function(r) {
-				if (r.message) {
-					frappe.model.sync(r.message);
-					frappe.set_route("Form", r.message.doctype, r.message.name);
-				}
-			}
+		let dialog = new frappe.ui.Dialog({
+			title: __("Select Item (optional)"),
+			fields: [
+				{"fieldtype": "Link", "label": __("Item Code"), "fieldname": "item_code", "options":"Item"},
+				{"fieldtype": "Link", "label": __("Customer"), "fieldname": "customer", "options":"Customer", "default": frm.doc.customer}
+			]
 		});
+
+		dialog.set_primary_action(__("Make Sales Invoice"), () => {
+			var args = dialog.get_values();
+			if(!args) return;
+			dialog.hide();
+			return frappe.call({
+				type: "GET",
+				method: "it_management.it_management.doctype.it_ticket.it_ticket.make_sales_invoice",
+				args: {
+					"source_name": frm.doc.name,
+					"item_code": args.item_code,
+					"customer": args.customer
+				},
+				freeze: true,
+				callback: function(r) {
+					if(!r.exc) {
+						frappe.model.sync(r.message);
+						frappe.set_route("Form", r.message.doctype, r.message.name);
+					}
+				}
+			});
+		});
+		dialog.show();
 	}
 });
 
