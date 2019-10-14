@@ -96,7 +96,6 @@ def make_sales_invoice(source_name, item_code=None, customer=None):
 		if not timesheet.total_billable_hours == timesheet.total_billed_hours:
 			hours = flt(timesheet.total_billable_hours) - flt(timesheet.total_billed_hours)
 			billing_amount = flt(timesheet.total_billable_amount) - flt(timesheet.total_billed_amount)
-			billing_rate = billing_amount / hours
 			
 			target.append('timesheets', {
 				'time_sheet': timesheet.name,
@@ -110,8 +109,7 @@ def make_sales_invoice(source_name, item_code=None, customer=None):
 	if item_code:
 		target.append('items', {
 			'item_code': item_code,
-			'qty': hours,
-			'rate': billing_rate
+			'qty': hours
 		})
 		
 	target.run_method("calculate_billing_amount_for_timesheet")
