@@ -6,8 +6,7 @@ def get_data():
     return {
         'fieldname': 'configuration_item',
         'non_standard_fieldnames': {
-            'IT Ticket': 'dynamic_name',
-            'Task': 'dynamic_name'
+            'IT Ticket': 'dynamic_name'
         },
         'transactions': [
             {

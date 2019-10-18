@@ -36,6 +36,10 @@ frappe.ui.form.on('IT Ticket', {
 	refresh: function (frm) {
 		if (!frm.is_new()) {
 			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
+			frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
+			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
+			frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
+			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
 		}
 		frm.trigger('render_contact');
 	},
@@ -54,6 +58,55 @@ frappe.ui.form.on('IT Ticket', {
 	add_activity: function (frm) {
 		it_ticket_activity_dialog(frm);
 	},
+	make_purchase_order: function (frm) {
+		frappe.new_doc("Purchase Order", {
+			"it_ticket": frm.doc.name
+		});
+	},
+	make_delivery_note: function (frm) {
+		frappe.new_doc("Delivery Note", {
+			"customer": frm.doc.customer,
+			"project" : frm.doc.project,
+			"it_ticket": frm.doc.name
+		});
+	},
+	make_it_service_report: function (frm) {
+		frappe.new_doc("IT Service Report", {
+			"it_ticket": frm.doc.name
+		});
+	},
+	make_sales_invoice: function (frm) {
+		let dialog = new frappe.ui.Dialog({
+			title: __("Select Item (optional)"),
+			fields: [
+				{"fieldtype": "Link", "label": __("Item Code"), "fieldname": "item_code", "options":"Item"},
+				{"fieldtype": "Link", "label": __("Customer"), "fieldname": "customer", "options":"Customer", "default": frm.doc.customer}
+			]
+		});
+
+		dialog.set_primary_action(__("Make Sales Invoice"), () => {
+			var args = dialog.get_values();
+			if(!args) return;
+			dialog.hide();
+			return frappe.call({
+				type: "GET",
+				method: "it_management.it_management.doctype.it_ticket.it_ticket.make_sales_invoice",
+				args: {
+					"source_name": frm.doc.name,
+					"item_code": args.item_code,
+					"customer": args.customer
+				},
+				freeze: true,
+				callback: function(r) {
+					if(!r.exc) {
+						frappe.model.sync(r.message);
+						frappe.set_route("Form", r.message.doctype, r.message.name);
+					}
+				}
+			});
+		});
+		dialog.show();
+	}
 });
 
 function it_ticket_activity_dialog(frm) {

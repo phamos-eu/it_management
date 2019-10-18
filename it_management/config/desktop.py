@@ -6,7 +6,7 @@ def get_data():
 	return [
 		{
 			"module_name": "IT Management",
-			"color": "blue",
+			"color": "#064789",
 			"icon": "octicon octicon-checklist",
 			"type": "module",
 			"label": _("IT Management")

@@ -6,6 +6,9 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 import json
+from frappe import _
+from frappe.utils.data import nowdate
+from frappe.utils import flt
 
 
 class ITTicket(Document):
@@ -52,3 +55,38 @@ def relink_email(doctype, name, it_ticket):
     if doc._comments:
         for comment in json.loads(doc._comments):
             ticket.add_comment(comment["comment"])
+
+@frappe.whitelist()
+def make_sales_invoice(source_name, item_code=None, customer=None):
+	target = frappe.new_doc("Sales Invoice")
+	total_hours = 0
+	timesheet_list = frappe.db.sql("""SELECT `name` FROM `tabTimesheet` WHERE `it_ticket` = '{it_ticket}'""".format(it_ticket=source_name), as_dict=1)
+	
+	for _timesheet in timesheet_list:
+		timesheet = frappe.get_doc('Timesheet', _timesheet.name)
+		if timesheet.total_billable_hours:
+			if not timesheet.total_billable_hours == timesheet.total_billed_hours:
+				hours = flt(timesheet.total_billable_hours) - flt(timesheet.total_billed_hours)
+				billing_amount = flt(timesheet.total_billable_amount) - flt(timesheet.total_billed_amount)
+				
+				target.append('timesheets', {
+					'time_sheet': timesheet.name,
+					'billing_hours': hours,
+					'billing_amount': billing_amount
+				})
+				
+				total_hours += hours
+				
+	if customer:
+		target.customer = customer
+
+	if item_code:
+		target.append('items', {
+			'item_code': item_code,
+			'qty': total_hours
+		})
+		
+	target.run_method("calculate_billing_amount_for_timesheet")
+	target.run_method("set_missing_values")
+
+	return target

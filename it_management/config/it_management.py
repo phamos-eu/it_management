@@ -131,6 +131,12 @@ def get_data():
                 },
                 {
                     "type": "doctype",
+                    "name": "IT Service Report",
+                    "label": _("IT Service Report"),
+                    "description": _("IT Service Report")
+                },
+                {
+                    "type": "doctype",
                     "name": "Timesheet",
                     "label": _("Timesheet"),
                     "description": _("Timesheet")
