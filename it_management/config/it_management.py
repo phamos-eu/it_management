@@ -21,6 +21,12 @@ def get_data():
                 },
                 {
                     "type": "doctype",
+                    "name": "Solution Type",
+                    "label": _("Solution Type"),
+                    "description": _("Solution Type")
+                },
+                {
+                    "type": "doctype",
                     "name": "Socket",
                     "label": _("Socket"),
                     "description": _("Socket")
