@@ -15,7 +15,11 @@ def get_data():
             },
             {
                 'label': _('Service'),
-                'items': ['IT Ticket', 'Task']
+                'items': ['Issue', 'IT Ticket']
+            },
+            {
+                'label': _('Project'),
+                'items': ['Project', 'Task']
             }
         ]
     }
