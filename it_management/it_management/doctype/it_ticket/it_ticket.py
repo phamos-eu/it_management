@@ -90,3 +90,9 @@ def make_sales_invoice(source_name, item_code=None, customer=None):
 	target.run_method("set_missing_values")
 
 	return target
+	
+@frappe.whitelist()
+def add_created_from_issue_comment(ticket, issue):
+	self = frappe.get_doc("IT Ticket", ticket)
+	self.add_comment('Comment', 'IT Ticket from Issue <a href="/desk#Form/Issue/' + issue + '">' + issue + '</a> created.')
+	self.save()
