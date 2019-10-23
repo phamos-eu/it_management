@@ -7,7 +7,6 @@ def get_data():
         'fieldname': 'configuration_item',
         'non_standard_fieldnames': {
             'IT Ticket': 'dynamic_name',
-            'Software Instance': 'dynamic_name',
             'User Account': 'dynamic_name',
             'Issue': 'dynamic_name',
             'Project': 'dynamic_name',
