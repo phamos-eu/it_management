@@ -1074,7 +1074,7 @@
    "label": "Status", 
    "length": 0, 
    "no_copy": 1, 
-   "options": "Neu\nImplementierung\nAktiv\nProblem\nObsolet", 
+   "options": "Implementing\nRunning\nIssue\nStorage\nObsolet", 
    "permlevel": 0, 
    "precision": "", 
    "print_hide": 0, 
