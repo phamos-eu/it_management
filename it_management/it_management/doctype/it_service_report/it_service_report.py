@@ -16,6 +16,7 @@ class ITServiceReport(Document):
 		else:
 			create_timesheet(self)
 		update_it_management_table(self)
+		update_it_ticket_status(self)
 			
 	def before_submit(self):
 		if self.timesheet:
@@ -42,6 +43,8 @@ def update_timesheet(self):
 	row.hours = self.time_total
 	row.billable = 1
 	row.billing_hours = self.billing_time
+	row.project = self.project
+	row.task = self.task
 	timesheet.save()
 
 def create_timesheet(self):
@@ -59,7 +62,9 @@ def create_timesheet(self):
 				"to_time": get_datetime(self.date + " " + self.end),
 				"hours": self.time_total,
 				"billable": 1,
-				"billing_hours": self.billing_time
+				"billing_hours": self.billing_time,
+				"project": self.project,
+				"task": self.task
 			}
 		]
 	})
@@ -87,6 +92,11 @@ def update_it_management_table(self):
 			row.note = item.note
 			row.checked = item.checked
 			it_ticket.save()
+			
+def update_it_ticket_status(self):
+	it_ticket = frappe.get_doc("IT Ticket", self.it_ticket)
+	it_ticket.status = self.status
+	it_ticket.save()
 			
 @frappe.whitelist()
 def make_sales_invoice(source_name, item_code=None, customer=None):
