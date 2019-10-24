@@ -11,7 +11,9 @@ frappe.ui.form.on('Issue', {
 		});
 	},
 	refresh: function (frm) {
-		cur_frm.add_custom_button('IT Ticket', function () { frm.trigger('make_ticket') }, 'Make');
+		if (frm.doc.status !== "Closed" && !cur_frm.custom_buttons["IT Ticket"]) {
+			cur_frm.add_custom_button('IT Ticket', function () { frm.trigger('make_ticket') }, 'Make');
+		}
 	},
 	make_ticket: function (frm) {
 		var d = new frappe.ui.Dialog({
@@ -41,9 +43,6 @@ frappe.ui.form.on('Issue', {
 
 				frappe.db.insert(options).then((it_ticket) => {
 					
-					cur_frm.doc.status = __("Closed");
-					cur_frm.save;
-					
 					frappe.call({
 						method: "it_management.it_management.doctype.it_ticket.it_ticket.relink_email",
 						args: {
@@ -60,8 +59,11 @@ frappe.ui.form.on('Issue', {
 						frappe.set_route('Form', 'IT Ticket', it_ticket.name)
 					});
 
-					frm.timeline.insert_comment(`${it_ticket.doctype} <a href="${
-						frappe.utils.get_form_link(it_ticket.doctype, it_ticket.name)}">${it_ticket.name}</a> created.`);
+					cur_frm.timeline.insert_comment(`${it_ticket.doctype} <a href="${
+						frappe.utils.get_form_link(it_ticket.doctype, it_ticket.name)}">${it_ticket.name}</a> created.`).then(() => {
+							frm.set_value("status", "Closed");
+							frm.save().then(() => frm.save());
+						});
 						
 					frappe.call({
 						method: "it_management.it_management.doctype.it_ticket.it_ticket.add_created_from_issue_comment",
