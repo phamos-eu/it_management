@@ -38,7 +38,7 @@ def relink_email(doctype, name, it_ticket):
     """
     comm_list = frappe.get_list("Communication", filters={
         "reference_doctype": doctype,
-        "reference_name": name,
+        "reference_name": name
     })
 
     for email in comm_list:
@@ -54,7 +54,7 @@ def relink_email(doctype, name, it_ticket):
 
     if doc._comments:
         for comment in json.loads(doc._comments):
-            ticket.add_comment(comment["comment"])
+            ticket.add_comment('Comment', 'Copied comment from Issue <a href="/desk#Form/Issue/' + doc.name + '">' + doc.name + '</a>:<br>' + comment["comment"])
 
 @frappe.whitelist()
 def make_sales_invoice(source_name, item_code=None, customer=None):

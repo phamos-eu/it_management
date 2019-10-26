@@ -7,7 +7,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "general"
+  "general",
   "name1",
   "importance",
   "type",

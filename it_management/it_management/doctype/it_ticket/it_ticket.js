@@ -72,7 +72,9 @@ frappe.ui.form.on('IT Ticket', {
 	},
 	make_it_service_report: function (frm) {
 		frappe.new_doc("IT Service Report", {
-			"it_ticket": frm.doc.name
+			"it_ticket": frm.doc.name,
+			"project": frm.doc.project,
+			"task": frm.doc.task
 		});
 	},
 	make_sales_invoice: function (frm) {
