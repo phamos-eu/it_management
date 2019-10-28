@@ -1,0 +1,139 @@
+{
+ "autoname": "field:title",
+ "creation": "2019-10-28 10:11:16.660953",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "generel_section",
+  "title",
+  "customer",
+  "backup_destination",
+  "description",
+  "software",
+  "encryption",
+  "source_information_section",
+  "source_item",
+  "source_path",
+  "target_information_section",
+  "target_item",
+  "target_path",
+  "target_user",
+  "cycle",
+  "data_retention"
+ ],
+ "fields": [
+  {
+   "fieldname": "generel_section",
+   "fieldtype": "Section Break",
+   "label": "Generel"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "backup_destination",
+   "fieldtype": "Select",
+   "label": "Backup Destination",
+   "options": "On-Premise\nOff-Premise"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "software",
+   "fieldtype": "Link",
+   "label": "Software",
+   "options": "IT Software"
+  },
+  {
+   "fieldname": "encryption",
+   "fieldtype": "Data",
+   "label": "Encryption"
+  },
+  {
+   "fieldname": "source_information_section",
+   "fieldtype": "Section Break",
+   "label": "Source Information"
+  },
+  {
+   "fieldname": "source_item",
+   "fieldtype": "Link",
+   "label": "Source Item",
+   "options": "Configuration Item"
+  },
+  {
+   "fieldname": "source_path",
+   "fieldtype": "Small Text",
+   "label": "Source Path"
+  },
+  {
+   "fieldname": "target_information_section",
+   "fieldtype": "Section Break",
+   "label": "Target Information"
+  },
+  {
+   "fieldname": "target_item",
+   "fieldtype": "Link",
+   "label": "Target Item",
+   "options": "Configuration Item"
+  },
+  {
+   "fieldname": "target_path",
+   "fieldtype": "Small Text",
+   "label": "Target Path"
+  },
+  {
+   "fieldname": "target_user",
+   "fieldtype": "Link",
+   "label": "Target User",
+   "options": "User Account"
+  },
+  {
+   "fieldname": "cycle",
+   "fieldtype": "Small Text",
+   "label": "Cycle"
+  },
+  {
+   "fieldname": "data_retention",
+   "fieldtype": "Data",
+   "label": "Data retention"
+  }
+ ],
+ "modified": "2019-10-28 10:11:52.527767",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "IT Backup",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
