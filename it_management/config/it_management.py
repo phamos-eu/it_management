@@ -36,6 +36,18 @@ def get_data():
                     "name": "Network Jack",
                     "label": _("Network Jack"),
                     "description": _("Network Jack")
+                },
+                {
+                    "type": "doctype",
+                    "name": "IT Hardware",
+                    "label": _("IT Hardware"),
+                    "description": _("IT Hardware")
+                },
+                {
+                    "type": "doctype",
+                    "name": "IT Backup",
+                    "label": _("IT Backup"),
+                    "description": _("IT Backup")
                 }
             ]
         },
@@ -71,6 +83,12 @@ def get_data():
                     "name": "Software Version",
                     "label": _("Software Version"),
                     "description": _("Software Version")
+                },
+                {
+                    "type": "doctype",
+                    "name": "IT Software",
+                    "label": _("IT Software"),
+                    "description": _("IT Software")
                 }
             ]
         },
