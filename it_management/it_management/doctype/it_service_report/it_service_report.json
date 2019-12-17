@@ -25,7 +25,7 @@
   "material_section",
   "material",
   "section_reference",
-  "it_ticket",
+  "issue",
   "timesheet",
   "project",
   "task",
@@ -142,12 +142,6 @@
    "label": "Reference"
   },
   {
-   "fieldname": "it_ticket",
-   "fieldtype": "Link",
-   "label": "IT Ticket",
-   "options": "IT Ticket"
-  },
-  {
    "allow_on_submit": 1,
    "fieldname": "timesheet",
    "fieldtype": "Link",
@@ -180,11 +174,17 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "New\nWorking\nWaiting\nReview\nTo Bill\nClosed"
+  },
+  {
+   "fieldname": "issue",
+   "fieldtype": "Link",
+   "label": "Issue",
+   "options": "Issue"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-10-24 17:13:23.740618",
- "modified_by": "joel.mesmer@libracore.com",
+ "modified": "2019-12-13 19:46:17.762745",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Service Report",
  "owner": "Administrator",

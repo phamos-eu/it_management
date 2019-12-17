@@ -22,17 +22,45 @@ frappe.ui.form.on('IT Service Report', {
 						cur_frm.set_value('employee', r.message[0].name);
 					}
 					
-					//get and set copy of it management table of it ticket
+					//Obsolet:
+					/* //get and set copy of it management table of it ticket
 					frappe.call({
 						method: "frappe.client.get_list",
 						args: {
 							doctype:"IT Management Table",
 							filters: [
-								["parent","=", cur_frm.doc.it_ticket],
+								["parent","=", cur_frm.doc.issue],
 								["checked","=", 0]
 							],
 							fields: ["name", "dynamic_name", "dynamic_type", "note"],
 							parent: "IT Ticket",
+						},
+						callback: function(r) {
+							if (r.message) {
+								console.log(r.message);
+								var i;
+								for (i=0; i<r.message.length; i++) {
+									var child = cur_frm.add_child('table_13');
+									frappe.model.set_value(child.doctype, child.name, 'dynamic_type', r.message[i].dynamic_type);
+									frappe.model.set_value(child.doctype, child.name, 'dynamic_name', r.message[i].dynamic_name);
+									frappe.model.set_value(child.doctype, child.name, 'note', r.message[i].note);
+									frappe.model.set_value(child.doctype, child.name, 'identifier', r.message[i].name);
+									cur_frm.refresh_field('table_13');
+								}
+							}
+						}
+					}); */
+					//get and set copy of it management table of issue
+					frappe.call({
+						method: "frappe.client.get_list",
+						args: {
+							doctype:"IT Management Table",
+							filters: [
+								["parent","=", cur_frm.doc.issue],
+								["checked","=", 0]
+							],
+							fields: ["name", "dynamic_name", "dynamic_type", "note"],
+							parent: "Issue",
 						},
 						callback: function(r) {
 							if (r.message) {
@@ -75,14 +103,14 @@ frappe.ui.form.on('IT Service Report', {
 		frappe.call({
             "method": "frappe.client.get",
             "args": {
-                "doctype": "IT Ticket",
-                "name": frm.doc.it_ticket
+                "doctype": "Issue",
+                "name": frm.doc.issue
             },
             "callback": function(response) {
-                var it_ticket = response.message;
+                var issue = response.message;
 
-                if (it_ticket) {
-                    customer = it_ticket.customer;
+                if (issue) {
+                    customer = issue.customer;
                 }
 				let dialog = new frappe.ui.Dialog({
 					title: __("Select Item (optional)"),
