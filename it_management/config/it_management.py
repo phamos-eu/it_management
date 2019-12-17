@@ -147,12 +147,12 @@ def get_data():
         {
             "label": _("Service"),
             "items": [
-                {
-                    "type": "doctype",
-                    "name": "IT Ticket",
-                    "label": _("IT Ticket"),
-                    "description": _("IT Ticket")
-                },
+                # {
+                    # "type": "doctype",
+                    # "name": "IT Ticket",
+                    # "label": _("IT Ticket"),
+                    # "description": _("IT Ticket")
+                # },
                 {
                     "type": "doctype",
                     "name": "IT Service Report",

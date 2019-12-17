@@ -6,12 +6,13 @@ def get_data():
     return {
         'fieldname': 'subnet_block',
         'non_standard_fieldnames': {
-            'IT Ticket': 'dynamic_name'
+            #'IT Ticket': 'dynamic_name'
+			'Issue': 'dynamic_name'
         },
         'transactions': [
             {
                 'label': _('Service'),
-                'items': ['IT Ticket']
+                'items': ['Issue']#IT Ticket']
             }
         ]
     }

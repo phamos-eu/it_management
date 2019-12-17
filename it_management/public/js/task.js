@@ -11,11 +11,11 @@ frappe.ui.form.on('Task', {
 		});
 	},
 	refresh: function (frm) {
-		cur_frm.add_custom_button('IT Ticket', function () { frm.trigger('make_ticket') }, 'Make');
+		cur_frm.add_custom_button('Issue', function () { frm.trigger('make_ticket') }, 'Make');
 	},
 	make_ticket: function (frm) {
 		let options = {
-			'doctype': 'IT Ticket',
+			'doctype': 'Issue',
 			'subject': frm.get_field('subject').get_value(),
 			'description': frm.get_field('description').get_value(),
 			'priority': frm.get_field('priority').get_value(),
@@ -37,7 +37,7 @@ frappe.ui.form.on('Task', {
 				indicator: 'green',
 				message: __(`Issue ${issue.name} created.`), 
 			}).click(() => {
-				frappe.set_route('Form', 'IT Ticket', issue.name)
+				frappe.set_route('Form', 'Issue', issue.name)
 			});
 
 			frm.timeline.insert_comment('Comment', `${issue.doctype} <a href="${

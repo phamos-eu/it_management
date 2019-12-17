@@ -1,10 +1,10 @@
 frappe.ui.form.on('Communication', {
 	refresh: function (frm) {
-		cur_frm.add_custom_button('IT Ticket', function () { frm.trigger('make_ticket') }, 'Make');
+		cur_frm.add_custom_button('Issue', function () { frm.trigger('make_ticket') }, 'Make');
 	},
 	make_ticket: function (frm) {
 		let options = {
-			'doctype': 'IT Ticket',
+			'doctype': 'Issue',
 			'subject': frm.doc.subject,
 			'description': frm.doc.content,
 		};
