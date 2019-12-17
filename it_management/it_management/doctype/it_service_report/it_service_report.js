@@ -28,7 +28,7 @@ frappe.ui.form.on('IT Service Report', {
 						args: {
 							doctype:"IT Management Table",
 							filters: [
-								["parent","=", cur_frm.doc.it_ticket],
+								["parent","=", cur_frm.doc.issue],
 								["checked","=", 0]
 							],
 							fields: ["name", "dynamic_name", "dynamic_type", "note"],
@@ -75,14 +75,14 @@ frappe.ui.form.on('IT Service Report', {
 		frappe.call({
             "method": "frappe.client.get",
             "args": {
-                "doctype": "IT Ticket",
-                "name": frm.doc.it_ticket
+                "doctype": "Issue",
+                "name": frm.doc.issue
             },
             "callback": function(response) {
-                var it_ticket = response.message;
+                var issue = response.message;
 
-                if (it_ticket) {
-                    customer = it_ticket.customer;
+                if (issue) {
+                    customer = issue.customer;
                 }
 				let dialog = new frappe.ui.Dialog({
 					title: __("Select Item (optional)"),

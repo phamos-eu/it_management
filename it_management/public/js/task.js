@@ -23,25 +23,25 @@ frappe.ui.form.on('Task', {
 			'project': frm.get_field('project').get_value(),
 		};
 
-		frappe.db.insert(options).then((it_ticket) => {
+		frappe.db.insert(options).then((issue) => {
 			frappe.call({
-				method: "it_management.it_management.doctype.it_ticket.it_ticket.relink_email",
+				method: "it_management.utils.relink_email",
 				args: {
 					"doctype": "Task",
 					"name": frm.doc.name,
-					"it_ticket": it_ticket.name,
+					"issue": issue.name,
 				}
 			}).then(() => frm.refresh());
 
 			frappe.show_alert({
 				indicator: 'green',
-				message: __(`IT Ticket ${it_ticket.name} created.`), 
+				message: __(`Issue ${issue.name} created.`), 
 			}).click(() => {
-				frappe.set_route('Form', 'IT Ticket', it_ticket.name)
+				frappe.set_route('Form', 'IT Ticket', issue.name)
 			});
 
-			frm.timeline.insert_comment('Comment', `${it_ticket.doctype} <a href="${
-				frappe.utils.get_form_link(it_ticket.doctype, it_ticket.name)}">${it_ticket.name}</a> created.`);
+			frm.timeline.insert_comment('Comment', `${issue.doctype} <a href="${
+				frappe.utils.get_form_link(issue.doctype, issue.name)}">${issue.name}</a> created.`);
 		});
 	}
 });

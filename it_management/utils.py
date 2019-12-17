@@ -37,3 +37,32 @@ def make_sales_invoice(source_name, item_code=None, customer=None):
 		})
 		
 	return target
+	
+@frappe.whitelist()
+def relink_email(doctype, name, issue):
+    """Relink Email and copy comments to IT Ticket.
+
+    params:
+    doctype -- Doctype of the reference document
+    name -- Name of the reference document
+    ticket_name -- Name of the IT Ticket
+    """
+    comm_list = frappe.get_list("Communication", filters={
+        "reference_doctype": doctype,
+        "reference_name": name
+    })
+
+    for email in comm_list:
+        frappe.email.relink(
+            name=email.name,
+            reference_doctype="Issue",
+            reference_name=issue
+        )
+
+    # copy comments
+    doc = frappe.get_doc(doctype, name)
+    ticket = frappe.get_doc("Issue", issue)
+
+    if doc._comments:
+        for comment in json.loads(doc._comments):
+            ticket.add_comment('Comment', 'Copied comment from Task <a href="/desk#Form/Task/' + doc.name + '">' + doc.name + '</a>:<br>' + comment["comment"])
