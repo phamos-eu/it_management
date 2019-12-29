@@ -14,7 +14,6 @@
   "type",
   "serial_number",
   "column_break_2",
-  "manufacturer",
   "make_and_model",
   "solutions",
   "solution_table",
@@ -103,12 +102,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "manufacturer",
-   "fieldtype": "Link",
-   "label": "Manufacturer",
-   "options": "Manufacturer"
-  },
-  {
    "description": "Select from Item",
    "fieldname": "make_and_model",
    "fieldtype": "Link",
@@ -123,7 +116,7 @@
   {
    "fieldname": "solution_table",
    "fieldtype": "Table",
-   "label": "Solution Table",
+   "label": "Solutions",
    "options": "Solution Table"
   },
   {
@@ -135,7 +128,7 @@
    "fieldname": "ci_solution",
    "fieldtype": "Table",
    "in_standard_filter": 1,
-   "label": "CI Solution",
+   "label": "Configuration Items",
    "options": "Configuration Item Table"
   },
   {
