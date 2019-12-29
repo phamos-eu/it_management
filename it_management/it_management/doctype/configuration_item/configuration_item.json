@@ -113,7 +113,7 @@
    "fieldname": "make_and_model",
    "fieldtype": "Link",
    "label": "Make and Model",
-   "options": "IT Hardware"
+   "options": "Item"
   },
   {
    "fieldname": "solutions",
