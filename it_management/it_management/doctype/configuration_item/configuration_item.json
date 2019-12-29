@@ -116,7 +116,7 @@
   {
    "fieldname": "solution_table",
    "fieldtype": "Table",
-   "label": "Solutions",
+   "label": "Solutions Table",
    "options": "Solution Table"
   },
   {
@@ -128,7 +128,7 @@
    "fieldname": "ci_solution",
    "fieldtype": "Table",
    "in_standard_filter": 1,
-   "label": "Configuration Items",
+   "label": "CI Solutions",
    "options": "Configuration Item Table"
   },
   {
