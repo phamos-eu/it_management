@@ -263,30 +263,6 @@
  ],
  "custom_perms": [],
  "doctype": "Issue",
- "property_setters": [
-  {
-   "_assign": null,
-   "_comments": null,
-   "_liked_by": null,
-   "_user_tags": null,
-   "creation": "2019-12-13 16:14:38.890092",
-   "default_value": null,
-   "doc_type": "Issue",
-   "docstatus": 0,
-   "doctype_or_field": "DocField",
-   "field_name": "status",
-   "idx": 0,
-   "modified": "2019-12-13 16:14:38.890092",
-   "modified_by": "Administrator",
-   "name": "Issue-status-options",
-   "owner": "Administrator",
-   "parent": null,
-   "parentfield": null,
-   "parenttype": null,
-   "property": "options",
-   "property_type": "Text",
-   "value": "New\nWorking\nWaiting\nReview\nTo Bill\nClosed\nOpen\nReplied\nHold"
-  }
- ],
+ "property_setters": [],
  "sync_on_migrate": 1
 }
