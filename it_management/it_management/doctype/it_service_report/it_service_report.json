@@ -13,9 +13,8 @@
   "column_break_7",
   "start",
   "end",
-  "section_break_10",
-  "time_total",
   "column_break_9",
+  "time_total",
   "billing_time",
   "section_break_12",
   "table_13",
@@ -175,22 +174,18 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Open\nReplied\nHold\nClosed"
+   "options": "New\nWorking\nWaiting\nReview\nTo Bill\nClosed"
   },
   {
    "fieldname": "issue",
    "fieldtype": "Link",
    "label": "Issue",
    "options": "Issue"
-  },
-  {
-   "fieldname": "section_break_10",
-   "fieldtype": "Section Break"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2020-01-11 11:37:14.871844",
+ "modified": "2020-01-11 11:51:26.083309",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Service Report",
@@ -206,19 +201,6 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1,
-   "submit": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Support Team",
    "share": 1,
    "submit": 1,
    "write": 1

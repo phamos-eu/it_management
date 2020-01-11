@@ -1,0 +1,31 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "IT Service Report",
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2020-01-11 11:42:45.579999",
+   "default_value": null,
+   "doc_type": "IT Service Report",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "status",
+   "idx": 0,
+   "modified": "2020-01-11 11:42:45.579999",
+   "modified_by": "Administrator",
+   "name": "IT Service Report-status-options",
+   "owner": "Administrator",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "options",
+   "property_type": "Text",
+   "value": "New\nOpen\nReplied\nHold\nClosed"
+  }
+ ],
+ "sync_on_migrate": 1
+}
