@@ -1,9 +1,11 @@
 {
  "actions": [],
+ "autoname": "naming_series:",
  "creation": "2019-10-01 10:50:43.165451",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "general_section",
   "employee",
   "column_break_3",
@@ -196,11 +198,17 @@
   {
    "fieldname": "column_break_16",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "SR-.YY.-"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2020-01-11 12:03:16.702382",
+ "modified": "2020-01-11 12:10:11.594384",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Service Report",
