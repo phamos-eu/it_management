@@ -6,14 +6,12 @@
  "engine": "InnoDB",
  "field_order": [
   "note",
-  "user_account",
-  "funktion"
+  "user_account"
  ],
  "fields": [
   {
    "fieldname": "note",
    "fieldtype": "Data",
-   "hidden": 1,
    "in_list_view": 1,
    "label": "Note"
   },
@@ -23,18 +21,11 @@
    "in_list_view": 1,
    "label": "User Account",
    "options": "User Account"
-  },
-  {
-   "fieldname": "funktion",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Funktion",
-   "options": "Main User\nMaintainer\nKnown Expert"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2020-01-11 09:50:25.119368",
+ "modified": "2020-01-11 09:54:09.999834",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "User Account Table",
