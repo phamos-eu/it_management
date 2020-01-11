@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "field:title",
  "creation": "2019-10-28 10:11:16.660953",
  "doctype": "DocType",
@@ -7,6 +8,7 @@
  "field_order": [
   "generel_section",
   "title",
+  "status",
   "customer",
   "backup_destination",
   "description",
@@ -111,9 +113,16 @@
    "fieldname": "data_retention",
    "fieldtype": "Data",
    "label": "Data retention"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Implementing\nRunning\nIssue\nObsolet"
   }
  ],
- "modified": "2019-10-28 10:11:52.527767",
+ "links": [],
+ "modified": "2020-01-11 10:28:11.715144",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Backup",

@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "format:{software} on {configuration_item}",
  "creation": "2019-02-18 19:12:14.353471",
  "doctype": "DocType",
@@ -6,6 +7,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "status",
   "software",
   "configuration_item",
   "solution",
@@ -63,9 +65,16 @@
    "fieldtype": "Table",
    "label": "Licence Table",
    "options": "Licence Table"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Implementing\nRunning\nIssue\nObsolet"
   }
  ],
- "modified": "2019-10-28 10:00:48.572148",
+ "links": [],
+ "modified": "2020-01-11 10:29:31.746374",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Software Instance",

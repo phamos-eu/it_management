@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2018-11-10 09:29:07.900252",
@@ -9,6 +10,7 @@
  "field_order": [
   "naming_series",
   "title",
+  "status",
   "limited",
   "column_break_5",
   "software",
@@ -90,9 +92,16 @@
    "fieldtype": "Link",
    "label": "Sales Order",
    "options": "Sales Order"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Implementing\nRunning\nIssue\nStorage\nObsolet"
   }
  ],
- "modified": "2019-10-28 10:00:22.536631",
+ "links": [],
+ "modified": "2020-01-11 10:30:17.996881",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Licence",
