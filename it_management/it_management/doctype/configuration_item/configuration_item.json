@@ -24,7 +24,7 @@
   "column_break_14",
   "domain_name",
   "networking",
-  "nic",
+  "nics",
   "software_and_licences",
   "user_account",
   "hardware",
@@ -160,12 +160,6 @@
    "label": "IP Networking"
   },
   {
-   "fieldname": "nic",
-   "fieldtype": "Table",
-   "label": "NIC",
-   "options": "Network Interface Controller Table"
-  },
-  {
    "collapsible": 1,
    "fieldname": "software_and_licences",
    "fieldtype": "Section Break",
@@ -242,10 +236,16 @@
    "fieldname": "section_break_location",
    "fieldtype": "Section Break",
    "label": "Location"
+  },
+  {
+   "fieldname": "nics",
+   "fieldtype": "Table",
+   "label": "NICs",
+   "options": "Network Interface Controller Table"
   }
  ],
- "modified": "2019-10-28 10:04:34.359663",
- "modified_by": "Administrator",
+ "modified": "2020-01-27 14:46:24.637080",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Configuration Item",
  "owner": "wolfram.schmidt@tueit.de",

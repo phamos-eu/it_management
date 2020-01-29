@@ -1,4 +1,6 @@
 {
+ "allow_rename": 1,
+ "autoname": "field:title",
  "creation": "2020-01-25 10:59:07.137019",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -11,28 +13,35 @@
   "column_break_5",
   "note",
   "section_break_7",
-  "it_management_table"
+  "it_management_table",
+  "amended_from"
  ],
  "fields": [
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title"
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "customer",
-   "fieldtype": "Data",
-   "label": "Customer"
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
   },
   {
    "fieldname": "type",
-   "fieldtype": "Data",
-   "label": "Type"
+   "fieldtype": "Link",
+   "label": "Type",
+   "options": "IT Check List Type"
   },
   {
    "fieldname": "status",
-   "fieldtype": "Data",
-   "label": "Status"
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Implementing\nRunning\nIssue\nObsolet"
   },
   {
    "fieldname": "column_break_5",
@@ -41,7 +50,9 @@
   {
    "fieldname": "note",
    "fieldtype": "Text",
-   "label": "Note"
+   "in_list_view": 1,
+   "label": "Note",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_7",
@@ -51,11 +62,22 @@
    "fieldname": "it_management_table",
    "fieldtype": "Table",
    "label": "IT Management Table",
-   "options": "IT Management Table"
+   "options": "IT Management Table",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "IT Check List",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
- "modified": "2020-01-25 10:59:35.048884",
- "modified_by": "Administrator",
+ "is_submittable": 1,
+ "modified": "2020-01-27 09:46:15.272221",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Check List",
  "owner": "Administrator",
@@ -70,6 +92,20 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
+   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

@@ -1,16 +1,23 @@
 {
+ "allow_rename": 1,
+ "autoname": "naming_series:",
  "creation": "2019-03-13 12:37:32.181683",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "title",
   "source_section",
   "source_location_room",
   "source_label",
+  "column_break_5",
+  "source_note",
   "destination_section",
   "destination_location_room",
-  "label"
+  "label",
+  "column_break_10",
+  "destination_note"
  ],
  "fields": [
   {
@@ -21,7 +28,8 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title"
+   "label": "Title",
+   "unique": 1
   },
   {
    "fieldname": "source_section",
@@ -49,10 +57,35 @@
    "fieldtype": "Link",
    "label": "Destination Location Room",
    "options": "Location Room"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "source_note",
+   "fieldtype": "Text",
+   "label": "Source Note"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "destination_note",
+   "fieldtype": "Text",
+   "label": "Destination Note"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "RJ45-"
   }
  ],
- "modified": "2020-01-25 10:56:55.927475",
- "modified_by": "Administrator",
+ "modified": "2020-01-27 15:33:54.452596",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Socket",
  "owner": "Administrator",
@@ -68,9 +101,22 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
+   "share": 1,
+   "write": 1
   }
  ],
  "quick_entry": 1,
+ "search_fields": "title",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
