@@ -167,18 +167,3 @@ def make_sales_invoice(source_name, item_code=None, customer=None):
 	target.run_method("set_missing_values")
 
 	return target
-	
-@frappe.whitelist()
-def fetch_it_management_table_of_issue(issue):
-	issue = frappe.get_doc("Issue", issue)
-	records = []
-	for record in issue.it_management_table:
-		if not record.checked:
-			records.append({
-				'dynamic_type': record.dynamic_type,
-				'dynamic_name': record.dynamic_name,
-				'note': record.note,
-				'name': record.name
-			})
-	return records
-			
