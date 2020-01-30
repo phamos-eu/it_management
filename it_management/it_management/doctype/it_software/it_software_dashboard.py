@@ -16,8 +16,7 @@ def get_data():
         'transactions': [
             {
                 'label': _('Software'),
-                'items': ['Software Instance']
-                'items': ['Licence']
+                'items': ['Software Instance', 'Licence']
             },
         ]
     }
