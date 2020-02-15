@@ -154,8 +154,7 @@
   {
    "collapsible": 1,
    "fieldname": "networking",
-   "fieldtype": "Section Break",
-   "label": "IP Networking"
+   "fieldtype": "Section Break"
   },
   {
    "collapsible": 1,
@@ -238,11 +237,11 @@
   {
    "fieldname": "nics",
    "fieldtype": "Table",
-   "label": "NICs",
+   "label": "Network Interface Controllers",
    "options": "Network Interface Controller Table"
   }
  ],
- "modified": "2020-02-15 03:18:59.993353",
+ "modified": "2020-02-15 03:27:17.302991",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
