@@ -1,5 +1,4 @@
 {
- "actions": [],
  "autoname": "format:{software} on {configuration_item}",
  "creation": "2019-02-18 19:12:14.353471",
  "doctype": "DocType",
@@ -15,7 +14,8 @@
   "version",
   "note",
   "section_break_10",
-  "licence_table"
+  "licence_table",
+  "customer"
  ],
  "fields": [
   {
@@ -57,13 +57,12 @@
   },
   {
    "fieldname": "section_break_10",
-   "fieldtype": "Section Break",
-   "label": "Licencing"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "licence_table",
    "fieldtype": "Table",
-   "label": "Licence Table",
+   "label": "Licences",
    "options": "Licence Table"
   },
   {
@@ -71,10 +70,17 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Implementing\nRunning\nIssue\nObsolet"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "configuration_item.customer",
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "label": "Customer",
+   "read_only": 1
   }
  ],
- "links": [],
- "modified": "2020-01-11 10:29:31.746374",
+ "modified": "2020-02-15 03:22:11.183177",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Software Instance",

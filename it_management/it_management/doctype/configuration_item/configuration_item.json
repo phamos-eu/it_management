@@ -110,25 +110,23 @@
   },
   {
    "fieldname": "solutions",
-   "fieldtype": "Section Break",
-   "label": "Solutions"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "solution_table",
    "fieldtype": "Table",
-   "label": "Solutions Table",
+   "label": "Solutions",
    "options": "Solution Table"
   },
   {
    "fieldname": "dependencies_and_relationships",
-   "fieldtype": "Section Break",
-   "label": "Dependencies and Relationships"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "ci_solution",
    "fieldtype": "Table",
    "in_standard_filter": 1,
-   "label": "CI Solutions",
+   "label": "Configuration Items",
    "options": "Configuration Item Table"
   },
   {
@@ -244,8 +242,8 @@
    "options": "Network Interface Controller Table"
   }
  ],
- "modified": "2020-01-27 14:46:24.637080",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-02-15 03:18:59.993353",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
  "owner": "wolfram.schmidt@tueit.de",
