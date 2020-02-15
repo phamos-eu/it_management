@@ -17,15 +17,16 @@ def get_data():
                 'label': _('Software'),
                 'items': ['Software Instance', 'User Account']
             },
+                        {
+                'label': _('Project'),
+                'items': [
+                    'Project', 
+                    'Task']
+            }
             {
                 'label': _('Service'),
                 'items': ['Issue']#, 'IT Ticket']
             },
-            {
-                'label': _('Project'),
-                'items': [
-                    #'Project', 
-                    'Task']
-            }
+
         ]
     }
