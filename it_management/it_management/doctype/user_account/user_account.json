@@ -1,5 +1,4 @@
 {
- "actions": [],
  "allow_rename": 1,
  "autoname": "field:description",
  "creation": "2019-02-26 18:32:04.298841",
@@ -12,6 +11,7 @@
   "status",
   "user_name",
   "customer",
+  "customer_name",
   "user_accounts",
   "user_account_table",
   "software_instances",
@@ -95,10 +95,17 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Implementing\nRunning\nIssue\nStorage\nObsolet"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
- "links": [],
- "modified": "2020-01-11 10:23:52.142760",
+ "modified": "2020-02-17 13:08:56.982788",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "User Account",
