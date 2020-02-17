@@ -1,5 +1,4 @@
 {
- "actions": [],
  "allow_rename": 1,
  "autoname": "field:name1",
  "creation": "2019-02-18 22:33:51.630483",
@@ -14,6 +13,7 @@
   "type",
   "column_break_3",
   "customer",
+  "customer_name",
   "supplier",
   "section_break_7",
   "description",
@@ -91,10 +91,18 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Implementing\nRunning\nIssue\nStorage\nObsolet"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
- "links": [],
- "modified": "2020-01-11 10:25:48.382178",
+ "modified": "2020-02-17 13:03:04.948386",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Solution",
@@ -126,6 +134,7 @@
   }
  ],
  "quick_entry": 1,
+ "search_fields": "customer, customer_name, type",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
