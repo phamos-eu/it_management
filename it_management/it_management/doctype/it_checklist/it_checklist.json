@@ -3,6 +3,7 @@
  "autoname": "field:title",
  "creation": "2020-01-25 10:59:07.137019",
  "doctype": "DocType",
+ "document_type": "Setup",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
@@ -76,10 +77,10 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-27 09:46:15.272221",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-02-17 14:44:32.951522",
+ "modified_by": "Administrator",
  "module": "IT Management",
- "name": "IT Check List",
+ "name": "IT Checklist",
  "owner": "Administrator",
  "permissions": [
   {
