@@ -34,7 +34,6 @@
   "storage_configuration",
   "additional_hardware",
   "contacts",
-  "main_user",
   "contact_table",
   "section_break_location",
   "customer",
@@ -209,12 +208,6 @@
    "label": "Contacts"
   },
   {
-   "fieldname": "main_user",
-   "fieldtype": "Link",
-   "label": "Main User",
-   "options": "Contact"
-  },
-  {
    "fieldname": "contact_table",
    "fieldtype": "Table",
    "label": "Contact Table",
@@ -241,7 +234,7 @@
    "options": "Network Interface Controller Table"
   }
  ],
- "modified": "2020-02-15 03:27:17.302991",
+ "modified": "2020-02-17 12:43:09.948425",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
@@ -273,7 +266,7 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "title,hostname,type,customer,description,main_user",
+ "search_fields": "title,hostname,type,customer,description",
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
