@@ -4,12 +4,11 @@ from frappe import _
 
 def get_data():
     return {
-        'fieldname': 'configuration_item',
+        'fieldname': 'configuration item',
         'non_standard_fieldnames': {
-            #'IT Ticket': 'dynamic_name',
             #'User Account': 'dynamic_name',
             'Issue': 'dynamic_name',
-            #'Project': 'dynamic_name',
+            'Project': 'dynamic_name',
             'Task': 'dynamic_name'
         },
         'transactions': [
@@ -19,13 +18,11 @@ def get_data():
             },
                         {
                 'label': _('Project'),
-                'items': [
-                    'Project', 
-                    'Task']
+                'items': ['Project','Task']
             }
             {
                 'label': _('Service'),
-                'items': ['Issue']#, 'IT Ticket']
+                'items': ['Issue']
             },
 
         ]
