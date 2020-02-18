@@ -1,7 +1,7 @@
 {
  "allow_rename": 1,
  "autoname": "field:title",
- "creation": "2020-01-25 10:59:07.137019",
+ "creation": "2020-02-18 06:57:25.554055",
  "doctype": "DocType",
  "document_type": "Setup",
  "editable_grid": 1,
@@ -9,12 +9,14 @@
  "field_order": [
   "title",
   "customer",
+  "customer_name",
   "type",
   "status",
   "column_break_5",
   "note",
   "section_break_7",
   "it_management_table",
+  "amended_from",
   "amended_from"
  ],
  "fields": [
@@ -33,10 +35,18 @@
    "options": "Customer"
   },
   {
+   "bold": 1,
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
    "fieldname": "type",
    "fieldtype": "Link",
    "label": "Type",
-   "options": "IT Check List Type"
+   "options": "IT Checklist Type"
   },
   {
    "fieldname": "status",
@@ -74,10 +84,19 @@
    "options": "IT Check List",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "IT Checklist",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-17 14:44:32.951522",
+ "modified": "2020-02-18 06:57:25.554055",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Checklist",
