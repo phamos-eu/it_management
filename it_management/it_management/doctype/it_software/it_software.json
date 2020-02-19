@@ -1,4 +1,5 @@
 {
+ "allow_rename": 1,
  "autoname": "field:title",
  "creation": "2019-10-28 09:58:41.264279",
  "doctype": "DocType",
@@ -29,7 +30,7 @@
    "label": "Website"
   }
  ],
- "modified": "2019-10-28 09:58:41.264279",
+ "modified": "2020-02-19 08:18:51.527844",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Software",
@@ -44,6 +45,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
    "share": 1,
    "write": 1
   }
