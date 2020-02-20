@@ -1,5 +1,4 @@
 {
- "actions": [],
  "creation": "2018-11-25 09:58:21.076436",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -24,16 +23,16 @@
    "options": "Contact"
   },
   {
+   "default": "Main User",
    "fieldname": "function",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Function",
-   "options": "Expert Admin\nExpert User\nMain User\nMaintainer"
+   "options": "Expert Admin\nExpert User\nMain User\nMaintainer\nInstalled by"
   }
  ],
  "istable": 1,
- "links": [],
- "modified": "2020-01-11 09:56:05.214039",
+ "modified": "2020-02-20 11:05:52.117985",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Contact Table",
