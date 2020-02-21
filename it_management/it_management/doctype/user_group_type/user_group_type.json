@@ -1,5 +1,7 @@
 {
- "creation": "2020-02-19 08:55:43.790934",
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2020-02-21 16:28:54.415185",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -15,7 +17,8 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title"
+   "label": "Title",
+   "unique": 1
   },
   {
    "fieldname": "lft",
@@ -52,8 +55,7 @@
    "options": "User Group Type"
   }
  ],
- "is_tree": 1,
- "modified": "2020-02-19 08:55:55.443154",
+ "modified": "2020-02-21 16:30:39.491695",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "User Group Type",

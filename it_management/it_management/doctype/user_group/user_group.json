@@ -1,5 +1,6 @@
 {
- "autoname": "field:title",
+ "allow_rename": 1,
+ "autoname": "format:{user_group_type} {title} {customer_name}",
  "creation": "2019-02-18 22:32:00.349783",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -10,7 +11,8 @@
   "customer_name",
   "desription",
   "solution",
-  "user_accounts"
+  "user_accounts",
+  "user_group_type"
  ],
  "fields": [
   {
@@ -28,8 +30,7 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title",
-   "unique": 1
+   "label": "Title"
   },
   {
    "fieldname": "customer",
@@ -49,9 +50,15 @@
    "fieldname": "desription",
    "fieldtype": "Small Text",
    "label": "Desription"
+  },
+  {
+   "fieldname": "user_group_type",
+   "fieldtype": "Link",
+   "label": "User Group Type",
+   "options": "User Group Type"
   }
  ],
- "modified": "2020-02-19 08:48:13.704812",
+ "modified": "2020-02-21 16:57:14.281938",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "User Group",

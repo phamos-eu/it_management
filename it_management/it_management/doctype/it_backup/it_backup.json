@@ -1,5 +1,4 @@
 {
- "actions": [],
  "autoname": "field:title",
  "creation": "2019-10-28 10:11:16.660953",
  "doctype": "DocType",
@@ -10,7 +9,8 @@
   "title",
   "status",
   "customer",
-  "backup_destination",
+  "full_customer_name",
+  "solution",
   "description",
   "software",
   "encryption",
@@ -41,14 +41,9 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer"
-  },
-  {
-   "fieldname": "backup_destination",
-   "fieldtype": "Select",
-   "label": "Backup Destination",
-   "options": "On-Premise\nOff-Premise"
   },
   {
    "fieldname": "description",
@@ -63,8 +58,9 @@
   },
   {
    "fieldname": "encryption",
-   "fieldtype": "Data",
-   "label": "Encryption"
+   "fieldtype": "Link",
+   "label": "Encryption",
+   "options": "Encryption Type"
   },
   {
    "fieldname": "source_information_section",
@@ -106,23 +102,39 @@
   },
   {
    "fieldname": "cycle",
-   "fieldtype": "Small Text",
-   "label": "Cycle"
+   "fieldtype": "Link",
+   "label": "Cycle",
+   "options": "Cycle Type"
   },
   {
    "fieldname": "data_retention",
-   "fieldtype": "Data",
-   "label": "Data retention"
+   "fieldtype": "Link",
+   "label": "Data retention",
+   "options": "Retention Type"
   },
   {
+   "default": "Implementing",
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
    "options": "Implementing\nRunning\nIssue\nObsolet"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "customer.customer_name",
+   "fieldname": "full_customer_name",
+   "fieldtype": "Data",
+   "label": "Full Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "solution",
+   "fieldtype": "Link",
+   "label": "Solution",
+   "options": "Solution"
   }
  ],
- "links": [],
- "modified": "2020-01-11 10:28:11.715144",
+ "modified": "2020-02-21 16:04:22.906227",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Backup",
