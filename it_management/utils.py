@@ -66,3 +66,43 @@ def relink_email(doctype, name, issue):
     if doc._comments:
         for comment in json.loads(doc._comments):
             ticket.add_comment('Comment', 'Copied comment from Task <a href="/desk#Form/Task/' + doc.name + '">' + doc.name + '</a>:<br>' + comment["comment"])
+			
+@frappe.whitelist()
+def get_it_management_table(customer=None, type=None, status=None):
+	results = []
+	filter = ''
+	if customer or type or status:
+		filter = ' WHERE '
+	if customer:
+		filter += " `customer` = '{customer}'".format(customer=customer)
+	if type:
+		if customer:
+			filter += " AND `type` = '{type}'".format(type=type)
+		else:
+			filter += " `type` = '{type}'".format(type=type)
+	if status:
+		if customer or type:
+			filter += " AND `status` = '{status}'".format(status=status)
+		else:
+			filter += " `status` = '{status}'".format(status=status)
+			
+	#search it checklist
+	it_checklist_results = frappe.db.sql("""SELECT
+											`name` AS `reference`,
+											`name` AS `Link Name`,
+											`customer` AS `Customer`,
+											`type` AS `Type`,
+											`status` AS `Status`
+											FROM `tabIT Checklist`{filter}""".format(filter=filter), as_dict=True)
+											
+	for it_checklist_result in it_checklist_results:
+		results.append(it_checklist_result)
+	
+	if results:
+		return results
+	else:
+		return False
+		
+@frappe.whitelist()
+def get_it_management_table_from_source(source="IT Checklist", reference=None):
+	return frappe.get_doc(source, reference).it_management_table
