@@ -1,5 +1,4 @@
 {
- "actions": [],
  "autoname": "naming_series:",
  "creation": "2019-10-01 10:50:43.165451",
  "doctype": "DocType",
@@ -27,6 +26,7 @@
   "table_13",
   "data_14",
   "travel_section",
+  "anfahrt",
   "vehicle",
   "column_break_17",
   "destination",
@@ -119,6 +119,7 @@
   {
    "fieldname": "vehicle",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Vehicle",
    "options": "Vehicle"
   },
@@ -204,12 +205,17 @@
    "fieldtype": "Select",
    "label": "Series",
    "options": "SR-.YY.-"
+  },
+  {
+   "default": "0",
+   "fieldname": "anfahrt",
+   "fieldtype": "Check",
+   "label": "Anfahrt"
   }
  ],
  "is_submittable": 1,
- "links": [],
- "modified": "2020-01-11 12:10:11.594384",
- "modified_by": "Administrator",
+ "modified": "2020-02-27 09:56:29.642176",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Service Report",
  "owner": "Administrator",
