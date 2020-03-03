@@ -5,7 +5,7 @@ cur_frm.dashboard.add_transactions([
     {
         'items': [
             'Timesheet',
-			'Purchase Order',
+			'Material Request',
 			'Delivery Note',
 			'IT Service Report'
         ],
