@@ -190,7 +190,8 @@ function activity_dialog(frm) {
 					billable: 1,
 					billing_hours: hours,
 				}
-			]
+			],
+			docstatus: 1
 		};
 
 		// Get employee for logged user
