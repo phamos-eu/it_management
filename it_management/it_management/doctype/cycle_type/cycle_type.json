@@ -1,39 +1,25 @@
 {
  "allow_rename": 1,
  "autoname": "field:title",
- "creation": "2019-10-28 09:58:41.264279",
+ "creation": "2020-02-21 15:21:05.289299",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "title",
-  "description",
-  "website"
+  "title"
  ],
  "fields": [
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Title",
-   "reqd": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "description",
-   "fieldtype": "Text Editor",
-   "label": "Description"
-  },
-  {
-   "fieldname": "website",
-   "fieldtype": "Data",
-   "label": "Website"
   }
  ],
- "modified": "2020-02-19 08:18:51.527844",
+ "modified": "2020-02-21 16:05:47.128125",
  "modified_by": "Administrator",
  "module": "IT Management",
- "name": "IT Software",
+ "name": "Cycle Type",
  "owner": "Administrator",
  "permissions": [
   {

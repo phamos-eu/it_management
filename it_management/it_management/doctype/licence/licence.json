@@ -1,5 +1,4 @@
 {
- "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2018-11-10 09:29:07.900252",
@@ -18,9 +17,9 @@
   "section_break_7",
   "note",
   "customer",
+  "customer_name",
   "expiration_date",
-  "user_account",
-  "sales_order"
+  "user_account"
  ],
  "fields": [
   {
@@ -79,29 +78,32 @@
   {
    "fieldname": "expiration_date",
    "fieldtype": "Date",
+   "in_standard_filter": 1,
    "label": "Expiration Date"
   },
   {
    "fieldname": "user_account",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "User Account",
    "options": "User Account"
-  },
-  {
-   "fieldname": "sales_order",
-   "fieldtype": "Link",
-   "label": "Sales Order",
-   "options": "Sales Order"
   },
   {
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
    "options": "Implementing\nRunning\nIssue\nStorage\nObsolet"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
- "links": [],
- "modified": "2020-01-11 10:30:17.996881",
+ "modified": "2020-02-17 13:17:30.424070",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Licence",
@@ -133,7 +135,7 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "customer,software,title",
+ "search_fields": "customer,customer_name,software,title,expiration_date",
  "sort_field": "modified",
  "sort_order": "DESC",
  "title_field": "title",

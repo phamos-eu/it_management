@@ -1,39 +1,25 @@
 {
  "allow_rename": 1,
  "autoname": "field:title",
- "creation": "2019-10-28 09:58:41.264279",
+ "creation": "2020-02-21 15:29:39.151847",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "title",
-  "description",
-  "website"
+  "title"
  ],
  "fields": [
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Title",
-   "reqd": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "description",
-   "fieldtype": "Text Editor",
-   "label": "Description"
-  },
-  {
-   "fieldname": "website",
-   "fieldtype": "Data",
-   "label": "Website"
   }
  ],
- "modified": "2020-02-19 08:18:51.527844",
+ "modified": "2020-02-21 16:05:20.552155",
  "modified_by": "Administrator",
  "module": "IT Management",
- "name": "IT Software",
+ "name": "Encryption Type",
  "owner": "Administrator",
  "permissions": [
   {
@@ -45,18 +31,6 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Support Team",
    "share": 1,
    "write": 1
   }

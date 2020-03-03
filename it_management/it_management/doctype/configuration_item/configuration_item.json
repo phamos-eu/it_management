@@ -24,7 +24,7 @@
   "column_break_14",
   "domain_name",
   "networking",
-  "nic",
+  "nics",
   "software_and_licences",
   "user_account",
   "hardware",
@@ -34,7 +34,6 @@
   "storage_configuration",
   "additional_hardware",
   "contacts",
-  "main_user",
   "contact_table",
   "section_break_location",
   "customer",
@@ -110,25 +109,23 @@
   },
   {
    "fieldname": "solutions",
-   "fieldtype": "Section Break",
-   "label": "Solutions"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "solution_table",
    "fieldtype": "Table",
-   "label": "Solutions Table",
+   "label": "Solutions",
    "options": "Solution Table"
   },
   {
    "fieldname": "dependencies_and_relationships",
-   "fieldtype": "Section Break",
-   "label": "Dependencies and Relationships"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "ci_solution",
    "fieldtype": "Table",
    "in_standard_filter": 1,
-   "label": "CI Solutions",
+   "label": "Configuration Items",
    "options": "Configuration Item Table"
   },
   {
@@ -156,14 +153,7 @@
   {
    "collapsible": 1,
    "fieldname": "networking",
-   "fieldtype": "Section Break",
-   "label": "IP Networking"
-  },
-  {
-   "fieldname": "nic",
-   "fieldtype": "Table",
-   "label": "NIC",
-   "options": "Network Interface Controller Table"
+   "fieldtype": "Section Break"
   },
   {
    "collapsible": 1,
@@ -218,12 +208,6 @@
    "label": "Contacts"
   },
   {
-   "fieldname": "main_user",
-   "fieldtype": "Link",
-   "label": "Main User",
-   "options": "Contact"
-  },
-  {
    "fieldname": "contact_table",
    "fieldtype": "Table",
    "label": "Contact Table",
@@ -242,9 +226,15 @@
    "fieldname": "section_break_location",
    "fieldtype": "Section Break",
    "label": "Location"
+  },
+  {
+   "fieldname": "nics",
+   "fieldtype": "Table",
+   "label": "Network Interface Controllers",
+   "options": "Network Interface Controller Table"
   }
  ],
- "modified": "2019-10-28 10:04:34.359663",
+ "modified": "2020-02-17 12:43:09.948425",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
@@ -276,7 +266,7 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "title,hostname,type,customer,description,main_user",
+ "search_fields": "title,hostname,type,customer,description",
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",

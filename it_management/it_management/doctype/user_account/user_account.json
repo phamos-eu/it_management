@@ -1,5 +1,4 @@
 {
- "actions": [],
  "allow_rename": 1,
  "autoname": "field:description",
  "creation": "2019-02-26 18:32:04.298841",
@@ -12,8 +11,11 @@
   "status",
   "user_name",
   "customer",
+  "customer_name",
   "user_accounts",
   "user_account_table",
+  "section_break_8",
+  "user_groups",
   "software_instances",
   "software_instance_table",
   "configuration_items",
@@ -44,8 +46,7 @@
   {
    "collapsible": 1,
    "fieldname": "user_accounts",
-   "fieldtype": "Section Break",
-   "label": "User Accounts"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "user_account_table",
@@ -56,38 +57,35 @@
   {
    "collapsible": 1,
    "fieldname": "software_instances",
-   "fieldtype": "Section Break",
-   "label": "Software Instances"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "software_instance_table",
    "fieldtype": "Table",
-   "label": "Software Instance Table",
+   "label": "Software Instances",
    "options": "Software Instance Table"
   },
   {
    "collapsible": 1,
    "fieldname": "configuration_items",
-   "fieldtype": "Section Break",
-   "label": "Configuration Items"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "configuration_item_table",
    "fieldtype": "Table",
-   "label": "Configuration Item Table",
+   "label": "Configuration Items",
    "options": "Configuration Item Table"
   },
   {
    "collapsible": 1,
    "fieldname": "solutions",
-   "fieldtype": "Section Break",
-   "label": "Solutions"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "solution_table",
    "fieldtype": "Table",
    "in_standard_filter": 1,
-   "label": "Solution Table",
+   "label": "Solutions",
    "options": "Solution Table"
   },
   {
@@ -95,10 +93,27 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Implementing\nRunning\nIssue\nStorage\nObsolet"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "user_groups",
+   "fieldtype": "Table",
+   "label": "User Groups",
+   "options": "User Group Table"
   }
  ],
- "links": [],
- "modified": "2020-01-11 10:23:52.142760",
+ "modified": "2020-02-21 16:48:08.339853",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "User Account",

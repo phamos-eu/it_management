@@ -1,31 +1,32 @@
 {
- "creation": "2019-07-01 13:31:05.821959",
+ "creation": "2020-02-21 16:46:00.397597",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "licence",
-  "note"
+  "note",
+  "user_group"
  ],
  "fields": [
   {
    "fieldname": "note",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Note"
   },
   {
-   "fieldname": "licence",
+   "fieldname": "user_group",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Licence",
-   "options": "Licence"
+   "label": "User Group",
+   "options": "User Group"
   }
  ],
  "istable": 1,
- "modified": "2020-01-26 00:01:28.185739",
+ "modified": "2020-02-21 16:46:00.397597",
  "modified_by": "Administrator",
  "module": "IT Management",
- "name": "Licence Table",
+ "name": "User Group Table",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,
