@@ -10,12 +10,13 @@ def get_data():
             #'User Account': 'dynamic_name',
             'Issue': 'dynamic_name',
             #'Project': 'dynamic_name',
-            'Task': 'dynamic_name'
+            'Task': 'dynamic_name',
+			'IT Backup': 'source_item'
         },
         'transactions': [
             {
                 'label': _('Software'),
-                'items': ['Software Instance', 'User Account']
+                'items': ['Software Instance', 'User Account', 'IT Backup']
             },
             {
                 'label': _('Service'),
