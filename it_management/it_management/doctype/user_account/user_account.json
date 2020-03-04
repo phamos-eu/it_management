@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "description",
+  "type",
   "status",
   "user_name",
   "customer",
@@ -34,7 +35,9 @@
    "description": "User name or Account name",
    "fieldname": "user_name",
    "fieldtype": "Data",
-   "label": "User Name"
+   "in_list_view": 1,
+   "label": "User Name",
+   "reqd": 1
   },
   {
    "fieldname": "customer",
@@ -89,6 +92,7 @@
    "options": "Solution Table"
   },
   {
+   "default": "Running",
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
@@ -111,10 +115,19 @@
    "fieldtype": "Table",
    "label": "User Groups",
    "options": "User Group Table"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Type",
+   "options": "User Account Type",
+   "reqd": 1
   }
  ],
- "modified": "2020-02-21 16:48:08.339853",
- "modified_by": "Administrator",
+ "modified": "2020-03-05 00:14:36.707764",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "User Account",
  "owner": "Administrator",
