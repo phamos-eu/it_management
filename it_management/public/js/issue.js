@@ -34,27 +34,42 @@ frappe.ui.form.on('Issue', {
 				};
 			}
 		});
-		/* frm.set_query('task', function () {
-			// restrict tasks to project
-			if (frm.doc.project) {
-				return {
-					'filters': {
-						'project': frm.doc.project,
-					}
-				};
-			}
-		}); */
 	},
 	refresh: function (frm) {
 		if (!frm.is_new()) {
-			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
+			frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
 			frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
 			frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
-			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get IT Managementtable from"));
+			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
 		//frm.trigger('render_contact');
+		if (cur_frm.doc.filter_based_on_customer) {
+			// restrict Document to Customer
+			frm.set_query('dynamic_name', 'it_management_table', function (row) {
+				var dynamic_type = row.it_management_table[row.it_management_table.length - 1].dynamic_type;
+				var pass_list = [
+					__("User Group"),
+					__("IT Checklist"),
+					__("User Account"),
+					__("IT Backup"),
+					__("Software Instance"),
+					__("Solution"),
+					__("Licence"),
+					__("Configuration Item"),
+					__("IT Ticket"),
+					__("Subnet Block")
+				]
+				if (pass_list.includes(dynamic_type) ) {
+					return {
+						'filters': {
+							'customer': cur_frm.doc.customer
+						}
+					};
+				}
+			});
+		}
 	},
 	contact: function (frm) {
         //frm.trigger('render_contact');

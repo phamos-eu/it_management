@@ -7,7 +7,7 @@ import frappe
 from frappe.utils import flt
 
 @frappe.whitelist()
-def make_sales_invoice(source_name, item_code=None, customer=None):
+def make_sales_invoice(source_name, item_code=None, customer=None, project=None):
 	target = frappe.new_doc("Sales Invoice")
 	total_hours = 0
 	timesheet_list = frappe.db.sql("""SELECT `name` FROM `tabTimesheet` WHERE `issue` = '{issue}'""".format(issue=source_name), as_dict=1)
@@ -29,6 +29,9 @@ def make_sales_invoice(source_name, item_code=None, customer=None):
 				
 	if customer:
 		target.customer = customer
+		
+	if project:
+		target.project = project
 
 	if item_code:
 		target.append('items', {
@@ -106,3 +109,30 @@ def get_it_management_table(customer=None, type=None, status=None):
 @frappe.whitelist()
 def get_it_management_table_from_source(source="IT Checklist", reference=None):
 	return frappe.get_doc(source, reference).it_management_table
+	
+@frappe.whitelist()
+def get_timesheets_from_source(source, source_ref):
+	if source == 'Project':
+		return frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` AS `billing_amt`
+				FROM `tabTimesheet Detail` WHERE `parenttype` = 'Timesheet' AND `docstatus` = 1 AND `project` = '{project}' AND `billable` = 1
+				AND `sales_invoice` IS NULL""".format(project=source_ref), as_dict=True)
+				
+	if source == 'Task':
+		return frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` AS `billing_amt`
+				FROM `tabTimesheet Detail` WHERE `parenttype` = 'Timesheet' AND `docstatus` = 1 AND `task` = '{task}' AND `billable` = 1
+				AND `sales_invoice` IS NULL""".format(task=source_ref), as_dict=True)
+				
+	if source == 'Issue':
+		return frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` AS `billing_amt`
+				FROM `tabTimesheet Detail` WHERE `parenttype` = 'Timesheet' AND `docstatus` = 1 AND `billable` = 1
+				AND `sales_invoice` IS NULL AND `parent` IN(SELECT `name` FROM `tabTimesheet` WHERE `issue` = '{issue}')""".format(issue=source_ref), as_dict=True)
+				
+	if source == 'IT Service Report':
+		it_service_report = frappe.get_doc("IT Service Report", source_ref)
+		ts = frappe.get_doc("Timesheet", it_service_report.timesheet)
+		if ts:
+			return frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` AS `billing_amt`
+				FROM `tabTimesheet Detail` WHERE `parenttype` = 'Timesheet' AND `docstatus` = 1 AND `billable` = 1
+				AND `sales_invoice` IS NULL AND `parent` = '{ts}'""".format(ts=ts.name), as_dict=True)
+		else:
+			return []

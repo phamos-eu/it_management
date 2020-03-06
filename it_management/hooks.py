@@ -29,7 +29,9 @@ app_license = "GPL"
 doctype_js = {
     "Communication" : "public/js/communication.js",
     "Issue" : "public/js/issue.js",
-    "Task" : "public/js/task.js"
+    "Task" : "public/js/task.js",
+    "Project" : "public/js/project.js",
+    "Sales Invoice" : "public/js/sales_invoice.js"
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
