@@ -7,7 +7,7 @@ import frappe
 from frappe.utils import flt
 
 @frappe.whitelist()
-def make_sales_invoice(source_name, item_code=None, customer=None):
+def make_sales_invoice(source_name, item_code=None, customer=None, project=None):
 	target = frappe.new_doc("Sales Invoice")
 	total_hours = 0
 	timesheet_list = frappe.db.sql("""SELECT `name` FROM `tabTimesheet` WHERE `issue` = '{issue}'""".format(issue=source_name), as_dict=1)
@@ -29,6 +29,9 @@ def make_sales_invoice(source_name, item_code=None, customer=None):
 				
 	if customer:
 		target.customer = customer
+		
+	if project:
+		target.project = project
 
 	if item_code:
 		target.append('items', {

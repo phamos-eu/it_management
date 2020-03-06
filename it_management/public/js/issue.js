@@ -47,7 +47,7 @@ frappe.ui.form.on('Issue', {
 	},
 	refresh: function (frm) {
 		if (!frm.is_new()) {
-			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
+			frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
 			frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
 			frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
