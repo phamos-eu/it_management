@@ -43,7 +43,6 @@ frappe.ui.form.on('Project', {
 		let dialog = new frappe.ui.Dialog({
 			title: __("Select Item (optional)"),
 			fields: [
-				{"fieldtype": "Link", "label": __("Item Code"), "fieldname": "item_code", "options":"Item"},
 				{"fieldtype": "Link", "label": __("Customer"), "fieldname": "customer", "options":"Customer", "default": cur_frm.doc.customer}
 			]
 		});
@@ -54,11 +53,7 @@ frappe.ui.form.on('Project', {
 			dialog.hide();
 			frappe.new_doc("Sales Invoice", {
 				"project": frm.doc.name,
-				"customer": args.customer,
-				'items': {
-					'item_code': args.item_code,
-					'qty': 1
-				}
+				"customer": args.customer
 			});
 		});
 		dialog.show();
