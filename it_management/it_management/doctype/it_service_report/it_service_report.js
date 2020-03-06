@@ -111,7 +111,7 @@ frappe.ui.form.on('IT Service Report', {
 		} else {
 			if (!cur_frm.doc.table_13) {
 				// Custom BTN "Get IT Checklist"
-				frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get IT Managementtable from"));
+				frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 			}
 		}
 	},

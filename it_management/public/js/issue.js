@@ -52,7 +52,7 @@ frappe.ui.form.on('Issue', {
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
 			frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
-			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get IT Managementtable from"));
+			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
 		//frm.trigger('render_contact');
 	},
