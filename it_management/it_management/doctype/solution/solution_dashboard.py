@@ -23,7 +23,7 @@ def get_data():
             },
             {
                 'label': _('Service'),
-                'items': ['Issue',IT Backup']
+                'items': ['Issue','IT Backup']
             }
         ]
     }
