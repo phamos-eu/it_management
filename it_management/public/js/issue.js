@@ -261,7 +261,8 @@ function activity_dialog(frm) {
 	})
 
 	activity.set_primary_action(__('Save'), (dialog) => {
-		frm.timeline.insert_comment('Comment', dialog.note);
+		
+		//frm.timeline.insert_comment('Comment', dialog.note);
 		const hours = moment(dialog.to_time).diff(moment(dialog.from_time), "seconds") / 3600;
 
 		let timesheet = {
@@ -301,6 +302,11 @@ function activity_dialog(frm) {
 			.then(() => {
 				activity.hide();
 				activity.clear();
+				if (dialog.note!="<div><br></div>") {
+					frm.timeline.insert_comment(dialog.note);
+				} else {
+					frm.timeline.insert_comment(__("Timesheet created"));
+				}
 			});
 	})
 
