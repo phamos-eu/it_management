@@ -5,6 +5,8 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.utils import flt
+import fileinput
+from frappe import _
 
 @frappe.whitelist()
 def make_sales_invoice(source_name, item_code=None, customer=None, project=None):
@@ -136,3 +138,45 @@ def get_timesheets_from_source(source, source_ref):
 				AND `sales_invoice` IS NULL AND `parent` = '{ts}'""".format(ts=ts.name), as_dict=True)
 		else:
 			return []
+			
+@frappe.whitelist()
+def turn_off_auto_fetching_timesheets():
+	js_file = open("/home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/sales_invoice/sales_invoice.js", 'r+')
+	js_file_content = js_file.readlines()
+	if js_file_content[836] == "/* frappe.ui.form.on('Sales Invoice Timesheet', {\n":
+		frappe.throw(_("Diese Funktion wurde bereits ausgeführt."))
+	else:
+		if js_file_content[836] == "frappe.ui.form.on('Sales Invoice Timesheet', {\n":
+			js_file_content[836] = "/* frappe.ui.form.on('Sales Invoice Timesheet', {\n"
+			js_file_content[858] = "}) */\n"
+			js_file.seek(0)
+			js_file.truncate()
+			for line in js_file_content:
+				js_file.write(line)
+			js_file.close()
+			
+			py_file = open("/home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/sales_invoice/sales_invoice.py", 'r+')
+			py_file_content = py_file.readlines()
+			if py_file_content[631] == "		self.set('timesheets', [])\n":
+				py_file_content[631] = "		# self.set('timesheets', [])\n"
+				py_file_content[632] = "		# if self.project:\n"
+				py_file_content[633] = "			# for data in get_projectwise_timesheet_data(self.project):\n"
+				py_file_content[634] = "				# self.append('timesheets', {\n"
+				py_file_content[635] = "						# 'time_sheet': data.parent,\n"
+				py_file_content[636] = "						# 'billing_hours': data.billing_hours,\n"
+				py_file_content[637] = "						# ''billing_amount': data.billing_amt,\n"
+				py_file_content[638] = "						# ''timesheet_detail': data.name\n"
+				py_file_content[639] = "					# '})\n"
+				py_file_content[640] = "			# 'self.calculate_billing_amount_for_timesheet()\n"
+				py_file_content[641] = "		return\n"
+				
+				py_file.seek(0)
+				py_file.truncate()
+				for line in py_file_content:
+					py_file.write(line)
+				py_file.close()
+				return _("Die Files (sales_invoice.js und sales_invoice.py) wurden erfolgreich überschrieben")
+			else:
+				frappe.throw(_("Achtung, hier (sales_invoice.py) scheint etwas nicht zu stimmen!"))
+		else:
+			frappe.throw(_("Achtung, hier (sales_invoice.js) scheint etwas nicht zu stimmen!"))

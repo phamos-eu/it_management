@@ -166,5 +166,16 @@ def get_data():
                     "description": _("Timesheet")
                 }
             ]
+        },
+        {
+            "label": _("Settings"),
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "IT Management Settings",
+                    "label": _("Settings"),
+                    "description": _("IT Management Settings")
+                }
+            ]
         }
     ]
