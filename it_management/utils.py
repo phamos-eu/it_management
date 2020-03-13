@@ -146,9 +146,9 @@ def turn_off_auto_fetching_timesheets():
 	if js_file_content[836] == "/* frappe.ui.form.on('Sales Invoice Timesheet', {\n":
 		frappe.throw(_("Diese Funktion wurde bereits ausgeführt."))
 	else:
-		if js_file_content[836] == "frappe.ui.form.on('Sales Invoice Timesheet', {\n":
-			js_file_content[836] = "/* frappe.ui.form.on('Sales Invoice Timesheet', {\n"
-			js_file_content[858] = "}) */\n"
+		if js_file_content[825] == "frappe.ui.form.on('Sales Invoice Timesheet', {\n":
+			js_file_content[825] = "/* frappe.ui.form.on('Sales Invoice Timesheet', {\n"
+			js_file_content[847] = "}) */\n"
 			js_file.seek(0)
 			js_file.truncate()
 			for line in js_file_content:
@@ -157,18 +157,18 @@ def turn_off_auto_fetching_timesheets():
 			
 			py_file = open("/home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/sales_invoice/sales_invoice.py", 'r+')
 			py_file_content = py_file.readlines()
-			if py_file_content[631] == "		self.set('timesheets', [])\n":
-				py_file_content[631] = "		# self.set('timesheets', [])\n"
-				py_file_content[632] = "		# if self.project:\n"
-				py_file_content[633] = "			# for data in get_projectwise_timesheet_data(self.project):\n"
-				py_file_content[634] = "				# self.append('timesheets', {\n"
-				py_file_content[635] = "						# 'time_sheet': data.parent,\n"
-				py_file_content[636] = "						# 'billing_hours': data.billing_hours,\n"
-				py_file_content[637] = "						# ''billing_amount': data.billing_amt,\n"
-				py_file_content[638] = "						# ''timesheet_detail': data.name\n"
-				py_file_content[639] = "					# '})\n"
-				py_file_content[640] = "			# 'self.calculate_billing_amount_for_timesheet()\n"
-				py_file_content[641] = "		return\n"
+			if py_file_content[644] == "		self.set('timesheets', [])\n":
+				py_file_content[644] = "		# self.set('timesheets', [])\n"
+				py_file_content[645] = "		# if self.project:\n"
+				py_file_content[646] = "			# for data in get_projectwise_timesheet_data(self.project):\n"
+				py_file_content[647] = "				# self.append('timesheets', {\n"
+				py_file_content[648] = "						# 'time_sheet': data.parent,\n"
+				py_file_content[649] = "						# 'billing_hours': data.billing_hours,\n"
+				py_file_content[650] = "						# 'billing_amount': data.billing_amt,\n"
+				py_file_content[651] = "						# 'timesheet_detail': data.name\n"
+				py_file_content[652] = "					# })\n"
+				py_file_content[653] = "			# self.calculate_billing_amount_for_timesheet()\n"
+				py_file_content[654] = "		return\n"
 				
 				py_file.seek(0)
 				py_file.truncate()
