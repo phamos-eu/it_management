@@ -7,7 +7,7 @@ We are focusing on accessability, ease of use and extensibility. Also we are bui
 For further information read our Wiki https://github.com/tueit/it_management/wiki or get in contact with us.
 
 ### Installation
-
+See Wiki https://github.com/tueit/it_management/wiki/Installation
 
 ## ERPNext
 Official Website https://erpnext.com/
