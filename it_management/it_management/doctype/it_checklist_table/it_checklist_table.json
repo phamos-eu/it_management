@@ -4,18 +4,26 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "description"
+  "description",
+  "customer"
  ],
  "fields": [
   {
    "fieldname": "description",
    "fieldtype": "Data",
    "label": "Description"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "istable": 1,
- "modified": "2020-03-03 14:04:43.765074",
- "modified_by": "Administrator",
+ "modified": "2020-03-21 23:12:02.203347",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Checklist Table",
  "owner": "Administrator",

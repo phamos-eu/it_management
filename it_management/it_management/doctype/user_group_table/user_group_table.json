@@ -5,7 +5,8 @@
  "engine": "InnoDB",
  "field_order": [
   "note",
-  "user_group"
+  "user_group",
+  "customer"
  ],
  "fields": [
   {
@@ -20,11 +21,18 @@
    "in_list_view": 1,
    "label": "User Group",
    "options": "User Group"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "istable": 1,
- "modified": "2020-02-21 16:46:00.397597",
- "modified_by": "Administrator",
+ "modified": "2020-03-21 23:13:26.528021",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "User Group Table",
  "owner": "Administrator",

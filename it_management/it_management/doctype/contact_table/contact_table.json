@@ -6,7 +6,9 @@
  "field_order": [
   "responsibility",
   "contact",
-  "function"
+  "function",
+  "telefon",
+  "customer"
  ],
  "fields": [
   {
@@ -29,11 +31,26 @@
    "in_list_view": 1,
    "label": "Function",
    "options": "Expert Admin\nExpert User\nMain User\nMaintainer\nInstalled by"
+  },
+  {
+   "fetch_from": "contact.phone",
+   "fieldname": "telefon",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Telefon",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "istable": 1,
- "modified": "2020-02-20 11:05:52.117985",
- "modified_by": "Administrator",
+ "modified": "2020-03-21 23:10:03.595418",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Contact Table",
  "owner": "wolfram.schmidt@tueit.de",

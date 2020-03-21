@@ -1,12 +1,13 @@
 {
- "actions": [],
  "creation": "2019-02-26 19:46:41.526577",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "note",
-  "solution"
+  "solution",
+  "status",
+  "customer"
  ],
  "fields": [
   {
@@ -22,12 +23,26 @@
    "label": "Solution",
    "options": "Solution",
    "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "solution.status",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Status",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "links": [],
- "modified": "2020-01-11 09:45:13.177394",
- "modified_by": "Administrator",
+ "modified": "2020-03-21 22:26:45.552180",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Solution Table",
  "owner": "Administrator",

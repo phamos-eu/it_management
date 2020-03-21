@@ -36,7 +36,8 @@
   "timesheet",
   "project",
   "task",
-  "amended_from"
+  "amended_from",
+  "customer"
  ],
  "fields": [
   {
@@ -211,10 +212,17 @@
    "fieldname": "anfahrt",
    "fieldtype": "Check",
    "label": "Anfahrt"
+  },
+  {
+   "fetch_from": "issue.customer",
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "label": "Customer",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-27 09:56:29.642176",
+ "modified": "2020-03-21 23:13:09.994513",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Service Report",

@@ -24,7 +24,6 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Title",
    "reqd": 1,
    "unique": 1
@@ -32,6 +31,7 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer"
   },
@@ -40,6 +40,7 @@
    "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Customer Name",
    "read_only": 1
   },
@@ -62,7 +63,6 @@
   {
    "fieldname": "note",
    "fieldtype": "Text",
-   "in_list_view": 1,
    "label": "Note",
    "reqd": 1
   },
@@ -97,8 +97,7 @@
    "read_only": 1
   }
  ],
- "is_submittable": 1,
- "modified": "2020-02-27 12:01:00.728137",
+ "modified": "2020-03-21 18:25:06.789941",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Checklist",
@@ -117,8 +116,6 @@
    "write": 1
   },
   {
-   "amend": 1,
-   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -128,7 +125,6 @@
    "report": 1,
    "role": "Support Team",
    "share": 1,
-   "submit": 1,
    "write": 1
   }
  ],
