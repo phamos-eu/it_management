@@ -1,5 +1,5 @@
 {
- "autoname": "field:subnet",
+ "autoname": "format:{subnet} {customer}",
  "creation": "2019-02-16 12:48:03.697678",
  "doctype": "DocType",
  "document_type": "System",
@@ -27,7 +27,9 @@
    "description": "User CIDR e.g. 192.168.1.0/24",
    "fieldname": "subnet",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Subnet",
+   "reqd": 1,
    "unique": 1
   },
   {
@@ -84,8 +86,10 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "bold": 1,
@@ -113,7 +117,7 @@
    "options": "Configuration Item"
   }
  ],
- "modified": "2020-03-21 23:07:51.778980",
+ "modified": "2020-03-25 12:21:35.715576",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Subnet",
@@ -130,9 +134,22 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
+   "share": 1,
+   "write": 1
   }
  ],
  "quick_entry": 1,
+ "search_fields": "customer, customer_name,wireless",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
