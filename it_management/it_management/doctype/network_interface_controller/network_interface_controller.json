@@ -11,21 +11,27 @@
   "subnet",
   "host",
   "hostname",
+  "socket",
   "customer"
  ],
  "fields": [
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "mac",
    "fieldtype": "Data",
+   "in_preview": 1,
    "label": "MAC"
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "type",
    "fieldtype": "Select",
+   "in_preview": 1,
    "label": "Type",
    "options": "LAN\nWLAN\nWAN"
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "ip_address",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -42,8 +48,11 @@
    "options": "Subnet"
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "host",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
    "label": "Host",
    "options": "Configuration Item"
   },
@@ -58,10 +67,17 @@
    "hidden": 1,
    "label": "Customer",
    "options": "Customer"
+  },
+  {
+   "fieldname": "socket",
+   "fieldtype": "Link",
+   "in_preview": 1,
+   "label": "Socket",
+   "options": "Socket"
   }
  ],
- "modified": "2020-03-29 22:52:49.487583",
- "modified_by": "Administrator",
+ "modified": "2020-03-30 22:14:30.641099",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Network Interface Controller",
  "owner": "wolfram.schmidt@tueit.de",
@@ -92,6 +108,7 @@
   }
  ],
  "quick_entry": 1,
+ "show_preview_popup": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

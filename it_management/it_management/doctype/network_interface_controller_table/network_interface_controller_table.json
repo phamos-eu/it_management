@@ -4,11 +4,12 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "nic",
   "ip_address",
   "mac_address",
   "note",
   "hostname",
-  "nic",
+  "socket",
   "customer"
  ],
  "fields": [
@@ -41,14 +42,17 @@
    "fieldname": "hostname",
    "fieldtype": "Data",
    "in_list_view": 1,
+   "in_preview": 1,
    "label": "Hostname",
    "read_only": 1
   },
   {
    "allow_in_quick_entry": 1,
+   "columns": 1,
    "fieldname": "nic",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_preview": 1,
    "label": "NIC",
    "options": "Network Interface Controller"
   },
@@ -58,10 +62,19 @@
    "hidden": 1,
    "label": "Customer",
    "options": "Customer"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "nic.socket",
+   "fieldname": "socket",
+   "fieldtype": "Data",
+   "in_preview": 1,
+   "label": "Socket",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-03-30 10:27:49.924080",
+ "modified": "2020-03-30 22:22:21.495455",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Network Interface Controller Table",
