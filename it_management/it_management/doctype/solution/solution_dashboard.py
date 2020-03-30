@@ -22,7 +22,7 @@ def get_data():
                 'items': ['Configuration Item', 'Solution']
             },
             {
-                'label': _('Service'),
+                'label': _('Support'),
                 'items': ['Issue','IT Backup']
             }
         ]
