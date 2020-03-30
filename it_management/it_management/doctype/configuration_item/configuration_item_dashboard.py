@@ -16,11 +16,11 @@ def get_data():
         'transactions': [
             {
                 'label': _('Software'),
-                'items': ['Software Instance', 'User Account', 'IT Backup']
+                'items': ['Software Instance', 'User Account']
             },
             {
-                'label': _('Service'),
-                'items': ['Issue']#, 'IT Ticket']
+                'label': _('Support'),
+                'items': ['Issue','IT Backup']
             },
             {
                 'label': _('Project'),
