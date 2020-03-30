@@ -1,0 +1,98 @@
+{
+ "autoname": "format:NIC-{######}",
+ "creation": "2020-03-21 22:05:31.940016",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "mac",
+  "type",
+  "ip_address",
+  "subnet",
+  "host",
+  "hostname",
+  "customer"
+ ],
+ "fields": [
+  {
+   "fieldname": "mac",
+   "fieldtype": "Data",
+   "label": "MAC"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "LAN\nWLAN\nWAN"
+  },
+  {
+   "fieldname": "ip_address",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "IP Address",
+   "options": "IP Address"
+  },
+  {
+   "fieldname": "subnet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Subnet",
+   "options": "Subnet"
+  },
+  {
+   "fieldname": "host",
+   "fieldtype": "Link",
+   "label": "Host",
+   "options": "Configuration Item"
+  },
+  {
+   "fieldname": "hostname",
+   "fieldtype": "Data",
+   "label": "Hostname"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
+  }
+ ],
+ "modified": "2020-03-29 22:52:49.487583",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "Network Interface Controller",
+ "owner": "wolfram.schmidt@tueit.de",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

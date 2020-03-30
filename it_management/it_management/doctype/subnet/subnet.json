@@ -1,4 +1,5 @@
 {
+ "allow_rename": 1,
  "autoname": "format:{subnet} {customer}",
  "creation": "2019-02-16 12:48:03.697678",
  "doctype": "DocType",
@@ -117,7 +118,7 @@
    "options": "Configuration Item"
   }
  ],
- "modified": "2020-03-25 12:21:35.715576",
+ "modified": "2020-03-30 10:27:19.576658",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Subnet",

@@ -1,0 +1,140 @@
+{
+ "creation": "2020-03-21 21:14:51.679657",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "general_section",
+  "subnet",
+  "dhcp",
+  "dhcp_range",
+  "dns_1",
+  "dns_2",
+  "gateway",
+  "column_break_8",
+  "note",
+  "ntp_section",
+  "ntp_1",
+  "ntp_2",
+  "vlan_section",
+  "vlan_tag",
+  "vlan_host",
+  "customer"
+ ],
+ "fields": [
+  {
+   "fieldname": "general_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "subnet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Subnet",
+   "options": "Subnet",
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "subnet.dhcp",
+   "fieldname": "dhcp",
+   "fieldtype": "Data",
+   "label": "DHCP",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "subnet.dhcp_range",
+   "fieldname": "dhcp_range",
+   "fieldtype": "Small Text",
+   "label": "DHCP Range",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "subnet.dns_1",
+   "fieldname": "dns_1",
+   "fieldtype": "Data",
+   "label": "DNS 1",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "subnet.dns_2",
+   "fieldname": "dns_2",
+   "fieldtype": "Data",
+   "label": "DNS 2",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "subnet.gateway",
+   "fieldname": "gateway",
+   "fieldtype": "Data",
+   "label": "Gateway",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "subnet.note",
+   "fieldname": "note",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Note",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ntp_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "subnet.ntp_1",
+   "fieldname": "ntp_1",
+   "fieldtype": "Data",
+   "label": "NTP 1",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "subnet.ntp_2",
+   "fieldname": "ntp_2",
+   "fieldtype": "Data",
+   "label": "NTP 2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vlan_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "subnet.vlan_tag",
+   "fieldname": "vlan_tag",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "VLAN Tag",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "subnet.vlan_host",
+   "fieldname": "vlan_host",
+   "fieldtype": "Data",
+   "label": "VLAN Host",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-03-29 22:52:22.802209",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "Subnet Table",
+ "owner": "wolfram.schmidt@tueit.de",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
