@@ -16,7 +16,7 @@ def get_data():
             {
                 'label': _('Service'),
                 'items': ['Issue']
-            }
+            },
             {
                 'label': _('Project'),
                 'items': ['Task']
