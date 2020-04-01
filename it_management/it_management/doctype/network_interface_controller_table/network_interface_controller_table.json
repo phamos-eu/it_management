@@ -10,7 +10,8 @@
   "note",
   "hostname",
   "socket",
-  "customer"
+  "customer",
+  "subnet"
  ],
  "fields": [
   {
@@ -38,6 +39,7 @@
    "label": "Note"
   },
   {
+   "allow_in_quick_entry": 1,
    "fetch_from": "nic.hostname",
    "fieldname": "hostname",
    "fieldtype": "Data",
@@ -71,10 +73,18 @@
    "in_preview": 1,
    "label": "Socket",
    "read_only": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fetch_from": "nic.subnet",
+   "fieldname": "subnet",
+   "fieldtype": "Data",
+   "label": "Subnet",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-03-30 22:22:21.495455",
+ "modified": "2020-03-31 08:18:38.089602",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Network Interface Controller Table",
