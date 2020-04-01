@@ -8,6 +8,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "image_1",
   "title",
   "description",
   "section_break_2",
@@ -19,10 +20,6 @@
   "solution_table",
   "dependencies_and_relationships",
   "ci_solution",
-  "domain",
-  "hostname",
-  "column_break_14",
-  "domain_name",
   "networking",
   "nics",
   "software_and_licences",
@@ -62,6 +59,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Status",
    "no_copy": 1,
@@ -130,28 +128,6 @@
    "options": "Configuration Item Table"
   },
   {
-   "fieldname": "domain",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Domain"
-  },
-  {
-   "fieldname": "hostname",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Hostname"
-  },
-  {
-   "fieldname": "column_break_14",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "domain_name",
-   "fieldtype": "Link",
-   "label": "Domain Name",
-   "options": "Host Domain"
-  },
-  {
    "collapsible": 1,
    "fieldname": "networking",
    "fieldtype": "Section Break"
@@ -211,6 +187,7 @@
   {
    "fieldname": "contact_table",
    "fieldtype": "Table",
+   "in_preview": 1,
    "label": "Contact Table",
    "options": "Contact Table"
   },
@@ -241,9 +218,15 @@
    "fieldtype": "Data",
    "label": "Customer Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "image_1",
+   "fieldtype": "Image",
+   "hidden": 1,
+   "in_preview": 1
   }
  ],
- "modified": "2020-03-21 23:08:49.457758",
+ "modified": "2020-04-01 23:10:15.004956",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Configuration Item",
@@ -275,7 +258,7 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "title,hostname,type,customer,description",
+ "search_fields": "title,type,customer,description",
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
