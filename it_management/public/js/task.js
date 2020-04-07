@@ -1,3 +1,12 @@
+cur_frm.dashboard.add_transactions([
+    {
+        'items': [
+            'Material Request'
+        ],
+        'label': 'Activity'
+    }
+]);
+
 frappe.ui.form.on('Task', {
 	onload: function (frm) {
 		// restrict Dynamic Links to IT Mnagement

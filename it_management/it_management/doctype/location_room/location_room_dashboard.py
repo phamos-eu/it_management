@@ -17,7 +17,7 @@ def get_data():
             {
                 'label': _('Service'),
                 'items': ['Issue']
-            }
+            },
             {
                 'label': _('Ficility'),
                 'items': ['Location Room']
