@@ -36,7 +36,6 @@ frappe.ui.form.on('IT Ticket', {
 	refresh: function (frm) {
 		if (!frm.is_new()) {
 			frm.add_custom_button('Add Activity', function () { frm.trigger('add_activity') });
-			frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
 			frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
@@ -57,11 +56,6 @@ frappe.ui.form.on('IT Ticket', {
 	},
 	add_activity: function (frm) {
 		it_ticket_activity_dialog(frm);
-	},
-	make_purchase_order: function (frm) {
-		frappe.new_doc("Purchase Order", {
-			"it_ticket": frm.doc.name
-		});
 	},
 	make_delivery_note: function (frm) {
 		frappe.new_doc("Delivery Note", {
