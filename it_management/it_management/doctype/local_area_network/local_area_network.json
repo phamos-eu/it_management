@@ -1,51 +1,33 @@
 {
- "allow_rename": 1,
- "autoname": "format:{title}-{floor}-{location}",
- "creation": "2018-11-23 16:56:27.083291",
+ "autoname": "format:{customer} LAN at {location}",
+ "creation": "2020-03-21 20:50:53.592159",
  "doctype": "DocType",
- "document_type": "Document",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "title",
-  "room_number",
-  "floor",
-  "column_break_6",
+  "customer",
+  "customer_name",
+  "location",
+  "column_break_5",
   "note",
-  "location"
+  "section_break_7",
+  "subnets"
  ],
  "fields": [
   {
-   "fieldname": "title",
-   "fieldtype": "Data",
-   "in_global_search": 1,
-   "in_list_view": 1,
-   "label": "Title",
-   "reqd": 1
-  },
-  {
-   "fieldname": "room_number",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Room Number"
-  },
-  {
-   "fieldname": "floor",
+   "fieldname": "customer",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Floor",
-   "options": "Floor",
+   "label": "Customer",
+   "options": "Customer",
    "reqd": 1
   },
   {
-   "fieldname": "column_break_6",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "note",
-   "fieldtype": "Small Text",
-   "label": "Note"
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   },
   {
    "fieldname": "location",
@@ -54,12 +36,31 @@
    "label": "Location",
    "options": "Location",
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "subnets",
+   "fieldtype": "Table",
+   "label": "Subnets",
+   "options": "Subnet Table"
   }
  ],
- "modified": "2020-03-30 22:47:06.576461",
+ "modified": "2020-03-29 22:52:07.957456",
  "modified_by": "Administrator",
  "module": "IT Management",
- "name": "Location Room",
+ "name": "Local Area Network",
  "owner": "wolfram.schmidt@tueit.de",
  "permissions": [
   {
@@ -88,9 +89,7 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "title,floor,room_number",
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "title",
  "track_changes": 1
 }

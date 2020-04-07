@@ -6,7 +6,6 @@ def get_data():
     return {
         'fieldname': 'solution',
         'non_standard_fieldnames': {
-            #'IT Ticket': 'dynamic_name'
 			'Issue': 'dynamic_name'
         },
         'transactions': [
@@ -23,8 +22,8 @@ def get_data():
                 'items': ['Configuration Item', 'Solution']
             },
             {
-                'label': _('Service'),
-                'items': ['Issue']#IT Ticket']
+                'label': _('Support'),
+                'items': ['Issue','IT Backup']
             }
         ]
     }

@@ -14,6 +14,7 @@
   "column_break_3",
   "customer",
   "customer_name",
+  "location",
   "supplier",
   "section_break_7",
   "description",
@@ -70,6 +71,7 @@
   },
   {
    "fetch_from": "type.description",
+   "fetch_if_empty": 1,
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description"
@@ -77,7 +79,7 @@
   {
    "fieldname": "solution_table",
    "fieldtype": "Table",
-   "label": "Solution Table",
+   "label": "Solution Relationships",
    "options": "Solution Table"
   },
   {
@@ -102,10 +104,16 @@
    "in_global_search": 1,
    "label": "Customer Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Location"
   }
  ],
- "modified": "2020-02-20 08:28:53.348259",
- "modified_by": "Administrator",
+ "modified": "2020-03-21 22:32:51.719596",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Solution",
  "owner": "wolfram.schmidt@tueit.de",

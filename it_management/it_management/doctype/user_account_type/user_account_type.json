@@ -1,23 +1,19 @@
 {
- "creation": "2020-03-13 16:02:35.838545",
+ "autoname": "field:title",
+ "creation": "2020-03-05 00:12:49.550370",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "section_sales_invoice",
-  "turn_off_auto_fetching_timesheets",
+  "title",
   "customer"
  ],
  "fields": [
   {
-   "fieldname": "section_sales_invoice",
-   "fieldtype": "Section Break",
-   "label": "Sales Invoice"
-  },
-  {
-   "fieldname": "turn_off_auto_fetching_timesheets",
-   "fieldtype": "Button",
-   "label": "Turn off auto fetching Timesheets"
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
   },
   {
    "fieldname": "customer",
@@ -27,20 +23,33 @@
    "options": "Customer"
   }
  ],
- "issingle": 1,
- "modified": "2020-03-21 23:11:06.060372",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-03-29 16:21:46.947298",
+ "modified_by": "Administrator",
  "module": "IT Management",
- "name": "IT Management Settings",
- "owner": "Administrator",
+ "name": "User Account Type",
+ "owner": "wolfram.schmidt@tueit.de",
  "permissions": [
   {
    "create": 1,
    "delete": 1,
    "email": 1,
+   "export": 1,
    "print": 1,
    "read": 1,
+   "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
    "share": 1,
    "write": 1
   }

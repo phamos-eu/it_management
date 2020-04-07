@@ -4,7 +4,11 @@ IT Management is an ERPNext app for managing your companies or customers IT land
 
 We are focusing on accessability, ease of use and extensibility. Also we are building very close to ERPNext's style guide and navigation.
 
-For further information read our Wiki https://github.com/tueit/it_management/wiki or get in contact with us.
+For further information read our Wiki https://github.com/tueit/it_management/wiki or get in contact with us https://www.tueit.de/
+
+### Installation
+See Wiki https://github.com/tueit/it_management/wiki/Installation
+
 ## ERPNext
 Official Website https://erpnext.com/
 Discussion Board https://discuss.erpnext.com/

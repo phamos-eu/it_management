@@ -4,27 +4,33 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "nic",
   "ip_address",
   "mac_address",
   "note",
   "hostname",
-  "socket"
+  "socket",
+  "customer",
+  "subnet"
  ],
  "fields": [
   {
+   "fetch_from": "nic.ip_address",
    "fieldname": "ip_address",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "IP Address",
-   "options": "IP Address"
+   "read_only": 1
   },
   {
    "description": "Use : as separator",
+   "fetch_from": "nic.mac",
    "fieldname": "mac_address",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "MAC Address",
-   "length": 17
+   "length": 17,
+   "read_only": 1
   },
   {
    "fieldname": "note",
@@ -33,21 +39,52 @@
    "label": "Note"
   },
   {
+   "allow_in_quick_entry": 1,
+   "fetch_from": "nic.hostname",
    "fieldname": "hostname",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Hostname"
+   "in_preview": 1,
+   "label": "Hostname",
+   "read_only": 1
   },
   {
-   "fieldname": "socket",
+   "allow_in_quick_entry": 1,
+   "columns": 1,
+   "fieldname": "nic",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_preview": 1,
+   "label": "NIC",
+   "options": "Network Interface Controller"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "nic.socket",
+   "fieldname": "socket",
+   "fieldtype": "Data",
+   "in_preview": 1,
    "label": "Socket",
-   "options": "Socket"
+   "read_only": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fetch_from": "nic.subnet",
+   "fieldname": "subnet",
+   "fieldtype": "Data",
+   "label": "Subnet",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-01-27 15:01:58.268738",
+ "modified": "2020-03-31 08:18:38.089602",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Network Interface Controller Table",
