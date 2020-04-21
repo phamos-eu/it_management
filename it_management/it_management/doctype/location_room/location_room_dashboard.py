@@ -20,7 +20,7 @@ def get_data():
             },
             {
                 'label': _('Ficility'),
-                'items': ['Location Room']
+                'items': ['Socket']
             }
         ]
     }
