@@ -8,7 +8,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "image_1",
+  "image",
   "title",
   "description",
   "section_break_2",
@@ -220,13 +220,16 @@
    "read_only": 1
   },
   {
-   "fieldname": "image_1",
-   "fieldtype": "Image",
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
    "hidden": 1,
-   "in_preview": 1
+   "in_preview": 1,
+   "label": "Image",
+   "options": "image"
   }
  ],
- "modified": "2020-04-01 23:10:15.004956",
+ "image_field": "image",
+ "modified": "2020-04-22 16:37:58.354186",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Configuration Item",

@@ -1,18 +1,24 @@
 {
  "allow_rename": 1,
- "autoname": "field:description",
+ "autoname": "format:{type} {user_name} on {software_instance}",
  "creation": "2019-02-26 18:32:04.298841",
  "doctype": "DocType",
  "document_type": "Setup",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "description",
   "type",
   "status",
   "user_name",
   "customer",
   "customer_name",
+  "contact",
+  "column_break_5",
+  "description",
+  "host_section",
+  "software_instance",
+  "column_break_11",
+  "configuration_item",
   "user_accounts",
   "user_account_table",
   "section_break_8",
@@ -26,12 +32,9 @@
  ],
  "fields": [
   {
-   "allow_in_quick_entry": 1,
    "fieldname": "description",
-   "fieldtype": "Data",
-   "label": "Description",
-   "reqd": 1,
-   "unique": 1
+   "fieldtype": "Text",
+   "label": "Description"
   },
   {
    "description": "User name or Account name",
@@ -127,9 +130,44 @@
    "label": "Type",
    "options": "User Account Type",
    "reqd": 1
+  },
+  {
+   "fieldname": "host_section",
+   "fieldtype": "Section Break",
+   "label": "Host"
+  },
+  {
+   "fieldname": "software_instance",
+   "fieldtype": "Link",
+   "label": "Software Instance",
+   "options": "Software Instance",
+   "reqd": 1
+  },
+  {
+   "bold": 1,
+   "fetch_from": "software_instance.configuration_item",
+   "fieldname": "configuration_item",
+   "fieldtype": "Link",
+   "label": "Configuration Item",
+   "options": "Configuration Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-03-31 16:47:01.815464",
+ "modified": "2020-04-24 12:13:16.710688",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "User Account",

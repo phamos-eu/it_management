@@ -8,6 +8,7 @@
   "mac",
   "type",
   "ip_address",
+  "ip_v6",
   "subnet",
   "host",
   "hostname",
@@ -74,9 +75,14 @@
    "in_preview": 1,
    "label": "Socket",
    "options": "Socket"
+  },
+  {
+   "fieldname": "ip_v6",
+   "fieldtype": "Data",
+   "label": "IP v6"
   }
  ],
- "modified": "2020-03-30 22:14:30.641099",
+ "modified": "2020-04-22 14:59:39.053990",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Network Interface Controller",
