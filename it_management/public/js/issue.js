@@ -34,6 +34,16 @@ frappe.ui.form.on('Issue', {
 				};
 			}
 		});
+		frm.set_query('task', function () {
+			// restrict task to project
+			if (frm.doc.project) {
+				return {
+					'filters': {
+						'project': frm.doc.project,
+					}
+				};
+			}
+		});
 	},
 	refresh: function (frm) {
 		if (!frm.is_new()) {
@@ -45,43 +55,54 @@ frappe.ui.form.on('Issue', {
 			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
 		//frm.trigger('render_contact');
-		if (cur_frm.doc.filter_based_on_customer) {
-			// restrict Document to Customer
-			frm.set_query('dynamic_name', 'it_management_table', function (row) {
-				var dynamic_type = row.it_management_table[row.it_management_table.length - 1].dynamic_type;
-				var pass_list = [
-					__("User Group"),
-					__("IT Checklist"),
-					__("User Account"),
-					__("IT Backup"),
-					__("Software Instance"),
-					__("Solution"),
-					__("Licence"),
-					__("Configuration Item"),
-					__("IT Ticket"),
-					__("Subnet Block")
-				]
-				if (pass_list.includes(dynamic_type) ) {
+		
+	},
+	customer: function (frm) {
+		if (cur_frm.doc.customer) {
+			cur_frm.set_value('filter_based_on_customer', '1');
+			if (cur_frm.doc.filter_based_on_customer) {
+				// restrict Document to Customer
+				frm.set_query('dynamic_name', 'it_management_table', function (row) {
 					return {
 						'filters': {
 							'customer': cur_frm.doc.customer
 						}
 					};
-				}
-			});
+				});
+				cur_frm.refresh_field('it_management_table');
+			}
+		} else {
+			cur_frm.set_value('filter_based_on_customer', 0);
 		}
 	},
 	contact: function (frm) {
-        //frm.trigger('render_contact');
+        if (cur_frm.doc.contact) {
+			frm.trigger('render_contact');
+		} else {
+			cur_frm.set_df_property('contact_html','options','<div></div>');
+		}
     },
 	render_contact: function (frm) {
-		if (frm.doc.contact && frm.doc.hasOwnProperty('__onload')) {
-			frappe.contacts.render_address_and_contact(frm);
-			// hide "New Contact" Button
-			$('.btn-contact').hide();
-		} else {
-			cur_frm.fields_dict.contact_html.html();
-		}
+		frappe.call({
+		   method: "frappe.client.get",
+		   args: {
+				"doctype": "Contact",
+				"name": frm.doc.contact
+		   },
+		   callback: function(response) {
+				var contact = response.message;
+				var html = '<div class="address-box"><p>';
+				for (var i = 0; i<contact.email_ids.length; i++) {
+					html = html + contact.email_ids[i].email_id + '<br>';
+				}
+				html = html + "</p><p>";
+				for (var i = 0; i<contact.phone_nos.length; i++) {
+					html = html + contact.phone_nos[i].phone + '<br>';
+				}
+				html = html + "</p></div>";
+				cur_frm.set_df_property('contact_html','options',html);
+		   }
+		});
 	},
 	add_activity: function (frm) {
 		activity_dialog(frm);
