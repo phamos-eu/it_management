@@ -16,7 +16,7 @@ app_license = "GPL"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/it_management/css/it_management.css"
-# app_include_js = "/assets/it_management/js/it_management.js"
+app_include_js = ["/assets/it_management/js/itm_utils.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/it_management/css/it_management.css"
@@ -31,7 +31,8 @@ doctype_js = {
     "Issue" : "public/js/issue.js",
     "Task" : "public/js/task.js",
     "Project" : "public/js/project.js",
-    "Sales Invoice" : "public/js/sales_invoice.js"
+    "Sales Invoice" : "public/js/sales_invoice.js",
+    "Maintenance Visit" : "public/js/maintenance_visit.js"
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
