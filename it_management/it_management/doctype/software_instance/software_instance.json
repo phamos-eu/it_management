@@ -16,7 +16,8 @@
   "note",
   "section_break_10",
   "licence_table",
-  "customer"
+  "customer",
+  "supplier"
  ],
  "fields": [
   {
@@ -80,10 +81,16 @@
    "fieldtype": "Data",
    "label": "Customer",
    "read_only": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
   }
  ],
- "modified": "2020-02-21 15:35:48.444327",
- "modified_by": "Administrator",
+ "modified": "2020-05-18 14:50:26.070668",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Software Instance",
  "owner": "thomas.kopp@tueit.de",
