@@ -1,4 +1,5 @@
 {
+ "allow_rename": 1,
  "autoname": "field:title",
  "creation": "2019-10-28 10:11:16.660953",
  "doctype": "DocType",
@@ -134,8 +135,8 @@
    "options": "Solution"
   }
  ],
- "modified": "2020-02-21 16:04:22.906227",
- "modified_by": "Administrator",
+ "modified": "2020-05-19 17:58:45.461389",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Backup",
  "owner": "Administrator",
@@ -149,6 +150,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
    "share": 1,
    "write": 1
   }

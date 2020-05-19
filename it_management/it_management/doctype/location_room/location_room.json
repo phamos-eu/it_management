@@ -12,7 +12,8 @@
   "floor",
   "column_break_6",
   "note",
-  "location"
+  "location",
+  "customer"
  ],
  "fields": [
   {
@@ -54,10 +55,17 @@
    "label": "Location",
    "options": "Location",
    "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
- "modified": "2020-03-30 22:47:06.576461",
- "modified_by": "Administrator",
+ "modified": "2020-05-19 11:30:30.335547",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Location Room",
  "owner": "wolfram.schmidt@tueit.de",

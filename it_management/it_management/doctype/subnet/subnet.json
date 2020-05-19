@@ -30,8 +30,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Subnet",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "dhcp",
@@ -118,7 +117,7 @@
    "options": "Configuration Item"
   }
  ],
- "modified": "2020-03-30 10:27:19.576658",
+ "modified": "2020-05-18 17:22:32.596659",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Subnet",

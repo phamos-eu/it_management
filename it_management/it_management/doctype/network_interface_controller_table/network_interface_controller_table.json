@@ -6,12 +6,13 @@
  "field_order": [
   "nic",
   "ip_address",
+  "ipv6_address",
+  "subnet",
   "mac_address",
   "note",
   "hostname",
   "socket",
-  "customer",
-  "subnet"
+  "customer"
  ],
  "fields": [
   {
@@ -35,7 +36,6 @@
   {
    "fieldname": "note",
    "fieldtype": "Small Text",
-   "in_list_view": 1,
    "label": "Note"
   },
   {
@@ -43,7 +43,6 @@
    "fetch_from": "nic.hostname",
    "fieldname": "hostname",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "in_preview": 1,
    "label": "Hostname",
    "read_only": 1
@@ -81,10 +80,18 @@
    "fieldtype": "Data",
    "label": "Subnet",
    "read_only": 1
+  },
+  {
+   "fetch_from": "nic.ip_v6",
+   "fieldname": "ipv6_address",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "IPv6 Address",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-03-31 08:18:38.089602",
+ "modified": "2020-05-19 17:13:10.208428",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Network Interface Controller Table",

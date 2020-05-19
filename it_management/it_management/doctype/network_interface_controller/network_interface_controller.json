@@ -6,10 +6,10 @@
  "engine": "InnoDB",
  "field_order": [
   "mac",
-  "type",
+  "subnet",
   "ip_address",
   "ip_v6",
-  "subnet",
+  "type",
   "host",
   "hostname",
   "socket",
@@ -41,6 +41,7 @@
    "options": "IP Address"
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "subnet",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -77,12 +78,14 @@
    "options": "Socket"
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "ip_v6",
    "fieldtype": "Data",
-   "label": "IP v6"
+   "label": "IP v6",
+   "search_index": 1
   }
  ],
- "modified": "2020-04-22 14:59:39.053990",
+ "modified": "2020-05-19 17:17:17.143323",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Network Interface Controller",

@@ -13,7 +13,7 @@
   "customer",
   "customer_name",
   "contact",
-  "column_break_5",
+  "section_break_7",
   "description",
   "host_section",
   "software_instance",
@@ -33,7 +33,7 @@
  "fields": [
   {
    "fieldname": "description",
-   "fieldtype": "Text",
+   "fieldtype": "Small Text",
    "label": "Description"
   },
   {
@@ -153,10 +153,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "column_break_5",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "contact",
    "fieldtype": "Link",
    "label": "Contact",
@@ -165,9 +161,13 @@
   {
    "fieldname": "column_break_11",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
   }
  ],
- "modified": "2020-04-24 12:13:16.710688",
+ "modified": "2020-05-18 17:51:49.535858",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "User Account",
