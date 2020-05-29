@@ -224,6 +224,29 @@
    "property": "in_standard_filter",
    "property_type": "Check",
    "value": "1"
+  },
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2019-10-29 22:48:59.829746",
+   "default_value": null,
+   "doc_type": "User Account",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "description",
+   "idx": 0,
+   "modified": "2019-10-29 22:48:59.829746",
+   "modified_by": "wolfram.schmidt@tueit.de",
+   "name": "User Account-description-description",
+   "owner": "wolfram.schmidt@tueit.de",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "description",
+   "property_type": "Text",
+   "value": "Use \"Host (Config Item or Solution) Typ and further Despcription\". e.g. tueit.intranet Wolfram AD User. "
   }
  ],
  "sync_on_migrate": 1
