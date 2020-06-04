@@ -29,6 +29,13 @@ function activity_dialog(frm) {
 				label: __('To Time'),
 				default: frappe.datetime.now_datetime(),
 			},
+			{
+				fieldtype: 'Link',
+				label: __('Project'),
+				fieldname: 'project',
+				options: 'Project',
+				default: frm.doc.project
+			},
 			// {
 			// 	fieldtype: 'Float',
 			// 	fieldname: 'hours',
@@ -67,6 +74,7 @@ function activity_dialog(frm) {
 					/* task: frm.doc.task, */
 					billable: 1,
 					billing_hours: hours,
+					project: dialog.project
 				}
 			],
 			docstatus: 1
