@@ -12,6 +12,7 @@ function activity_dialog(frm) {
 				label: __('Activity Type'),
 				fieldname: 'activity_type',
 				options: 'Activity Type',
+				reqd: 1
 			},
 			{
 				fieldtype: 'Column Break',
