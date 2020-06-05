@@ -32,9 +32,10 @@ frappe.ui.form.on('Task', {
 			'doctype': 'Issue',
 			'subject': frm.get_field('subject').get_value(),
 			'description': frm.get_field('description').get_value(),
-			'priority': frm.get_field('priority').get_value(),
+			//'priority': "Mittel",
 			'task': frm.doc.name,
 			'project': frm.get_field('project').get_value(),
+			'customer': frm.get_field('customer').get_value()
 		};
 
 		frappe.db.insert(options).then((issue) => {
@@ -49,13 +50,12 @@ frappe.ui.form.on('Task', {
 
 			frappe.show_alert({
 				indicator: 'green',
-				message: __(`Issue ${issue.name} created.`), 
+				message: __("Issue ${issue.name} created."), 
 			}).click(() => {
 				frappe.set_route('Form', 'Issue', issue.name)
 			});
 
-			frm.timeline.insert_comment('Comment', `${issue.doctype} <a href="${
-				frappe.utils.get_form_link(issue.doctype, issue.name)}">${issue.name}</a> created.`);
+			frm.timeline.insert_comment(`${issue.doctype} <a href="${frappe.utils.get_form_link(issue.doctype, issue.name)}">${issue.name}</a> created.`);
 		});
 	},
 	add_activity: function (frm) {

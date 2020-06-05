@@ -8,12 +8,6 @@ function activity_dialog(frm) {
 		title: __('New Activity'),
 		fields: [
 			{
-				fieldtype: 'Datetime',
-				label: __('From Time'),
-				fieldname: 'from_time',
-				default: frappe.datetime.now_datetime()
-			},
-			{
 				fieldtype: 'Link',
 				label: __('Activity Type'),
 				fieldname: 'activity_type',
@@ -24,17 +18,12 @@ function activity_dialog(frm) {
 				fieldname: 'cb_1',
 			},
 			{
-				fieldtype: 'Datetime',
-				fieldname: 'to_time',
-				label: __('To Time'),
-				default: frappe.datetime.now_datetime(),
-			},
-			{
 				fieldtype: 'Link',
 				label: __('Project'),
 				fieldname: 'project',
 				options: 'Project',
-				default: frm.doc.project
+				default: frm.doc.project,
+				reqd: 1
 			},
 			// {
 			// 	fieldtype: 'Float',
@@ -44,19 +33,48 @@ function activity_dialog(frm) {
 			// },
 			{
 				fieldtype: 'Section Break',
-				fieldname: 'sb_1',
+				fieldname: 'sb_2'
 			},
 			{
 				fieldtype: 'Text Editor',
 				fieldname: 'note',
 			},
+			{
+				fieldtype: 'Section Break',
+				fieldname: 'sb_1',
+			},
+
+			{
+				fieldtype: 'Datetime',
+				label: __('From Time'),
+				fieldname: 'from_time',
+				default: frappe.datetime.now_datetime()
+			},
+
+			{
+				fieldtype: 'Int',
+				fieldname: 'pause',
+				label: __('Pause'),
+				default: "0" 
+			},
+			{
+				fieldtype: 'Column Break',
+				fieldname: 'cb_2',
+			},
+			{
+				fieldtype: 'Datetime',
+				fieldname: 'to_time',
+				label: __('To Time'),
+				default: frappe.datetime.now_datetime(),
+			}
+
 		],
 	})
 
 	activity.set_primary_action(__('Save'), (dialog) => {
-		
 		//frm.timeline.insert_comment('Comment', dialog.note);
-		const hours = moment(dialog.to_time).diff(moment(dialog.from_time), "seconds") / 3600;
+		let break_hours = dialog.pause / 60;
+		const hours = (moment(dialog.to_time).diff(moment(dialog.from_time), "seconds") / 3600) - break_hours ;
 
 		let timesheet = {
 			doctype: 'Timesheet',
@@ -70,7 +88,6 @@ function activity_dialog(frm) {
 					to_time: dialog.to_time,
 					// to_time: (new moment(dialog.from_time)).add(dialog.hours, 'hours').format('YYYY-MM-DD HH:mm:ss'),
 					hours: hours,
-					project: frm.doc.project,
 					/* task: frm.doc.task, */
 					billable: 1,
 					billing_hours: hours,

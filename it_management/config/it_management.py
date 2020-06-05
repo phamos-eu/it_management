@@ -164,6 +164,12 @@ def get_data():
                     "name": "Timesheet",
                     "label": _("Timesheet"),
                     "description": _("Timesheet")
+                },
+                {
+                    "type": "doctype",
+                    "name": "IT Checklist",
+                    "label": _("IT Checklist"),
+                    "description": _("IT Checklist")
                 }
             ]
         },

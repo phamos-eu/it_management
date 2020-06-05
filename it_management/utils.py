@@ -8,6 +8,8 @@ from frappe.utils import flt
 import fileinput
 from frappe import _
 
+import json
+
 @frappe.whitelist()
 def make_sales_invoice(source_name, item_code=None, customer=None, project=None):
 	target = frappe.new_doc("Sales Invoice")
