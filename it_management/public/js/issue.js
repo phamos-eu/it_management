@@ -54,7 +54,7 @@ frappe.ui.form.on('Issue', {
 			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
 			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
-		//frm.trigger('render_contact');
+		frm.trigger('contact');
 		
 	},
 	customer: function (frm) {
