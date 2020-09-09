@@ -7,7 +7,6 @@ cur_frm.dashboard.add_transactions([
             'Timesheet',
 			'Material Request',
 			'Delivery Note',
-			'IT Service Report'
         ],
         'label': 'Activity'
     }
@@ -50,7 +49,6 @@ frappe.ui.form.on('Issue', {
 			frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
 			frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
-			frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
 			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
@@ -117,13 +115,6 @@ frappe.ui.form.on('Issue', {
 			"customer": frm.doc.customer,
 			"project" : frm.doc.project,
 			"issue": frm.doc.name
-		});
-	},
-	make_it_service_report: function (frm) {
-		frappe.new_doc("IT Service Report", {
-			"issue": frm.doc.name,
-			"project": frm.doc.project/*,
-			"task": frm.doc.task*/
 		});
 	},
 	make_sales_invoice: function (frm) {
