@@ -10,15 +10,20 @@
  "field_order": [
   "image",
   "title",
-  "description",
-  "section_break_2",
+  "status",
+  "customer",
+  "customer_name",
   "type",
-  "serial_number",
-  "column_break_2",
   "make_and_model",
+  "serial_number",
+  "column_break_3",
+  "description",
   "solutions",
+  "configuration_items",
+  "table_multiselect_11",
   "solution_table",
   "dependencies_and_relationships",
+  "contacts",
   "ci_solution",
   "networking",
   "nics",
@@ -30,12 +35,9 @@
   "column_break_24",
   "storage_configuration",
   "additional_hardware",
-  "contacts",
+  "section_break_27",
   "contact_table",
   "section_break_location",
-  "customer",
-  "customer_name",
-  "status",
   "location_room",
   "amended_from"
  ],
@@ -78,10 +80,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "section_break_2",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "type",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -94,10 +92,6 @@
    "fieldname": "serial_number",
    "fieldtype": "Data",
    "label": "Serial Number"
-  },
-  {
-   "fieldname": "column_break_2",
-   "fieldtype": "Column Break"
   },
   {
    "description": "Select from Item",
@@ -113,16 +107,18 @@
   {
    "fieldname": "solution_table",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Solutions",
    "options": "Solution Table"
   },
   {
    "fieldname": "dependencies_and_relationships",
-   "fieldtype": "Section Break"
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "ci_solution",
    "fieldtype": "Table",
+   "hidden": 1,
    "in_standard_filter": 1,
    "label": "Configuration Items",
    "options": "Configuration Item Table"
@@ -180,13 +176,9 @@
    "label": "Additional Hardware"
   },
   {
-   "fieldname": "contacts",
-   "fieldtype": "Section Break",
-   "label": "Contacts"
-  },
-  {
    "fieldname": "contact_table",
    "fieldtype": "Table",
+   "hidden": 1,
    "in_preview": 1,
    "label": "Contact Table",
    "options": "Contact Table"
@@ -226,10 +218,37 @@
    "in_preview": 1,
    "label": "Image",
    "options": "image"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "table_multiselect_11",
+   "fieldtype": "Table MultiSelect",
+   "label": "Solutions",
+   "options": "Solution Multiselect"
+  },
+  {
+   "fieldname": "configuration_items",
+   "fieldtype": "Table MultiSelect",
+   "label": "Configuration Items",
+   "options": "Configuration Item Multiselect"
+  },
+  {
+   "fieldname": "section_break_27",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "contacts",
+   "fieldtype": "Table MultiSelect",
+   "label": "Contacts",
+   "options": "Contact Multiselect"
   }
  ],
  "image_field": "image",
- "modified": "2020-04-22 16:37:58.354186",
+ "modified": "2020-09-10 01:12:06.470553",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Configuration Item",
