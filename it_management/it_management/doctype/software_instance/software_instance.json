@@ -8,8 +8,9 @@
  "engine": "InnoDB",
  "field_order": [
   "status",
-  "software",
+  "parent_software_instance",
   "configuration_item",
+  "software",
   "solution",
   "column_break_7",
   "version",
@@ -24,21 +25,27 @@
    "fieldname": "software",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Software",
    "options": "IT Software",
    "reqd": 1
   },
   {
+   "fetch_from": "parent_software_instance.configuration_item",
+   "fetch_if_empty": 1,
    "fieldname": "configuration_item",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Configuration Item",
    "options": "Configuration Item",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fieldname": "solution",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Solution",
    "options": "Solution"
   },
@@ -71,6 +78,7 @@
    "default": "Running",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Status",
    "options": "Implementing\nRunning\nIssue\nObsolet"
   },
@@ -79,6 +87,7 @@
    "fetch_from": "configuration_item.customer",
    "fieldname": "customer",
    "fieldtype": "Data",
+   "in_standard_filter": 1,
    "label": "Customer",
    "read_only": 1
   },
@@ -87,12 +96,21 @@
    "fieldtype": "Link",
    "label": "Supplier",
    "options": "Supplier"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "parent_software_instance",
+   "fieldtype": "Link",
+   "label": "Parent Software Instance",
+   "options": "Software Instance",
+   "set_only_once": 1
   }
  ],
- "modified": "2020-05-18 14:50:26.070668",
+ "modified": "2020-09-09 23:32:40.818506",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Software Instance",
+ "nsm_parent_field": "parent_software_instance",
  "owner": "thomas.kopp@tueit.de",
  "permissions": [
   {
