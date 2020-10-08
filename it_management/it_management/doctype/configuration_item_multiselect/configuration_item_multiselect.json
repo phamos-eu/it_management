@@ -1,0 +1,29 @@
+{
+ "creation": "2020-09-10 01:05:06.514557",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "configuration_item"
+ ],
+ "fields": [
+  {
+   "fieldname": "configuration_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Configuration Item",
+   "options": "Configuration Item"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-08 09:20:37.329613",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "Configuration Item Multiselect",
+ "owner": "wolfram.schmidt@tueit.de",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
