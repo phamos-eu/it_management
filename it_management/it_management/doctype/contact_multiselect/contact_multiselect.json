@@ -1,0 +1,29 @@
+{
+ "creation": "2020-09-10 01:09:21.570552",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "contact"
+ ],
+ "fields": [
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Contact",
+   "options": "Contact"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-08 10:47:13.250082",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "Contact Multiselect",
+ "owner": "wolfram.schmidt@tueit.de",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
