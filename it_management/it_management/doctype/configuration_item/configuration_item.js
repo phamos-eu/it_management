@@ -4,5 +4,17 @@
 frappe.ui.form.on('Configuration Item', {
 	refresh: function(frm) {
 
+	},
+	onload: function(frm) {
+		frm.set_query("location_room", function() {
+			if (frm.doc.location) {
+				return {
+					'filters': {
+						"location" : frm.doc.location,
+						"floor" : frm.doc.floor
+					}
+				};
+			}
+		});
 	}
 });

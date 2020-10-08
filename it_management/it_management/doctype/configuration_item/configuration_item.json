@@ -38,8 +38,10 @@
   "section_break_27",
   "contact_table",
   "section_break_location",
-  "location_room",
-  "amended_from"
+  "amended_from",
+  "location",
+  "floor",
+  "location_room"
  ],
  "fields": [
   {
@@ -245,11 +247,23 @@
    "fieldtype": "Table MultiSelect",
    "label": "Contacts",
    "options": "Contact Multiselect"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Location"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Link",
+   "label": "Floor",
+   "options": "Floor"
   }
  ],
  "image_field": "image",
- "modified": "2020-09-10 01:12:06.470553",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-10-08 13:01:00.032523",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
  "owner": "wolfram.schmidt@tueit.de",
