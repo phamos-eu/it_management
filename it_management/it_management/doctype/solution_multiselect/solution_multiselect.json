@@ -1,0 +1,29 @@
+{
+ "creation": "2020-09-10 00:38:09.870627",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "solutions"
+ ],
+ "fields": [
+  {
+   "fieldname": "solutions",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Solutions",
+   "options": "Solution"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-08 10:40:30.722912",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "Solution Multiselect",
+ "owner": "wolfram.schmidt@tueit.de",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
