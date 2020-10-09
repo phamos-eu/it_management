@@ -126,7 +126,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "In Patchpanel\nIn Double Network Jack"
+   "options": "In Patchpanel\nIn Double Network Jack\nIn Single Network Jack"
   },
   {
    "fieldname": "section_break_7",
@@ -147,7 +147,7 @@
    "label": "Note"
   }
  ],
- "modified": "2020-10-09 16:31:41.718532",
+ "modified": "2020-10-09 16:45:17.071116",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Socket",
