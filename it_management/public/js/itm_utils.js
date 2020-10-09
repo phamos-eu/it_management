@@ -4,6 +4,16 @@ function activity_dialog(frm) {
 		show_alert(__('Save the document first.'));
 		return;
 	}
+
+	let referenced_task = ""
+	if(frm.doc.doctype == "Task"){
+		referenced_task = frm.doc.name;
+	}else if(frm.doc.doctype == "Issue"){
+		referenced_task = frm.doc.task;
+	}else if(frm.doc.doctype == "Maintenance Visit"){
+		referenced_task = frm.doc.task;
+	}
+
 	const activity = new frappe.ui.Dialog({
 		title: __('New Activity'),
 		fields: [
@@ -24,6 +34,14 @@ function activity_dialog(frm) {
 				fieldname: 'project',
 				options: 'Project',
 				default: frm.doc.project,
+				reqd: 1
+			},
+			{
+				fieldtype: 'Link',
+				label: __('Task'),
+				fieldname: 'task',
+				options: 'Task',
+				default: referenced_task,
 				reqd: 1
 			},
 			// {
@@ -77,6 +95,7 @@ function activity_dialog(frm) {
 		let break_hours = dialog.pause / 60;
 		const hours = (moment(dialog.to_time).diff(moment(dialog.from_time), "seconds") / 3600) - break_hours ;
 
+		/*
 		let referenced_task = ""
 		if(frm.doc.doctype == "Task"){
 			referenced_task = frm.doc.name;
@@ -85,6 +104,7 @@ function activity_dialog(frm) {
 		}else if(frm.doc.doctype == "Maintenance Visit"){
 			referenced_task = frm.doc.task;
 		}
+		*/
 
 		let timesheet = {
 			doctype: 'Timesheet',
@@ -98,7 +118,7 @@ function activity_dialog(frm) {
 					to_time: dialog.to_time,
 					// to_time: (new moment(dialog.from_time)).add(dialog.hours, 'hours').format('YYYY-MM-DD HH:mm:ss'),
 					hours: hours,
-					task: referenced_task, 
+					task: dialog.task, 
 					billable: 1,
 					billing_hours: hours,
 					project: dialog.project
