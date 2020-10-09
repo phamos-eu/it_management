@@ -41,8 +41,7 @@ function activity_dialog(frm) {
 				label: __('Task'),
 				fieldname: 'task',
 				options: 'Task',
-				default: referenced_task,
-				reqd: 1
+				default: referenced_task
 			},
 			// {
 			// 	fieldtype: 'Float',
