@@ -5,9 +5,11 @@ from frappe import _
 def get_data():
     return {
         'fieldname': 'location_room',
-        'non_standard_fieldnames': 
-	{
-		'Issue': 'dynamic_name'
+        'non_standard_fieldnames': {
+		        'Issue': 'dynamic_name'
+        },
+        'internal_links':{
+                
         },
         'transactions': [
             {
@@ -19,7 +21,7 @@ def get_data():
                 'items': ['Issue']
             },
             {
-                'label': _('Ficility'),
+                'label': _('Facility'),
                 'items': ['Socket']
             }
         ]

@@ -8,6 +8,16 @@
  "field_order": [
   "naming_series",
   "title",
+  "section_break_7",
+  "type",
+  "column_break_9",
+  "label",
+  "general_information_section",
+  "location_room",
+  "endpoint_room",
+  "endpoint_socket",
+  "column_break_7",
+  "note",
   "source_section",
   "source_location_room",
   "source_label",
@@ -15,7 +25,7 @@
   "source_note",
   "destination_section",
   "destination_location_room",
-  "label",
+  "destination_label",
   "column_break_10",
   "destination_note"
  ],
@@ -34,7 +44,7 @@
   {
    "fieldname": "source_section",
    "fieldtype": "Section Break",
-   "label": "Source"
+   "label": "Archive: Source"
   },
   {
    "fieldname": "source_location_room",
@@ -50,13 +60,7 @@
   {
    "fieldname": "destination_section",
    "fieldtype": "Section Break",
-   "label": "Destination"
-  },
-  {
-   "fieldname": "destination_location_room",
-   "fieldtype": "Link",
-   "label": "Destination Location Room",
-   "options": "Location Room"
+   "label": "Archive: Destination"
   },
   {
    "fieldname": "column_break_5",
@@ -82,10 +86,68 @@
    "hidden": 1,
    "label": "Naming Series",
    "options": "RJ45-"
+  },
+  {
+   "fieldname": "location_room",
+   "fieldtype": "Link",
+   "label": "Location Room",
+   "options": "Location Room"
+  },
+  {
+   "fieldname": "general_information_section",
+   "fieldtype": "Section Break",
+   "label": "Link and Location"
+  },
+  {
+   "fieldname": "endpoint_socket",
+   "fieldtype": "Link",
+   "label": "Endpoint Socket",
+   "options": "Socket"
+  },
+  {
+   "fieldname": "endpoint_room",
+   "fieldtype": "Link",
+   "label": "Endpoint Room",
+   "options": "Location Room"
+  },
+  {
+   "fieldname": "destination_location_room",
+   "fieldtype": "Link",
+   "label": "Destination Location Room",
+   "options": "Location Room"
+  },
+  {
+   "fieldname": "destination_label",
+   "fieldtype": "Data",
+   "label": "Destination Label"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "An Standarddose\nAn Patchpanel"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break",
+   "label": "General Information"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Text",
+   "label": "Note"
   }
  ],
- "modified": "2020-01-27 15:33:54.452596",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-10-09 12:50:56.241822",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Socket",
  "owner": "Administrator",
