@@ -4,5 +4,16 @@
 frappe.ui.form.on('Socket', {
 	refresh: function(frm) {
 
+	},
+	onload: function(frm) {
+		frm.set_query("endpoint_socket", function() {  
+			if (frm.doc.endpoint_room) {   
+				return {
+					'filters': {
+						"location_room" : frm.doc.endpoint_room, 
+					}
+				};
+			}
+		});
 	}
 });
