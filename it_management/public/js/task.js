@@ -31,7 +31,7 @@ frappe.ui.form.on('Task', {
 		cur_frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
 		cur_frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 		cur_frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
-		cur_frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
+		//cur_frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 		cur_frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
 	},
 	make_ticket: function (frm) {
@@ -98,6 +98,7 @@ frappe.ui.form.on('Task', {
 			return;
 		}
 	},
+	/*
 	make_it_service_report: function (frm) {
 		if (frm.is_new()) {
 			show_alert(__('Save the document first.'));
@@ -114,6 +115,7 @@ frappe.ui.form.on('Task', {
 			return;
 		}
 	},
+	*/
 	make_sales_invoice: function (frm) {
 		let dialog = new frappe.ui.Dialog({
 			title: __("Select Item (optional)"),
