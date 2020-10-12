@@ -10,7 +10,7 @@
   "section_break_7",
   "type",
   "column_break_9",
-  "label",
+  "identifier",
   "general_information_section",
   "location_room",
   "endpoint_room",
@@ -31,16 +31,14 @@
  ],
  "fields": [
   {
-   "fieldname": "label",
+   "fieldname": "identifier",
    "fieldtype": "Data",
-   "label": "Label",
-   "unique": 1
+   "label": "Identifier"
   },
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title",
-   "unique": 1
+   "label": "Title"
   },
   {
    "fieldname": "source_section",
@@ -147,7 +145,7 @@
    "label": "Note"
   }
  ],
- "modified": "2020-10-09 16:45:17.071116",
+ "modified": "2020-10-12 09:40:40.508207",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Socket",
