@@ -33,14 +33,12 @@
   {
    "fieldname": "identifier",
    "fieldtype": "Data",
-   "label": "Identifier",
-   "unique": 1
+   "label": "Identifier"
   },
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title",
-   "unique": 1
+   "label": "Title"
   },
   {
    "fieldname": "source_section",
@@ -147,7 +145,7 @@
    "label": "Note"
   }
  ],
- "modified": "2020-10-12 09:09:40.508207",
+ "modified": "2020-10-12 09:40:40.508207",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Socket",
