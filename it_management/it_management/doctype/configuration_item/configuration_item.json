@@ -296,6 +296,7 @@
  "quick_entry": 1,
  "search_fields": "title,type,customer,description",
  "show_name_in_global_search": 1,
+ "show_preview_popup": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "timeline_field": "customer",
