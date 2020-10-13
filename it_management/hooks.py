@@ -128,3 +128,6 @@ doctype_js = {
 # 	"frappe.desk.doctype.event.event.get_events": "it_management.event.get_events"
 # }
 
+override_doctype_dashboards = {
+    "Event": "it_management.event.get_dashboard_data"
+}
