@@ -69,6 +69,7 @@
    "reqd": 1
   },
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -119,7 +120,7 @@
    "options": "Event"
   }
  ],
- "modified": "2020-10-13 10:32:39.301542",
+ "modified": "2020-10-13 16:18:47.649311",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Trip",
