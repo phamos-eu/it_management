@@ -14,6 +14,10 @@ Official Website https://erpnext.com/
 Discussion Board https://discuss.erpnext.com/
 Repo https://github.com/frappe/erpnext
 
+## Contribute
+We have two major branches which are use.
+1. master
+2. develope
 
 #### License
 

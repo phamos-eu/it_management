@@ -7,7 +7,7 @@ cur_frm.dashboard.add_transactions([
             'Timesheet',
 			'Material Request',
 			'Delivery Note',
-			'IT Service Report'
+			'Trip'
         ],
         'label': 'Activity'
     }
