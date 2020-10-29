@@ -149,6 +149,7 @@ function activity_dialog(frm) {
 					frm.timeline.insert_comment(__("Timesheet created"));
 				}
 			});
+		frm.refresh();
 	})
 
 	activity.show();
