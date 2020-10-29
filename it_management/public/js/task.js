@@ -1,17 +1,22 @@
 cur_frm.dashboard.add_transactions([
     {
-	'items': [
-		'Issue'
-	],
-	'label': 'Support'
-    },
-
+		'items': [
+			'Issue'
+		],
+		'label': 'Support'
+	},
     {
         'items': [
             'Material Request'
         ],
         'label': 'Material'
-    }
+	},
+	{
+		'items': [
+			'Trip'
+		],
+		'label': 'Activity'
+	}
 ]);
 
 frappe.ui.form.on('Task', {
