@@ -17,7 +17,7 @@ Repo https://github.com/frappe/erpnext
 ## Contribute
 We have two major branches which are use.
 1. master
-2. develope
+2. development
 
 #### License
 
