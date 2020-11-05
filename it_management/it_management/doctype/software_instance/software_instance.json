@@ -80,7 +80,7 @@
    "fieldtype": "Select",
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Implementing\nRunning\nIssue\nObsolet"
+   "options": "Uninstalled\nImplementing\nRunning\nIssue\nObsolet"
   },
   {
    "bold": 1,
@@ -106,8 +106,8 @@
    "set_only_once": 1
   }
  ],
- "modified": "2020-09-09 23:32:40.818506",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-05 09:48:06.157824",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Software Instance",
  "nsm_parent_field": "parent_software_instance",
