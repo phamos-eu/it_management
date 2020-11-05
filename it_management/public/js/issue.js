@@ -52,6 +52,7 @@ frappe.ui.form.on('Issue', {
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
 			//frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
+			frm.add_custom_button('Opportunity', function () { frm.trigger('make_opportunity') }, __("Make"));
 			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
 		frm.trigger('contact');
@@ -158,6 +159,12 @@ frappe.ui.form.on('Issue', {
 			});
 		});
 		dialog.show();
+	},
+	make_opportunity: function (frm) {
+		let op = frappe.new_doc("Opportunity", {
+			"opportunity_from": "Issue",
+			"party_name":frm.doc.name //Setting this field does not work for unknown reason, maybe because it is dynamic
+		});
 	},
 	get_it_checklist: function (frm) {
 		var d = new frappe.ui.Dialog({
