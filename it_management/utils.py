@@ -182,3 +182,19 @@ def turn_off_auto_fetching_timesheets():
 				frappe.throw(_("Achtung, hier (sales_invoice.py) scheint etwas nicht zu stimmen!"))
 		else:
 			frappe.throw(_("Achtung, hier (sales_invoice.js) scheint etwas nicht zu stimmen!"))
+
+@frappe.whitelist()
+def for_every_customer_create_default_landscape():
+	try:
+		cs = frappe.db.get_all('Customer',filters={}, fields=['name','customer_name'],page_length=10000,as_list=False)
+		for c in cs:
+			doc = frappe.new_doc("IT Landscape")
+			doc.title = c["customer_name"] #Hier noch default
+			doc.customer = c["name"]
+			doc.insert()
+			frappe.db.set_value('Customer',c["name"],{
+				'it_landscape': doc.name
+			})
+	except Exception as ex:
+		frappe.throw(str(ex))
+	

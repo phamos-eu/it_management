@@ -15,5 +15,16 @@ frappe.ui.form.on('IT Management Settings', {
 				} 
 			}
 		});
+	},
+	for_every_customer_create_default_landscape: function(frm) {
+		frappe.call({
+			"method": "it_management.utils.for_every_customer_create_default_landscape",
+			"async": false,
+			"callback": function(response) {
+				if (response.message) {
+					frappe.msgprint(response.message);
+				} 
+			}
+		});
 	}
 });
