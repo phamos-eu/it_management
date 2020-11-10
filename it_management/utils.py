@@ -185,32 +185,43 @@ def turn_off_auto_fetching_timesheets():
 
 @frappe.whitelist()
 def for_every_customer_create_default_landscape():
+	print("method called")
 	try:
 		cs = frappe.db.get_all('Customer',filters={}, fields=['name','customer_name','it_landscape'],page_length=10000,as_list=False)
 		for c in cs:
 			if c["it_landscape"] == None:
 				doc = frappe.new_doc("IT Landscape")
-				doc.title = c["customer_name"] #Hier noch default
+				doc.title = c["customer_name"] 
 				doc.customer = c["name"]
 				doc.insert()
 				frappe.db.set_value('Customer',c["name"],{
 					'it_landscape': doc.name
 				})
+		frappe.msgprint(
+			msg='Done',
+			title='Done'
+		)
 	except Exception as ex:
 		frappe.throw(str(ex))
 
 @frappe.whitelist()
 def for_every_doctype_set_it_landscape_from_customer():
 	try:
-		doctypes = ['Configuration Item','Solution','IT Backup','Location','Location Room','Issue','Maintenance Visit', 'IT Checklist','Licence','Software Instance',
-					'User Account', 'User Group', 'Host Domain', 'Subnet', 'Project', 'Task'
+		doctypes = ['Configuration Item','Solution','IT Backup','Location Room','Issue','Maintenance Visit', 'IT Checklist','Licence','Software Instance',
+					'User Account', 'User Group', 'Subnet', 'Project', 'Task'
 		]
 		for doctype in doctypes:
+			print(doctype)
 			docs = frappe.db.get_all(doctype,filters={}, fields=['name','it_landscape','customer'],page_length=10000,as_list=False)
 			for doc in docs:
-				if doc["it_landscape"] == None and doc["customer"] != None:
+				if (doc["it_landscape"] == None) and (doc["customer"] != None):
 					it_landscape = frappe.db.get_value("Customer",doc["customer"],'it_landscape')
+					print(str(it_landscape))
 					frappe.db.set_value(doctype,doc["name"],'it_landscape',it_landscape)
 
+		frappe.msgprint(
+			msg='Done',
+			title='Done'
+		)
 	except Exception as ex:
 		frappe.throw(str(ex))
