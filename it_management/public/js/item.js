@@ -1,7 +1,7 @@
 cur_frm.dashboard.add_transactions([
     {
         'items': [
-            'IT Hardware'
+            'Configuration Item','Licence'
         ],
         'label': 'IT Management'
     }

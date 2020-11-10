@@ -15,6 +15,8 @@
   "customer_name",
   "type",
   "make_and_model",
+  "item_code",
+  "item_name",
   "serial_number",
   "column_break_3",
   "description",
@@ -259,10 +261,24 @@
    "fieldtype": "Link",
    "label": "Floor",
    "options": "Floor"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "remember_last_selected_value": 1
+  },
+  {
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1
   }
  ],
  "image_field": "image",
- "modified": "2020-10-12 13:01:00.032523",
+ "modified": "2020-11-10 09:49:52.097060",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",

@@ -12,6 +12,7 @@
   "status",
   "limited",
   "column_break_5",
+  "item_code",
   "software",
   "floating_licence",
   "section_break_7",
@@ -101,9 +102,15 @@
    "fieldtype": "Data",
    "label": "Customer Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
   }
  ],
- "modified": "2020-02-17 13:17:30.424070",
+ "modified": "2020-11-10 09:51:51.942945",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Licence",
