@@ -156,8 +156,7 @@ frappe.ui.form.on('Task', {
 	},
 	make_opportunity: function (frm) {
 		let op = frappe.new_doc("Opportunity", {
-			"opportunity_from": "Task",
-			"party_name":frm.doc.name //Setting this field does not work for unknown reason, maybe because it is dynamic
+			"task" : frm.doc.name
 		});
 	}
 });

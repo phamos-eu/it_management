@@ -162,8 +162,7 @@ frappe.ui.form.on('Issue', {
 	},
 	make_opportunity: function (frm) {
 		let op = frappe.new_doc("Opportunity", {
-			"opportunity_from": "Issue",
-			"party_name":frm.doc.name //Setting this field does not work for unknown reason, maybe because it is dynamic
+			"issue":frm.doc.name 
 		});
 	},
 	get_it_checklist: function (frm) {
