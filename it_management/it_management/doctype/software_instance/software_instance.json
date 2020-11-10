@@ -18,6 +18,7 @@
   "section_break_10",
   "licence_table",
   "customer",
+  "it_landscape",
   "supplier"
  ],
  "fields": [
@@ -104,9 +105,17 @@
    "label": "Parent Software Instance",
    "options": "Software Instance",
    "set_only_once": 1
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-11-05 09:48:06.157824",
+ "modified": "2020-11-10 11:10:23.631832",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Software Instance",

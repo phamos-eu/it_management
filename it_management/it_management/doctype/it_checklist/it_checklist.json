@@ -10,6 +10,7 @@
   "title",
   "customer",
   "customer_name",
+  "it_landscape",
   "type",
   "status",
   "column_break_5",
@@ -95,10 +96,18 @@
    "options": "IT Checklist",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-03-21 18:25:06.789941",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-10 11:07:54.299932",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Checklist",
  "owner": "Administrator",

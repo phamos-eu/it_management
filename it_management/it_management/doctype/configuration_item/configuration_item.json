@@ -13,6 +13,7 @@
   "status",
   "customer",
   "customer_name",
+  "it_landscape",
   "type",
   "make_and_model",
   "item_code",
@@ -275,10 +276,18 @@
    "fieldtype": "Data",
    "label": "Item Name",
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
  "image_field": "image",
- "modified": "2020-11-10 09:49:52.097060",
+ "modified": "2020-11-10 11:00:48.326445",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",

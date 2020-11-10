@@ -12,6 +12,7 @@
   "user_name",
   "customer",
   "customer_name",
+  "it_landscape",
   "contact",
   "section_break_7",
   "description",
@@ -165,10 +166,18 @@
   {
    "fieldname": "section_break_7",
    "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-05-18 17:51:49.535858",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-10 11:11:02.831873",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "User Account",
  "owner": "Administrator",

@@ -14,6 +14,7 @@
   "column_break_3",
   "customer",
   "customer_name",
+  "it_landscape",
   "location",
   "supplier",
   "section_break_7",
@@ -110,10 +111,18 @@
    "fieldtype": "Link",
    "label": "Location",
    "options": "Location"
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-03-21 22:32:51.719596",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-10 11:01:54.421134",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Solution",
  "owner": "wolfram.schmidt@tueit.de",

@@ -13,8 +13,6 @@ def get_data():
                 'items': [
                     'Configuration Item',
                     'Solution',
-                    'Socket',
-                    'IT Hardware',
                     'IT Backup'
                 ]
             },
@@ -31,7 +29,6 @@ def get_data():
                 'label': _('Locations'),
                 'items': [
                     'Location',
-                    'Address',
                     'Location Room'
                 ]
             },
@@ -47,8 +44,14 @@ def get_data():
                 'items': [
                     'Issue',
                     'Maintenance Visit',
-                    'IT Checklist',
-                    'IT Service Report'
+                    'IT Checklist'
+                ]
+            },
+            {
+                'label': _('Projects'),
+                'items': [
+                    'Project',
+                    'Task'
                 ]
             }
         ]

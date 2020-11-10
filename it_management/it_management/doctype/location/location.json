@@ -10,7 +10,8 @@
   "title",
   "section_break_3",
   "address",
-  "address_display"
+  "address_display",
+  "it_landscape"
  ],
  "fields": [
   {
@@ -37,10 +38,17 @@
    "fieldtype": "HTML",
    "label": "Address Display",
    "read_only": 1
+  },
+  {
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-06-16 16:05:52.051818",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-10 11:17:28.056911",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Location",
  "owner": "wolfram.schmidt@tueit.de",

@@ -19,6 +19,7 @@
   "note",
   "customer",
   "customer_name",
+  "it_landscape",
   "expiration_date",
   "user_account"
  ],
@@ -108,9 +109,17 @@
    "fieldtype": "Link",
    "label": "Item",
    "options": "Item"
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-11-10 09:51:51.942945",
+ "modified": "2020-11-10 11:09:36.678459",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Licence",

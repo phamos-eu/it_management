@@ -11,6 +11,7 @@
   "status",
   "customer",
   "full_customer_name",
+  "it_landscape",
   "solution",
   "description",
   "software",
@@ -133,10 +134,18 @@
    "fieldtype": "Link",
    "label": "Solution",
    "options": "Solution"
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-05-19 17:58:45.461389",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-10 11:02:50.741316",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Backup",
  "owner": "Administrator",

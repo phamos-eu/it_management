@@ -33,18 +33,6 @@ def get_data():
                 },
                 {
                     "type": "doctype",
-                    "name": "Network Jack",
-                    "label": _("Network Jack"),
-                    "description": _("Network Jack")
-                },
-                {
-                    "type": "doctype",
-                    "name": "IT Hardware",
-                    "label": _("IT Hardware"),
-                    "description": _("IT Hardware")
-                },
-                {
-                    "type": "doctype",
                     "name": "IT Backup",
                     "label": _("IT Backup"),
                     "description": _("IT Backup")
@@ -155,12 +143,6 @@ def get_data():
                 },
                 {
                     "type": "doctype",
-                    "name": "IT Service Report",
-                    "label": _("IT Service Report"),
-                    "description": _("IT Service Report")
-                },
-                {
-                    "type": "doctype",
                     "name": "Maintenance Visit",
                     "label": _("Maintenance Visit"),
                     "description": _("Maintenance Visit")
@@ -176,13 +158,7 @@ def get_data():
                     "name": "Issue",
                     "label": _("Issue"),
                     "description": _("Issue")
-                },
-                {
-                    "type": "doctype",
-                    "name": "Timesheet",
-                    "label": _("Timesheet"),
-                    "description": _("Timesheet")
-                },
+                }
             ]
         },
         {

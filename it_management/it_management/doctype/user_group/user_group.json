@@ -9,6 +9,7 @@
   "title",
   "customer",
   "customer_name",
+  "it_landscape",
   "desription",
   "solution",
   "user_accounts",
@@ -63,10 +64,19 @@
    "fieldtype": "Link",
    "label": "User Account",
    "options": "User Account"
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-03-25 22:11:49.236572",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-10 11:11:38.128012",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "User Group",
  "owner": "wolfram.schmidt@tueit.de",
