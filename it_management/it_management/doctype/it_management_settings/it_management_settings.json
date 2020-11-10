@@ -24,6 +24,11 @@
     "fieldtype": "Button",
     "label": "For every customer create default landscape"
    },
+   {
+    "fieldname": "for_every_doctype_set_it_landscape_from_customer",
+    "fieldtype": "Button",
+    "label": "For every doctype set it landscape from customer"
+   },
   {
    "fieldname": "customer",
    "fieldtype": "Link",
