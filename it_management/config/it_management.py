@@ -147,12 +147,12 @@ def get_data():
         {
             "label": _("Service"),
             "items": [
-                # {
-                    # "type": "doctype",
-                    # "name": "IT Ticket",
-                    # "label": _("IT Ticket"),
-                    # "description": _("IT Ticket")
-                # },
+                {
+                     "type": "doctype",
+                     "name": "IT Landscape",
+                     "label": _("IT Landscape"),
+                     "description": _("IT Landscape")
+                },
                 {
                     "type": "doctype",
                     "name": "IT Service Report",
@@ -161,16 +161,28 @@ def get_data():
                 },
                 {
                     "type": "doctype",
-                    "name": "Timesheet",
-                    "label": _("Timesheet"),
-                    "description": _("Timesheet")
+                    "name": "Maintenance Visit",
+                    "label": _("Maintenance Visit"),
+                    "description": _("Maintenance Visit")
                 },
                 {
                     "type": "doctype",
                     "name": "IT Checklist",
                     "label": _("IT Checklist"),
                     "description": _("IT Checklist")
-                }
+                },
+                {
+                    "type": "doctype",
+                    "name": "Issue",
+                    "label": _("Issue"),
+                    "description": _("Issue")
+                },
+                {
+                    "type": "doctype",
+                    "name": "Timesheet",
+                    "label": _("Timesheet"),
+                    "description": _("Timesheet")
+                },
             ]
         },
         {

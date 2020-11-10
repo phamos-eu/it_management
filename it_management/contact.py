@@ -8,17 +8,16 @@ from frappe import _
 # and passed along to the next app to be modified
 def get_dashboard_data(data):
     return {
-        'fieldname': 'contact',
+        'fieldname': 'contact_person',
         'non_standard_fieldnames': {
-            'Quotation':'contact_person',
-            'Sales Order':'contact_person',
-            'Sales Invoice':'contact_person',
-            'Maintenance Visit':'contact_person'
+            'Issue':'contact',
+            'User Account':'contact'
+
         },
         'transactions': [
             {
                 'label': _('CRM'),
-                'items': []
+                'items': ['Opportunity']
             },
             {
                 'label': _('Selling'),
