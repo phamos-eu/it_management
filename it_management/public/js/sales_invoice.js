@@ -14,7 +14,10 @@ frappe.ui.form.on('Sales Invoice', {
 		});
 	},
 	after_save(frm){
-		pull_timesheets_on_save(frm)
+		if(frm.docstatus != 1){
+			pull_timesheets_on_save(frm)
+		}
+		
 	},
 	refresh: function (frm) {
 		//cur_frm.add_custom_button('Issue', function () { frm.trigger('get_issue_ts') }, __("Get items from"));
