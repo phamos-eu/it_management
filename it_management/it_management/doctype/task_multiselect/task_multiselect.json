@@ -1,0 +1,29 @@
+{
+ "creation": "2020-11-12 09:47:48.999033",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "task"
+ ],
+ "fields": [
+  {
+   "fieldname": "task",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Task",
+   "options": "Task"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-11-12 09:47:48.999033",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "Task Multiselect",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

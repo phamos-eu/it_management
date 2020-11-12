@@ -32,6 +32,7 @@ doctype_js = {
     "Task" : "public/js/task.js",
     "Project" : "public/js/project.js",
     "Sales Invoice" : "public/js/sales_invoice.js",
+    "Sales Invoice Timesheet" : "public/js/sales_invoice_timesheets.js",
     "Maintenance Visit" : "public/js/maintenance_visit.js",
     "Event" : "public/js/event.js",
     "Item" : "public/js/item.js",

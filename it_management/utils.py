@@ -114,7 +114,7 @@ def get_it_management_table(customer=None, type=None, status=None):
 def get_it_management_table_from_source(source="IT Checklist", reference=None):
 	return frappe.get_doc(source, reference).it_management_table
 	
-@frappe.whitelist()
+@frappe.whitelist() #TODO Remove this... is being called via Sales Invoice -> Get items from -> ...
 def get_timesheets_from_source(source, source_ref):
 	if source == 'Project':
 		return frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` AS `billing_amt`
@@ -140,6 +140,42 @@ def get_timesheets_from_source(source, source_ref):
 				AND `sales_invoice` IS NULL AND `parent` = '{ts}'""".format(ts=ts.name), as_dict=True)
 		else:
 			return []
+
+@frappe.whitelist()
+def add_sales_invoice_timesheets(data):
+	if(isinstance(data,str)):
+		data = json.loads(data)
+	
+	print(data)
+
+	#Remove all existing Timesheets from Sales Invoice if Tasks have been selecte
+	if len(data["tasks"]) > 0:
+		print(data["existing_sales_invoice_ts"])
+		for sits in data["existing_sales_invoice_ts"]:
+			print("Deleteing: " + str(sits))
+			doc = frappe.get_doc("Sales Invoice Timesheet",sits)
+			doc.delete()
+
+	#Get Timesheet Details of the Tasks
+	for task in data["tasks"]:
+		tsdetails = frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` AS `billing_amt`
+				FROM `tabTimesheet Detail` WHERE `parenttype` = 'Timesheet' AND `docstatus` = 1 AND `task` = '{task}' AND `billable` = 1
+				AND `sales_invoice` IS NULL""".format(task=task["task"]), as_dict=True)
+
+		for tsdetail in tsdetails:
+			#if tsdetail["parent"] not in data["existing_ts"]:
+			#Insert selected Timesheets to Sales Invoice
+			doc = frappe.get_doc('Sales Invoice', data["sales invoice"])
+			doc.append('timesheets', {
+				'time_sheet': tsdetail["parent"],
+				'billing_hours': tsdetail["billing_hours"],
+				'billing_amount': tsdetail["billing_amt"],
+				'timesheet_detail': tsdetail["name"]
+			})
+			doc.save()
+	
+	return "Done"
+	
 			
 @frappe.whitelist()
 def turn_off_auto_fetching_timesheets():
