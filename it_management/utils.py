@@ -174,6 +174,12 @@ def add_sales_invoice_timesheets(data):
 			})
 			doc.save()
 	
+	#If Pull Timesheets on Save not active: Delete all Timesheets from DB
+	if(data["pull_timesheets_on_save"] == 0):
+		print("deleting timesheets")
+		frappe.db.sql("""DELETE FROM `tabSales Invoice Timesheet` 
+				WHERE parent LIKE '{sales_invoice}';""".format(sales_invoice=data["sales invoice"]), as_dict=True)
+	
 	return "Done"
 	
 			
