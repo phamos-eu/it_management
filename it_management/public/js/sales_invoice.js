@@ -2,8 +2,16 @@ var it_management_sales_invoice_reload_after_save_tmp = false
 
 frappe.ui.form.on('Sales Invoice', {
 	save_and_reload(frm){
-		it_management_sales_invoice_reload_after_save_tmp = true
-		frm.save();
+		frappe.msgprint({
+			title: __('Notification'),
+			message: __('Are you sure you want to proceed?'),
+			primary_action:{
+				action(values) {
+					it_management_sales_invoice_reload_after_save_tmp = true
+					frm.save();
+				}
+			}
+		});
 	},
 	after_save(frm){
 		pull_timesheets_on_save(frm)
