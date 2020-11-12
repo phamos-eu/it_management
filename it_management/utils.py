@@ -170,7 +170,8 @@ def add_sales_invoice_timesheets(data):
 				'time_sheet': tsdetail["parent"],
 				'billing_hours': tsdetail["billing_hours"],
 				'billing_amount': tsdetail["billing_amt"],
-				'timesheet_detail': tsdetail["name"]
+				'timesheet_detail': tsdetail["name"],
+				'owner' : frappe.session.user
 			})
 			doc.save()
 	
