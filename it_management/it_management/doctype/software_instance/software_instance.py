@@ -5,6 +5,14 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
+import re
 
 class SoftwareInstance(Document):
+	def before_save(self):
+
+		#Fetch IT Landscape
+		if self.customer and not self.it_landscape:
+			customer = frappe.get_doc("Customer",self.customer)
+			self.it_landscape = customer.it_landscape
+
 	pass

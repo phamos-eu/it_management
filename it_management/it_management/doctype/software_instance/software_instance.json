@@ -8,8 +8,8 @@
  "engine": "InnoDB",
  "field_order": [
   "status",
-  "parent_software_instance",
   "configuration_item",
+  "parent_software_instance",
   "software",
   "solution",
   "column_break_7",
@@ -107,15 +107,13 @@
    "set_only_once": 1
   },
   {
-   "fetch_from": "customer.it_landscape",
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
-   "options": "IT Landscape",
-   "reqd": 1
+   "options": "IT Landscape"
   }
  ],
- "modified": "2020-11-10 11:10:23.631832",
+ "modified": "2020-11-13 13:03:11.913957",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Software Instance",
@@ -147,7 +145,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "software,configuration_item",
  "sort_field": "modified",
  "sort_order": "DESC",
