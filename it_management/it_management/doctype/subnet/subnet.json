@@ -19,7 +19,6 @@
   "dhcp",
   "dhcp_range",
   "column_break_12",
-  "wan_address",
   "dns_1",
   "dns_2",
   "ntp_1",
@@ -159,14 +158,9 @@
    "fieldname": "additional_information_section",
    "fieldtype": "Section Break",
    "label": "Additional Information"
-  },
-  {
-   "fieldname": "wan_address",
-   "fieldtype": "Data",
-   "label": "WAN Address"
   }
  ],
- "modified": "2020-11-13 11:11:41.350256",
+ "modified": "2020-11-13 17:29:27.349307",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Subnet",
