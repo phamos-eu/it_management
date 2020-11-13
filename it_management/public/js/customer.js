@@ -1,14 +1,8 @@
 cur_frm.dashboard.add_transactions([
     {
         'items': [
-            'Configuration Item',
-            'Solution',
-            'IT Backup',
-            'Subnet',
-            'Licence',
-            'User Account',
-            'User Group',
-            'IT Checklist'
+            'IT Landscape',
+            'Solution'
         ],
         'label': 'IT Management'
     }
