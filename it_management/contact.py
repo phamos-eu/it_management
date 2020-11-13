@@ -11,7 +11,8 @@ def get_dashboard_data(data):
         'fieldname': 'contact_person',
         'non_standard_fieldnames': {
             'Issue':'contact',
-            'User Account':'contact'
+            'User Account':'contact',
+            'Configuration Item' : 'contact'
 
         },
         'transactions': [
@@ -29,7 +30,7 @@ def get_dashboard_data(data):
             },
             {
                 'label': _('IT Management'),
-                'items': ['User Account']
+                'items': ['User Account','Configuration Item']
             }
         ]
     }

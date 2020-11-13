@@ -173,7 +173,6 @@
   {
    "fieldname": "contact_table",
    "fieldtype": "Table",
-   "hidden": 1,
    "in_preview": 1,
    "label": "Contact Table",
    "options": "Contact Table"
@@ -220,8 +219,7 @@
   },
   {
    "fieldname": "section_break_27",
-   "fieldtype": "Section Break",
-   "hidden": 1
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "location",
@@ -259,7 +257,7 @@
   }
  ],
  "image_field": "image",
- "modified": "2020-11-13 17:00:11.882759",
+ "modified": "2020-11-13 17:19:32.173223",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
