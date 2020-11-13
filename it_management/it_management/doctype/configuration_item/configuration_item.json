@@ -22,11 +22,7 @@
   "column_break_3",
   "description",
   "solutions",
-  "configuration_items",
-  "table_multiselect_11",
   "solution_table",
-  "dependencies_and_relationships",
-  "contacts",
   "ci_solution",
   "networking",
   "nics",
@@ -112,18 +108,12 @@
   {
    "fieldname": "solution_table",
    "fieldtype": "Table",
-   "hidden": 1,
    "label": "Solutions",
    "options": "Solution Table"
   },
   {
-   "fieldname": "dependencies_and_relationships",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "ci_solution",
    "fieldtype": "Table",
-   "hidden": 1,
    "in_standard_filter": 1,
    "label": "Configuration Items",
    "options": "Configuration Item Table"
@@ -229,27 +219,9 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "table_multiselect_11",
-   "fieldtype": "Table MultiSelect",
-   "label": "Solutions",
-   "options": "Solution Multiselect"
-  },
-  {
-   "fieldname": "configuration_items",
-   "fieldtype": "Table MultiSelect",
-   "label": "Configuration Items",
-   "options": "Configuration Item Multiselect"
-  },
-  {
    "fieldname": "section_break_27",
    "fieldtype": "Section Break",
    "hidden": 1
-  },
-  {
-   "fieldname": "contacts",
-   "fieldtype": "Table MultiSelect",
-   "label": "Contacts",
-   "options": "Contact Multiselect"
   },
   {
    "fieldname": "location",
@@ -287,7 +259,7 @@
   }
  ],
  "image_field": "image",
- "modified": "2020-11-13 10:01:03.615112",
+ "modified": "2020-11-13 17:00:11.882759",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
