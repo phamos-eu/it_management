@@ -9,17 +9,19 @@
  "field_order": [
   "naming_series",
   "title",
-  "status",
-  "limited",
-  "column_break_5",
-  "software",
-  "floating_licence",
-  "section_break_7",
-  "note",
   "customer",
   "customer_name",
+  "it_landscape",
+  "column_break_5",
+  "status",
+  "software",
+  "limited",
   "expiration_date",
-  "user_account"
+  "item_code",
+  "floating_licence",
+  "section_break_7",
+  "user_account",
+  "note"
  ],
  "fields": [
   {
@@ -101,9 +103,23 @@
    "fieldtype": "Data",
    "label": "Customer Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
   }
  ],
- "modified": "2020-02-17 13:17:30.424070",
+ "modified": "2020-11-13 11:16:06.234929",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Licence",
@@ -134,7 +150,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "customer,customer_name,software,title,expiration_date",
  "sort_field": "modified",
  "sort_order": "DESC",

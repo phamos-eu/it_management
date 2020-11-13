@@ -9,7 +9,7 @@
   "manufacturer",
   "model",
   "description",
-  "item"
+  "item_code"
  ],
  "fields": [
   {
@@ -38,13 +38,13 @@
    "label": "Description"
   },
   {
-   "fieldname": "item",
+   "fieldname": "item_code",
    "fieldtype": "Link",
    "label": "Item",
    "options": "Item"
   }
  ],
- "modified": "2019-10-30 09:01:05.305017",
+ "modified": "2020-11-05 11:37:05.927026",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Hardware",

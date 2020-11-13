@@ -114,7 +114,7 @@ def get_it_management_table(customer=None, type=None, status=None):
 def get_it_management_table_from_source(source="IT Checklist", reference=None):
 	return frappe.get_doc(source, reference).it_management_table
 	
-@frappe.whitelist()
+@frappe.whitelist() #TODO Remove this... is being called via Sales Invoice -> Get items from -> ...
 def get_timesheets_from_source(source, source_ref):
 	if source == 'Project':
 		return frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` AS `billing_amt`
@@ -140,6 +140,52 @@ def get_timesheets_from_source(source, source_ref):
 				AND `sales_invoice` IS NULL AND `parent` = '{ts}'""".format(ts=ts.name), as_dict=True)
 		else:
 			return []
+
+@frappe.whitelist()
+def add_sales_invoice_timesheets(data):
+	try:
+		if(isinstance(data,str)):
+			data = json.loads(data)
+		
+		print(data)
+
+		#Remove all existing Timesheets from Sales Invoice if Tasks have been selecte
+		if len(data["tasks"]) > 0:
+			print(data["existing_sales_invoice_ts"])
+			for sits in data["existing_sales_invoice_ts"]:
+				print("Deleteing: " + str(sits))
+				doc = frappe.get_doc("Sales Invoice Timesheet",sits)
+				doc.delete()
+
+		#Get Timesheet Details of the Tasks
+		for task in data["tasks"]:
+			tsdetails = frappe.db.sql("""SELECT `name`, `parent`, `billing_hours`, `billing_amount` AS `billing_amt`
+					FROM `tabTimesheet Detail` WHERE `parenttype` = 'Timesheet' AND `docstatus` = 1 AND `task` = '{task}' AND `billable` = 1
+					AND `sales_invoice` IS NULL""".format(task=task["task"]), as_dict=True)
+
+			for tsdetail in tsdetails:
+				#if tsdetail["parent"] not in data["existing_ts"]:
+				#Insert selected Timesheets to Sales Invoice
+				doc = frappe.get_doc('Sales Invoice', data["sales invoice"])
+				doc.append('timesheets', {
+					'time_sheet': tsdetail["parent"],
+					'billing_hours': tsdetail["billing_hours"],
+					'billing_amount': tsdetail["billing_amt"],
+					'timesheet_detail': tsdetail["name"],
+					'owner' : frappe.session.user
+				})
+				doc.save()
+		
+		#If Pull Timesheets on Save not active: Delete all Timesheets from DB
+		if(data["pull_timesheets_on_save"] == 0):
+			print("deleting timesheets")
+			frappe.db.sql("""DELETE FROM `tabSales Invoice Timesheet` 
+					WHERE parent LIKE '{sales_invoice}';""".format(sales_invoice=data["sales invoice"]), as_dict=True)
+		
+		return "Done"
+	except Exception as ex:
+		frappe.throw(str(ex), ex, "Error while saving or while adding timesheets.")
+	
 			
 @frappe.whitelist()
 def turn_off_auto_fetching_timesheets():
@@ -182,3 +228,46 @@ def turn_off_auto_fetching_timesheets():
 				frappe.throw(_("Achtung, hier (sales_invoice.py) scheint etwas nicht zu stimmen!"))
 		else:
 			frappe.throw(_("Achtung, hier (sales_invoice.js) scheint etwas nicht zu stimmen!"))
+
+@frappe.whitelist()
+def for_every_customer_create_default_landscape():
+	print("method called")
+	try:
+		cs = frappe.db.get_all('Customer',filters={}, fields=['name','customer_name','it_landscape'],page_length=10000,as_list=False)
+		for c in cs:
+			if c["it_landscape"] == None:
+				doc = frappe.new_doc("IT Landscape")
+				doc.title = c["customer_name"] 
+				doc.customer = c["name"]
+				doc.insert()
+				frappe.db.set_value('Customer',c["name"],{
+					'it_landscape': doc.name
+				})
+		frappe.msgprint(
+			msg='Done',
+			title='Done'
+		)
+	except Exception as ex:
+		frappe.throw(str(ex))
+
+@frappe.whitelist()
+def for_every_doctype_set_it_landscape_from_customer():
+	try:
+		doctypes = ['Configuration Item','Solution','IT Backup','Location Room','Issue','Maintenance Visit', 'IT Checklist','Licence','Software Instance',
+					'User Account', 'User Group', 'Subnet', 'Project', 'Task'
+		]
+		for doctype in doctypes:
+			print(doctype)
+			docs = frappe.db.get_all(doctype,filters={}, fields=['name','it_landscape','customer'],page_length=10000,as_list=False)
+			for doc in docs:
+				if (doc["it_landscape"] == None) and (doc["customer"] != None):
+					it_landscape = frappe.db.get_value("Customer",doc["customer"],'it_landscape')
+					print(str(it_landscape))
+					frappe.db.set_value(doctype,doc["name"],'it_landscape',it_landscape)
+
+		frappe.msgprint(
+			msg='Done',
+			title='Done'
+		)
+	except Exception as ex:
+		frappe.throw(str(ex))

@@ -48,10 +48,9 @@ frappe.ui.form.on('Issue', {
 	refresh: function (frm) {
 		if (!frm.is_new()) {
 			frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
-			frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
-			//frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
-			frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
+			//frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
+			frm.add_custom_button('Opportunity', function () { frm.trigger('make_opportunity') }, __("Make"));
 			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
 		frm.trigger('contact');
@@ -107,11 +106,6 @@ frappe.ui.form.on('Issue', {
 	add_activity: function (frm) {
 		activity_dialog(frm); //This has been moved to itm_utils.js which is a loaded asset in it_management
 	},
-	make_purchase_order: function (frm) {
-		frappe.new_doc("Purchase Order", {
-			"issue": frm.doc.name
-		});
-	},
 	make_delivery_note: function (frm) {
 		frappe.new_doc("Delivery Note", {
 			"customer": frm.doc.customer,
@@ -119,14 +113,6 @@ frappe.ui.form.on('Issue', {
 			"issue": frm.doc.name
 		});
 	},
-	/*
-	make_it_service_report: function (frm) {
-		frappe.new_doc("IT Service Report", {
-			"issue": frm.doc.name,
-			"project": frm.doc.project,
-			//"task": frm.doc.task
-		});
-	},*/
 	make_sales_invoice: function (frm) {
 		let dialog = new frappe.ui.Dialog({
 			title: __("Select Item (optional)"),
@@ -158,6 +144,11 @@ frappe.ui.form.on('Issue', {
 			});
 		});
 		dialog.show();
+	},
+	make_opportunity: function (frm) {
+		let op = frappe.new_doc("Opportunity", {
+			"issue":frm.doc.name 
+		});
 	},
 	get_it_checklist: function (frm) {
 		var d = new frappe.ui.Dialog({

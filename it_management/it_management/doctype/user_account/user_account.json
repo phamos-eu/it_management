@@ -8,17 +8,20 @@
  "engine": "InnoDB",
  "field_order": [
   "type",
-  "status",
-  "user_name",
+  "general_section",
   "customer",
   "customer_name",
+  "it_landscape",
   "contact",
-  "section_break_7",
-  "description",
+  "column_break_6",
+  "status",
+  "user_name",
   "host_section",
   "software_instance",
   "column_break_11",
   "configuration_item",
+  "section_break_10",
+  "description",
   "user_accounts",
   "user_account_table",
   "section_break_8",
@@ -163,12 +166,29 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "section_break_7",
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
+  },
+  {
+   "fieldname": "general_section",
+   "fieldtype": "Section Break",
+   "label": "General"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_10",
    "fieldtype": "Section Break"
   }
  ],
- "modified": "2020-05-18 17:51:49.535858",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-13 11:24:03.019046",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "User Account",
  "owner": "Administrator",
@@ -198,7 +218,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "description,user_name,customer",
  "sort_field": "modified",
  "sort_order": "DESC",

@@ -1,9 +1,34 @@
+var it_management_sales_invoice_reload_after_save_tmp = false
+
 frappe.ui.form.on('Sales Invoice', {
+	save_and_reload(frm){
+		frappe.msgprint({
+			title: __('Notification'),
+			message: __('Are you sure you want to proceed?'),
+			primary_action:{
+				action(values) {
+					it_management_sales_invoice_reload_after_save_tmp = true
+					frm.save();
+				}
+			}
+		});
+	},
+	after_save(frm){
+		if(frm.docstatus != 1){
+			pull_timesheets_on_save(frm)
+		}
+	},
 	refresh: function (frm) {
-		cur_frm.add_custom_button('Issue', function () { frm.trigger('get_issue_ts') }, __("Get items from"));
-		cur_frm.add_custom_button('IT Service Report', function () { frm.trigger('get_it_service_report_ts') }, __("Get items from"));
-		cur_frm.add_custom_button('Task', function () { frm.trigger('get_task_ts') }, __("Get items from"));
-		cur_frm.add_custom_button('Project', function () { frm.trigger('get_project_ts') }, __("Get items from"));
+		//cur_frm.add_custom_button('Issue', function () { frm.trigger('get_issue_ts') }, __("Get items from"));
+		//cur_frm.add_custom_button('IT Service Report', function () { frm.trigger('get_it_service_report_ts') }, __("Get items from"));
+		//cur_frm.add_custom_button('Task', function () { frm.trigger('get_task_ts') }, __("Get items from"));
+		//cur_frm.add_custom_button('Project', function () { frm.trigger('get_project_ts') }, __("Get items from"));
+	},
+	onload: function(frm) {
+		filter_tasks(frm);
+	},
+	project: function(frm) {
+		filter_tasks(frm);
 	},
 	get_issue_ts: function (frm) {
 		get_ts_dialog(frm, 'Issue');
@@ -18,6 +43,55 @@ frappe.ui.form.on('Sales Invoice', {
 		get_ts_dialog(frm, 'Project');
 	}
 });
+
+function pull_timesheets_on_save(frm){
+	//Create an array of timesheet names already in the childtable
+	var timesheet_items = frm.doc.timesheets
+	var existing_ts = []
+	var existing_sales_invoice_ts = []
+	for (let i = 0; i < timesheet_items.length; i++) {
+		const element = timesheet_items[i]["time_sheet"];
+		const sales_invoice_ts = timesheet_items[i]["name"];
+		existing_ts.push(element);
+		existing_sales_invoice_ts.push(sales_invoice_ts);
+	}
+
+	//Go through all Tasks in Multiselect
+	frappe.call({
+		method: "it_management.utils.add_sales_invoice_timesheets",
+		args : { 'data' : {
+			"tasks" : frm.doc.tasks,
+			"existing_ts" : existing_ts,
+			"existing_sales_invoice_ts" : existing_sales_invoice_ts,
+			"sales invoice" : frm.doc.name,
+			"pull_timesheets_on_save" : frm.doc.pull_timesheets_on_save
+			}
+		},
+		callback: function(r) {
+			if (r.message) {
+				console.log(r.message);
+			}
+			if(it_management_sales_invoice_reload_after_save_tmp){
+				frm.reload_doc();
+				location.reload();
+				it_management_sales_invoice_reload_after_save_tmp = false
+			}
+			
+		}
+	});
+}
+
+function filter_tasks(frm){
+	frm.set_query("tasks", function() {  
+		if (frm.doc.project) {   
+			return {
+				'filters': {
+					"project" : frm.doc.project
+				}
+			};
+		}
+	});
+}
 
 function get_ts_dialog(frm, source) {
 	var source_ref = '';

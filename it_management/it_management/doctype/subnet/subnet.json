@@ -8,20 +8,27 @@
  "engine": "InnoDB",
  "field_order": [
   "subnet",
+  "general_section",
+  "customer",
+  "customer_name",
+  "it_landscape",
+  "column_break_6",
   "status",
-  "note",
+  "information_section",
+  "gateway",
   "dhcp",
   "dhcp_range",
+  "column_break_12",
   "dns_1",
   "dns_2",
-  "gateway",
   "ntp_1",
   "ntp_2",
-  "wireless",
+  "vlan_section",
   "vlan_tag",
   "vlan_host",
-  "customer",
-  "customer_name"
+  "additional_information_section",
+  "wireless",
+  "note"
  ],
  "fields": [
   {
@@ -115,10 +122,46 @@
    "fieldtype": "Link",
    "label": "VLAN Host",
    "options": "Configuration Item"
+  },
+  {
+   "fetch_from": "customer.it_landscape",
+   "fieldname": "it_landscape",
+   "fieldtype": "Link",
+   "label": "IT Landscape",
+   "options": "IT Landscape",
+   "reqd": 1
+  },
+  {
+   "fieldname": "general_section",
+   "fieldtype": "Section Break",
+   "label": "General"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "information_section",
+   "fieldtype": "Section Break",
+   "label": "Information"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vlan_section",
+   "fieldtype": "Section Break",
+   "label": "VLAN"
+  },
+  {
+   "fieldname": "additional_information_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Information"
   }
  ],
- "modified": "2020-05-18 17:22:32.596659",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-13 17:29:27.349307",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Subnet",
  "owner": "wolfram.schmidt@tueit.de",
@@ -148,7 +191,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "customer, customer_name,wireless",
  "sort_field": "modified",
  "sort_order": "DESC",

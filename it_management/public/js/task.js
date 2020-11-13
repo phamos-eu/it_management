@@ -38,6 +38,7 @@ frappe.ui.form.on('Task', {
 		cur_frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
 		//cur_frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 		cur_frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
+		cur_frm.add_custom_button('Opportunity', function () { frm.trigger('make_opportunity') }, __("Make"));
 	},
 	make_ticket: function (frm) {
 		let options = {
@@ -152,6 +153,11 @@ frappe.ui.form.on('Task', {
 			});
 		});
 		dialog.show();
+	},
+	make_opportunity: function (frm) {
+		let op = frappe.new_doc("Opportunity", {
+			"task" : frm.doc.name
+		});
 	}
 });
 

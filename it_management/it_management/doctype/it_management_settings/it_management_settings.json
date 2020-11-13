@@ -20,6 +20,16 @@
    "label": "Turn off auto fetching Timesheets"
   },
   {
+    "fieldname": "for_every_customer_create_default_landscape",
+    "fieldtype": "Button",
+    "label": "For every customer create default landscape"
+   },
+   {
+    "fieldname": "for_every_doctype_set_it_landscape_from_customer",
+    "fieldtype": "Button",
+    "label": "For every doctype set it landscape from customer"
+   },
+  {
    "fieldname": "customer",
    "fieldtype": "Link",
    "hidden": 1,
@@ -28,8 +38,8 @@
   }
  ],
  "issingle": 1,
- "modified": "2020-03-21 23:11:06.060372",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-11-10 12:11:06.060372",
+ "modified_by": "marius.widmann@tueit.de",
  "module": "IT Management",
  "name": "IT Management Settings",
  "owner": "Administrator",
