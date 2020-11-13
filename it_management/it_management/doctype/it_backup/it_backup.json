@@ -16,6 +16,7 @@
   "it_landscape",
   "section_break_9",
   "description",
+  "starts_on",
   "column_break_11",
   "software",
   "encryption",
@@ -50,7 +51,8 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "description",
@@ -78,7 +80,8 @@
    "fieldname": "source_item",
    "fieldtype": "Link",
    "label": "Source Item",
-   "options": "Configuration Item"
+   "options": "Configuration Item",
+   "reqd": 1
   },
   {
    "depends_on": "eval:doc.source_item != \"\"",
@@ -168,9 +171,15 @@
   {
    "fieldname": "section_break_20",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "starts_on",
+   "fieldtype": "Datetime",
+   "label": "Starts on",
+   "reqd": 1
   }
  ],
- "modified": "2020-11-13 10:13:35.336260",
+ "modified": "2020-11-13 13:22:23.804294",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Backup",
