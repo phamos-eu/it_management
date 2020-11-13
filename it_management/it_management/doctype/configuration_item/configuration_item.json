@@ -287,7 +287,7 @@
   }
  ],
  "image_field": "image",
- "modified": "2020-11-10 12:01:40.337505",
+ "modified": "2020-11-13 10:01:03.615112",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
@@ -318,7 +318,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "title,type,customer,description",
  "show_name_in_global_search": 1,
  "show_preview_popup": 1,

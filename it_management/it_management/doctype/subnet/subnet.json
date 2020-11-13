@@ -8,21 +8,28 @@
  "engine": "InnoDB",
  "field_order": [
   "subnet",
-  "status",
-  "note",
-  "dhcp",
-  "dhcp_range",
-  "dns_1",
-  "dns_2",
-  "gateway",
-  "ntp_1",
-  "ntp_2",
-  "wireless",
-  "vlan_tag",
-  "vlan_host",
+  "general_section",
   "customer",
   "customer_name",
-  "it_landscape"
+  "it_landscape",
+  "column_break_6",
+  "status",
+  "information_section",
+  "gateway",
+  "dhcp",
+  "dhcp_range",
+  "column_break_12",
+  "wan_address",
+  "dns_1",
+  "dns_2",
+  "ntp_1",
+  "ntp_2",
+  "vlan_section",
+  "vlan_tag",
+  "vlan_host",
+  "additional_information_section",
+  "wireless",
+  "note"
  ],
  "fields": [
   {
@@ -124,9 +131,42 @@
    "label": "IT Landscape",
    "options": "IT Landscape",
    "reqd": 1
+  },
+  {
+   "fieldname": "general_section",
+   "fieldtype": "Section Break",
+   "label": "General"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "information_section",
+   "fieldtype": "Section Break",
+   "label": "Information"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vlan_section",
+   "fieldtype": "Section Break",
+   "label": "VLAN"
+  },
+  {
+   "fieldname": "additional_information_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "wan_address",
+   "fieldtype": "Data",
+   "label": "WAN Address"
   }
  ],
- "modified": "2020-11-10 11:12:56.331948",
+ "modified": "2020-11-13 11:11:41.350256",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Subnet",
@@ -157,7 +197,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "customer, customer_name,wireless",
  "sort_field": "modified",
  "sort_order": "DESC",

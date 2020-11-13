@@ -4,5 +4,5 @@
 frappe.ui.form.on('Subnet', {
 	refresh: function(frm) {
 
-	}
+	}	
 });

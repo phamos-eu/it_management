@@ -6,31 +6,36 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "generel_section",
   "title",
+  "generel_section",
   "status",
   "customer",
   "full_customer_name",
-  "it_landscape",
+  "column_break_6",
   "solution",
+  "it_landscape",
+  "section_break_9",
   "description",
+  "column_break_11",
   "software",
   "encryption",
+  "cycle",
+  "data_retention",
   "source_information_section",
   "source_item",
+  "section_break_16",
   "source_path",
   "target_information_section",
   "target_item",
-  "target_path",
   "target_user",
-  "cycle",
-  "data_retention"
+  "section_break_20",
+  "target_path"
  ],
  "fields": [
   {
    "fieldname": "generel_section",
    "fieldtype": "Section Break",
-   "label": "Generel"
+   "label": "General"
   },
   {
    "fieldname": "title",
@@ -76,6 +81,7 @@
    "options": "Configuration Item"
   },
   {
+   "depends_on": "eval:doc.source_item != \"\"",
    "fieldname": "source_path",
    "fieldtype": "Small Text",
    "label": "Source Path"
@@ -142,9 +148,29 @@
    "label": "IT Landscape",
    "options": "IT Landscape",
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_20",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-11-10 11:02:50.741316",
+ "modified": "2020-11-13 10:13:35.336260",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Backup",
@@ -175,7 +201,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
