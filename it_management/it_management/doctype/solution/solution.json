@@ -114,6 +114,7 @@
   },
   {
    "fetch_from": "customer.it_landscape",
+   "fetch_if_empty": 1,
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
@@ -121,8 +122,8 @@
    "reqd": 1
   }
  ],
- "modified": "2020-11-13 10:01:23.208639",
- "modified_by": "Administrator",
+ "modified": "2020-11-14 19:06:22.409332",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Solution",
  "owner": "wolfram.schmidt@tueit.de",

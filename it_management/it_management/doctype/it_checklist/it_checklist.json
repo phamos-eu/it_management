@@ -99,6 +99,7 @@
   },
   {
    "fetch_from": "customer.it_landscape",
+   "fetch_if_empty": 1,
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
@@ -106,8 +107,8 @@
    "reqd": 1
   }
  ],
- "modified": "2020-11-13 11:27:00.136312",
- "modified_by": "Administrator",
+ "modified": "2020-11-14 19:11:09.074156",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Checklist",
  "owner": "Administrator",

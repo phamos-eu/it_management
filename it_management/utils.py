@@ -247,7 +247,9 @@ def for_every_customer_create_default_landscape():
 				doc.insert()
 				frappe.db.commit()
 				frappe.db.set_value('Customer',c["name"],{
+
 					'it_landscape': doc.name
+
 				})
 				frappe.db.commit()
 				print("Inserted " + str(doc.title))
@@ -279,7 +281,7 @@ def for_every_doctype_set_it_landscape_from_customer():
 					it_landscape = frappe.db.get_value("Customer",doc["customer"],'it_landscape')
 					print(str(it_landscape))
 					frappe.db.set_value(doctype,doc["name"],'it_landscape',it_landscape)
-					frappe.db.commit()
+					frappe.db.commit(
 		frappe.msgprint(
 			msg='Done',
 			title='Done'

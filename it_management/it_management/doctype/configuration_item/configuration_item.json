@@ -249,16 +249,16 @@
   },
   {
    "fetch_from": "customer.it_landscape",
+   "fetch_if_empty": 1,
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
-   "options": "IT Landscape",
-   "reqd": 1
+   "options": "IT Landscape"
   }
  ],
  "image_field": "image",
- "modified": "2020-11-13 17:19:32.173223",
- "modified_by": "Administrator",
+ "modified": "2020-11-14 19:03:24.326495",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Configuration Item",
  "owner": "wolfram.schmidt@tueit.de",
