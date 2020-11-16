@@ -22,7 +22,7 @@
    "options": "Customer"
   }
  ],
- "modified": "2020-11-10 10:11:29.614127",
+ "modified": "2020-11-16 08:19:41.218749",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Landscape",
@@ -37,6 +37,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
    "share": 1,
    "write": 1
   }
