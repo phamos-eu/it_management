@@ -167,6 +167,7 @@
   },
   {
    "fetch_from": "customer.it_landscape",
+   "fetch_if_empty": 1,
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
@@ -187,8 +188,8 @@
    "fieldtype": "Section Break"
   }
  ],
- "modified": "2020-11-13 11:24:03.019046",
- "modified_by": "Administrator",
+ "modified": "2020-11-14 19:08:08.659420",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "User Account",
  "owner": "Administrator",

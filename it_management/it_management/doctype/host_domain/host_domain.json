@@ -26,14 +26,12 @@
   {
    "fieldname": "it_landscape",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "IT Landscape",
-   "options": "IT Landscape",
-   "reqd": 1
+   "options": "IT Landscape"
   }
  ],
- "modified": "2020-11-10 11:12:19.016090",
- "modified_by": "Administrator",
+ "modified": "2020-11-15 17:41:43.508517",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Host Domain",
  "owner": "wolfram.schmidt@tueit.de",
