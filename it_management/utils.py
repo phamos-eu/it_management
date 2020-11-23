@@ -261,11 +261,13 @@ def for_every_customer_create_default_landscape():
 					pass
 				else:
 					frappe.throw(str(ex))
+					return
 
 	frappe.msgprint(
 		msg='Done',
 		title='Done'
 	)
+	return
 
 @frappe.whitelist()
 def for_every_doctype_set_it_landscape_from_customer():
@@ -281,10 +283,13 @@ def for_every_doctype_set_it_landscape_from_customer():
 					it_landscape = frappe.db.get_value("Customer",doc["customer"],'it_landscape')
 					print(str(it_landscape))
 					frappe.db.set_value(doctype,doc["name"],'it_landscape',it_landscape)
-					frappe.db.commit(
+					frappe.db.commit()
 		frappe.msgprint(
 			msg='Done',
 			title='Done'
 		)
 	except Exception as ex:
 		frappe.throw(str(ex))
+		return
+
+	return
