@@ -1,6 +1,7 @@
 var it_management_sales_invoice_reload_after_save_tmp = false
 
 frappe.ui.form.on('Sales Invoice', {
+	/*
 	save_and_reload(frm){
 		frappe.msgprint({
 			title: __('Notification'),
@@ -13,10 +14,13 @@ frappe.ui.form.on('Sales Invoice', {
 			}
 		});
 	},
+	*/
 	after_save(frm){
+		/*
 		if(frm.docstatus != 1){
 			pull_timesheets_on_save(frm)
 		}
+		*/
 	},
 	refresh: function (frm) {
 		//cur_frm.add_custom_button('Issue', function () { frm.trigger('get_issue_ts') }, __("Get items from"));
