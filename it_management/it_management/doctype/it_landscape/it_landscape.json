@@ -1,4 +1,5 @@
 {
+ "allow_rename": 1,
  "autoname": "format:{title}-L{##}",
  "creation": "2020-11-10 10:05:10.349031",
  "doctype": "DocType",
@@ -22,7 +23,7 @@
    "options": "Customer"
   }
  ],
- "modified": "2020-11-16 08:28:32.024253",
+ "modified": "2020-11-17 16:06:14.543823",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Landscape",
