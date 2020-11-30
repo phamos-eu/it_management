@@ -24,7 +24,7 @@ class NetworkInterfaceController(Document):
 
 		#Validate IPv6
 		if self.ip_v6:
-			match = re.match(r'([0-9A-Fa-f]{0,4}:){7}[0-9A-Fa-f]{0,4}$',self.ip_v6)
+			match = re.match(r'(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))',self.ip_v6)
 			if not match:
 				msg = "IPv6 Address does not conform to IPv6 Notation (e.g. 2001:0db8:85a3:0000:0000:8a2e:0370:7334)"
 				fex = frappe.exceptions.ValidationError(msg)
@@ -38,7 +38,7 @@ class NetworkInterfaceController(Document):
 				fex = frappe.exceptions.ValidationError(msg)
 				frappe.throw(title='Validation',msg=msg,exc=fex)
 
-		#Transform MAC to default format with small letters and ':'
-		self.mac = self.mac.replace("-",":").lower()
+			#Transform MAC to default format with small letters and ':'
+			self.mac = self.mac.replace("-",":").lower()
 
 	pass
