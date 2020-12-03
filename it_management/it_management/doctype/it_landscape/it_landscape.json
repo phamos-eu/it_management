@@ -1,5 +1,5 @@
 {
- "autoname": "format:{title}-L{##}",
+ "autoname": "field:title",
  "creation": "2020-11-10 10:05:10.349031",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -18,12 +18,14 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer"
   }
  ],
- "modified": "2020-11-16 08:28:32.024253",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-12-03 16:05:54.201946",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Landscape",
  "owner": "Administrator",
