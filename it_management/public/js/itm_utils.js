@@ -153,6 +153,7 @@ function activity_dialog(frm) {
 	})
 
 	activity.show();
+	/** 
 	console.log(Object.getOwnPropertyNames(activity.fields_dict.to_time))
 	console.log(activity.fields_dict.to_time.$wrapper)
 	console.log(activity.fields_dict.to_time.$input)
@@ -165,5 +166,6 @@ function activity_dialog(frm) {
 	activity.fields_dict.to_time.$input.on("click", function(event){
 		//activity.fields_dict.from_time = activity.fields_dict.to_time;
 	});
+	*/
 	
 }
