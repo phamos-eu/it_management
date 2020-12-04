@@ -22,7 +22,7 @@ def get_data():
                 'label': _('Software'),
                 'items': [
                     'Licence',
-                    'Software Instance',
+                    #'Software Instance',
                     'User Account',
                     'User Group'
                 ]
