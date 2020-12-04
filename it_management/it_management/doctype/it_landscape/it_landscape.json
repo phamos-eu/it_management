@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "customer"
+  "customer",
+  "customer_name"
  ],
  "fields": [
   {
@@ -18,13 +19,28 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "search_index": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fetch_if_empty": 1,
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Customer Name",
+   "search_index": 1
   }
  ],
- "modified": "2020-12-03 16:05:54.201946",
+ "modified": "2020-12-04 11:24:08.025858",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Landscape",
@@ -56,6 +72,7 @@
   }
  ],
  "quick_entry": 1,
+ "search_fields": "customer,customer_name",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
