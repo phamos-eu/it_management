@@ -13,6 +13,9 @@ def get_data():
             'Task': 'dynamic_name',
 			'IT Backup': 'source_item'
         },
+        'dynamic_links': {
+            
+        },
         'transactions': [
             {
                 'label': _('Software'),
@@ -20,7 +23,7 @@ def get_data():
             },
             {
                 'label': _('Support'),
-                'items': ['Issue','IT Backup']
+                'items': ['Issue','IT Backup','Maintenance Schedule']
             },
             {
                 'label': _('Project'),
