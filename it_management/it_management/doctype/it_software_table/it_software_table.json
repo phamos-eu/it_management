@@ -1,0 +1,36 @@
+{
+ "creation": "2020-12-04 17:13:20.829551",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "note",
+  "it_software"
+ ],
+ "fields": [
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "it_software",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "IT Software",
+   "options": "IT Software",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-12-04 17:18:06.168666",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "IT Software Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
