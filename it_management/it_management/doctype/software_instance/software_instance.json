@@ -87,7 +87,7 @@
    "bold": 1,
    "fetch_from": "configuration_item.customer",
    "fieldname": "customer",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Customer",
    "read_only": 1
