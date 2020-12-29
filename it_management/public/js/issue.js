@@ -197,7 +197,7 @@ frappe.ui.form.on('Issue', {
 			get_it_management_tables(frm, $results, $placeholder, method, args, columns);
 		}
 		
-		
+		//console.log(d.fields_dict.result)
 		$wrapper = d.fields_dict.result.$wrapper.append(`<div class="results"
 			style="border: 1px solid #d1d8dd; border-radius: 3px; height: 300px; overflow: auto;"></div>`);
 		$results = $wrapper.find('.results');
@@ -223,6 +223,7 @@ frappe.ui.form.on('Issue', {
 		var columns = (["Link Name", "Customer", "Type", "Status"]);
 		get_it_management_tables(frm, $results, $placeholder, method, args, columns);
 		d.show();
+		//console.log(d.fields_dict.result.$wrapper["0"].children["0"].children[1])
 	}
 });
 
@@ -267,19 +268,39 @@ var make_list_row= function(columns, result={}) {
 	let head = Object.keys(result).length === 0;
 	let contents = ``;
 	columns.forEach(function(column) {
-		var column_value = '-';
-		if (result[column]) {
-			column_value = result[column];
-		}
-		contents += `<div class="list-item__content ellipsis">
-			${
-				head ? `<span class="ellipsis">${__(frappe.model.unscrub(column))}</span>`
+		console.log(column)
 
-				:(column !== "name" ? `<span class="ellipsis">${__(column_value)}</span>`
-					: `<a class="list-id ellipsis">
-						${__(result[column])}</a>`)
+		//For all columns
+		if(column != "Link Name"){
+			var column_value = '-';
+			if (result[column]) {
+				column_value = result[column];
 			}
-		</div>`;
+			contents += `<div class="list-item__content ellipsis">
+				${
+					head ? `<span class="ellipsis">${__(frappe.model.unscrub(column))}</span>`
+
+					:(column !== "name" ? `<span class="ellipsis">${__(column_value)}</span>`
+						: `<a class="list-id ellipsis">
+							${__(result[column])}</a>`)
+				}
+			</div>`;
+		}else{
+			//For case Link Name
+			var column_value = '-';
+			if (result[column]) {
+				column_value = result[column];
+			}
+			contents += `<div class="list-item__content ellipsis" style="flex-grow: 2">
+				${
+					head ? `<span class="ellipsis">${__(frappe.model.unscrub(column))}</span>`
+
+					:(column !== "name" ? `<span class="ellipsis">${__(column_value)}</span>`
+						: `<a class="list-id ellipsis">
+							${__(result[column])}</a>`)
+				}
+			</div>`;
+		}
 	})
 
 	let $row = $(`<div class="list-item">

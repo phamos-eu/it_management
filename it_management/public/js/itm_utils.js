@@ -153,4 +153,19 @@ function activity_dialog(frm) {
 	})
 
 	activity.show();
+	/** 
+	console.log(Object.getOwnPropertyNames(activity.fields_dict.to_time))
+	console.log(activity.fields_dict.to_time.$wrapper)
+	console.log(activity.fields_dict.to_time.$input)
+	console.log(activity.fields_dict.from_time.disp_area.textContent)
+	
+	activity.fields_dict.from_time.$input.on("click", function(event){
+		activity.fields_dict.to_time.disp_area.textContent = activity.fields_dict.from_time.disp_area.textContent; //This doesnt work
+		//activity.fields_dict.to_time.refresh()
+	});
+	activity.fields_dict.to_time.$input.on("click", function(event){
+		//activity.fields_dict.from_time = activity.fields_dict.to_time;
+	});
+	*/
+	
 }

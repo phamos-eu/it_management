@@ -7,7 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "customer"
+  "customer",
+  "customer_name"
  ],
  "fields": [
   {
@@ -19,11 +20,28 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "search_index": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fetch_if_empty": 1,
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Customer Name",
+   "search_index": 1
   }
  ],
- "modified": "2020-11-17 16:06:14.543823",
+ "modified": "2020-12-29 06:06:14.543823",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Landscape",
@@ -55,6 +73,7 @@
   }
  ],
  "quick_entry": 1,
+ "search_fields": "customer,customer_name",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

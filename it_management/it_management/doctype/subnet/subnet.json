@@ -28,7 +28,11 @@
   "vlan_host",
   "additional_information_section",
   "wireless",
-  "note"
+  "note",
+  "location_section",
+  "location",
+  "floor",
+  "location_room"
  ],
  "fields": [
   {
@@ -125,7 +129,6 @@
   },
   {
    "fetch_from": "customer.it_landscape",
-   "fetch_if_empty": 1,
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
@@ -159,10 +162,34 @@
    "fieldname": "additional_information_section",
    "fieldtype": "Section Break",
    "label": "Additional Information"
+  },
+  {
+   "fieldname": "location_section",
+   "fieldtype": "Section Break",
+   "label": "Location",
+   "options": "Location"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Location"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Link",
+   "label": "Floor",
+   "options": "Floor"
+  },
+  {
+   "fieldname": "location_room",
+   "fieldtype": "Link",
+   "label": "Location Room",
+   "options": "Location Room"
   }
  ],
- "modified": "2020-11-15 17:38:17.911356",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2020-12-04 12:15:49.191222",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Subnet",
  "owner": "wolfram.schmidt@tueit.de",

@@ -4,6 +4,8 @@ from frappe import _
 
 def get_data():
     return {
+        'heatmap': True,
+		'heatmap_message': _('This is based on all the below Doctypes'),
         'fieldname': 'it_landscape',
         'non_standard_fieldnames': {
         },
@@ -20,7 +22,7 @@ def get_data():
                 'label': _('Software'),
                 'items': [
                     'Licence',
-                    'Software Instance',
+                    #'Software Instance',
                     'User Account',
                     'User Group'
                 ]

@@ -11,7 +11,9 @@ def get_data():
             'Issue': 'dynamic_name',
             #'Project': 'dynamic_name',
             'Task': 'dynamic_name',
-			'IT Backup': 'source_item'
+			'IT Backup': 'source_item',
+            'Maintenance Schedule' : 'dynamic_name',
+            'Maintenance Visit' : 'dynamic_name'
         },
         'transactions': [
             {
@@ -20,7 +22,7 @@ def get_data():
             },
             {
                 'label': _('Support'),
-                'items': ['Issue','IT Backup']
+                'items': ['Configuration Item','Issue','IT Backup','Maintenance Schedule','Maintenance Visit']
             },
             {
                 'label': _('Project'),
