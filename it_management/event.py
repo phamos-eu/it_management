@@ -14,7 +14,7 @@ def get_dashboard_data(data):
         'transactions': [
             {
                 'label': _('Activities'),
-                'items': ['Trip']
+                'items': ['Issue', 'Task', 'Trip']
             }
         ]
     }
