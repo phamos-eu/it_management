@@ -164,31 +164,13 @@
    "label": "Additional Information"
   },
   {
-   "fieldname": "location_section",
-   "fieldtype": "Section Break",
-   "label": "Location",
-   "options": "Location"
-  },
-  {
    "fieldname": "location",
    "fieldtype": "Link",
    "label": "Location",
    "options": "Location"
-  },
-  {
-   "fieldname": "floor",
-   "fieldtype": "Link",
-   "label": "Floor",
-   "options": "Floor"
-  },
-  {
-   "fieldname": "location_room",
-   "fieldtype": "Link",
-   "label": "Location Room",
-   "options": "Location Room"
   }
  ],
- "modified": "2020-12-04 12:15:49.191222",
+ "modified": "2021-01-04 12:15:49.191222",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Subnet",
