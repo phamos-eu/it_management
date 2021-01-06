@@ -10,8 +10,8 @@ def get_data():
     return {
         'fieldname': 'licence',
         'non_standard_fieldnames': {
-            #'IT Ticket': 'dynamic_name'
-			'Issue': 'dynamic_name'
+		'Task': 'dynamic_name',
+		'Issue': 'dynamic_name'
         },
         'transactions': [
             {
@@ -20,7 +20,7 @@ def get_data():
             },
             {
                 'label': _('Service'),
-                'items': ['Issue']#IT Ticket']
+                'items': ['Issue', 'Task']
             }
         ]
     }
