@@ -6,7 +6,7 @@ def get_data():
     return {
         'fieldname': 'software_instance',
         'non_standard_fieldnames': {
-		'Issue': 'dynamic_name'
+		'Issue': 'dynamic_name',
 		'Task': 'dynamic_name'
         },
         'transactions': [
