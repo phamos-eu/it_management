@@ -14,6 +14,13 @@ Official Website https://erpnext.com/
 Discussion Board https://discuss.erpnext.com/
 Repo https://github.com/frappe/erpnext
 
+## Release Notes
+2021 - 01 - 28:
+<ul>
+    <li>IT Ticket removed</li>
+    <li>IT Ticket Type removed</li>
+</ul> 
+
 ## Contribute
 We have two major branches which are use.
 1. master
