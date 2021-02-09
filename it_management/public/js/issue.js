@@ -4,6 +4,58 @@
 
 frappe.ui.form.on('Issue', {
 	onload: function (frm) {
+		//Populating Solution Status field
+		console.log("Breakpoint: Trying to populate the solution status board.")
+		if ( 'customer' in frm.doc ) { 
+			frappe.call({
+				method: 'frappe.client.get_list',
+				args: {
+					doctype: 'Solution',
+					filters: [
+						['customer', 'in', [frm.doc.customer]],
+						['status', 'not in', ['Implementing', 'Obsolet']]  //Modify this for final version
+					],
+					fields: ['name'],
+					//order_by: 'date desc',
+					page_length: 20000,
+				},
+				callback: function(data){
+					
+					console.log(data) //Remove this for production
+					let e = data.message
+					
+					//Building the first table row
+					var tablerow = "<tr>";
+					
+					for (let i = 0; i < e.length; i++) {
+						const solution_name = e[i]["name"];
+						//Adding a cell for each found solution for frm.doc.customer
+						let tabledatacell = `
+							<td class="col col-xs-1">
+											<span class="indicator orange filterable">
+												${solution_name}
+											</span>
+							</td>
+						`;
+						tablerow = tablerow + tabledatacell
+					}
+
+					tablerow = tablerow += "</br>"
+
+					//Adding the tablerow within the options field
+					let html_string = `
+						<b>Solution Status</b><br>
+						<table>
+								${tablerow}
+						</table>
+					`;
+					frm.set_df_property("solution_status","options",html_string);
+				}
+			});
+		}
+		
+
+
 		// restrict Dynamic Links to IT Mnagement
 		frm.set_query('dynamic_type', 'it_management_table', function () {
 			return {

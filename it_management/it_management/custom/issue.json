@@ -459,7 +459,7 @@
    "modified_by": "Administrator",
    "name": "Issue-solution_status",
    "no_copy": 0,
-   "options": "<b>Solution Status</b>",
+   "options": "<b>Solution Status</b><br>\n\n<table>\n<tr>\n<td class=\"col col-xs-1\">\n<span class=\"indicator orange filterable\">\n\tOpen\n</span>\n</td>\n<td class=\"col col-xs-1\">\n<span class=\"indicator red filterable\">\n\tOpen\n</span>\n</td>\n<td class=\"col col-xs-1\">\n<span class=\"indicator green filterable\">\n\tOpen\n</span>\n</td>\n</tr>\n</table>",
    "owner": "Administrator",
    "parent": null,
    "parentfield": null,
