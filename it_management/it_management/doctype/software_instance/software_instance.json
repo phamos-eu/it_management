@@ -90,7 +90,8 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Customer",
-   "read_only": 1
+   "read_only": 1,
+   "options": "Customer"
   },
   {
    "fieldname": "supplier",

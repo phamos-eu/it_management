@@ -4,12 +4,9 @@
 cur_frm.dashboard.add_transactions([
     {
         'items': [
-            'Timesheet',
-			'Material Request',
-			'Delivery Note',
-			'Trip'
+            	'Timesheet',
         ],
-        'label': 'Activity'
+        'label': _('Activity')
     }
 ]);
 
