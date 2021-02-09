@@ -2,58 +2,47 @@
 // For license information, please see license.txt
 //
 
+// #TODO This function should go inside of itm_utils.js or a seperate *.js-file
+function insertion_of_status_table_in_docfield(frm, docfieldname, stati) {
+	//Building the first table row
+	var tablerow = "<tr>";
+					
+	for (let i = 0; i < stati.length; i++) {
+
+		const solution_name = stati[i]["name"];
+		const combined_status_color = stati[i]["combined_status_color"] // Should be in ["red", "orange", "yellow", "green", "grey"]
+
+		//Adding a cell for each found solution for frm.doc.customer
+		let tabledatacell = `
+			<td class="col col-xs-1">
+							<span class="indicator orange filterable">
+								${solution_name}
+							</span>
+			</td>
+		`;
+		tablerow = tablerow + tabledatacell
+	}
+
+	tablerow = tablerow += "</br>"
+
+	//Adding the tablerow to a html_template
+	let html_template = `
+		<b>Solution Status</b><br>
+		<table>
+				${tablerow}
+		</table>
+	`;
+
+	//Rendering the html_template by setting it as options text in the docfield solution_status
+	frm.set_df_property(docfieldname, "options", html_template);
+}
+
+
 frappe.ui.form.on('Issue', {
 	onload: function (frm) {
-		//Populating Solution Status field
-		console.log("Breakpoint: Trying to populate the solution status board.")
-		if ( 'customer' in frm.doc ) { 
-			frappe.call({
-				method: 'frappe.client.get_list',
-				args: {
-					doctype: 'Solution',
-					filters: [
-						['customer', 'in', [frm.doc.customer]],
-						['status', 'not in', ['Implementing', 'Obsolet']]  //Modify this for final version
-					],
-					fields: ['name'],
-					//order_by: 'date desc',
-					page_length: 20000,
-				},
-				callback: function(data){
-					
-					console.log(data) //Remove this for production
-					let e = data.message
-					
-					//Building the first table row
-					var tablerow = "<tr>";
-					
-					for (let i = 0; i < e.length; i++) {
-						const solution_name = e[i]["name"];
-						//Adding a cell for each found solution for frm.doc.customer
-						let tabledatacell = `
-							<td class="col col-xs-1">
-											<span class="indicator orange filterable">
-												${solution_name}
-											</span>
-							</td>
-						`;
-						tablerow = tablerow + tabledatacell
-					}
-
-					tablerow = tablerow += "</br>"
-
-					//Adding the tablerow within the options field
-					let html_string = `
-						<b>Solution Status</b><br>
-						<table>
-								${tablerow}
-						</table>
-					`;
-					frm.set_df_property("solution_status","options",html_string);
-				}
-			});
-		}
 		
+		// Calling subroutine to populate doc field "Solution Status"
+		frm.trigger('combined_solution_status')
 
 
 		// restrict Dynamic Links to IT Mnagement
@@ -85,6 +74,47 @@ frappe.ui.form.on('Issue', {
 				};
 			}
 		});
+	},
+	combined_solution_status: function (frm) {
+		//Populating Solution Status field
+		console.log("Breakpoint: Trying to populate the solution status board.")
+		if ( 'customer' in frm.doc ) { 
+			frappe.call({
+				method: 'frappe.client.get_list',
+				args: {
+					doctype: 'Solution',
+					filters: [
+						['customer', 'in', [frm.doc.customer]],
+						['status', 'not in', ['Implementing', 'Obsolet']]  //Modify this for final version
+					],
+					fields: ['name'],
+					//order_by: 'date desc',
+					page_length: 20000,
+				},
+				callback: function(data){
+					
+					console.log(data) //Remove this for production
+					let e = data.message
+
+					//Get status information for the solution (~ Go through all items on the solution's dashboard.)
+					frappe.call({
+						method: "it_management.utils.combined_solution_status",
+						args : { 
+							'data' : {
+									"solutions" : e,
+									"manual_doctype_selection" : ["Configuration Item", "Software Instance"]
+						   	}
+						},
+						callback: function(json){
+						   console.log(json);
+						   insertion_of_status_table_in_docfield(frm, "solution_status", json)
+						}
+					});
+					
+
+				}
+			});
+		};
 	},
 	refresh: function (frm) {
 		if (!frm.is_new()) {
