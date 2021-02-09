@@ -330,7 +330,7 @@ def for_every_doctype_set_it_landscape_from_customer():
 
 @frappe.whitelist()
 def combined_solution_status(data):
-    """
+	"""
 	This Rest-API Method combines the status of selected documents into one status. The selection has yet not been defined.
 	For testing just two doctypes namely Configuration Item and Software Instance,
 
@@ -344,28 +344,24 @@ def combined_solution_status(data):
 		}
 	}
 	"""
-   # Check if called from client side (not necessary)
-   if(isinstance(data,str)):
-      data = json.loads(data)
-   
-   print("Logging for combined_solution_status rest-api request.")
-   print(data)
-   
+	# Check if called from client side (not necessary)
+	if(isinstance(data,str)):
+		data = json.loads(data)
+
+	print("Logging for combined_solution_status rest-api request.")
+	print(data)
+
 	# Solution names to be checked
 	solutions = []
-    for solution in data.solutions:
-    	   solutions.append(solution["name"])
+	for solution in data["solutions"]:
+			solutions.append(solution["name"])
 
 	# If selection is passed as parameter
-	if( hasattr(data, "manual_doctype_selection") ):
-    		selection = data.manual_doctype_selection
+	if( "manual_doctype_selection" in data ):
+			selection = data["manual_doctype_selection"]
 			#TODO To be continued...
-
-
-    		
-   
-   # If selection is not passed pull Issue Dashboard Doctypes
-   else:
-    	   return "No doctype selection made."
+	# If selection is not passed pull Issue Dashboard Doctypes
+	else:
+			return "No doctype selection made."
    
    
