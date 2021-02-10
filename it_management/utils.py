@@ -354,14 +354,38 @@ def combined_solution_status(data):
 	# Solution names to be checked
 	solutions = []
 	for solution in data["solutions"]:
-			solutions.append(solution["name"])
+    	
+		doc_solution = frappe.get_doc("Solution", solution)
 
-	# If selection is passed as parameter
-	if( "manual_doctype_selection" in data ):
-			selection = data["manual_doctype_selection"]
-			#TODO To be continued...
-	# If selection is not passed pull Issue Dashboard Doctypes
-	else:
-			return "No doctype selection made."
+		# If selection is passed as parameter
+		if( "manual_doctype_selection" in data ):
+				doctype_selection = data["manual_doctype_selection"]
+				for doctype in doctype_selection:
+					#doc = frappe.desk.form.load.getdoc(doc_origin["doctype"], doc_origin["name"])
+					#help(doc_solution)
+					
+					# Inspecting different objects with inspect instead of debugging
+					import inspect
+					inspect.getdoc(doc_solution)
+
+					for name, data in inspect.getmembers(doc_solution):
+						if name == '__builtins__':
+							continue
+						print('%s :' % name, repr(data))
+
+					# Quellen: https://stackoverflow.com/questions/39260407/inspecting-python-objects
+					
+					# Getting docs as_dict and then printing values
+					for key,value in doc_solution.as_dict().items():
+    						print(type(value))
+							# Nächster Schritt: Überprüfen, ob childtables anhand des Typs "Array" erkannt werden können. Danach den doctype/namen auslesen und den status aus der Datenbank ziehen.
+					
+
+			
+
+
+		# If selection is not passed pull Issue Dashboard Doctypes
+		else:
+				return "No doctype selection made."
    
    

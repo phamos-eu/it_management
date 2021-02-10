@@ -101,8 +101,10 @@ frappe.ui.form.on('Issue', {
 						method: "it_management.utils.combined_solution_status",
 						args : { 
 							'data' : {
+									"doctype" : frm.doc.doctype,
+									"name"	: frm.doc.name,
 									"solutions" : e,
-									"manual_doctype_selection" : ["Configuration Item", "Software Instance"]
+									"manual_doctype_selection" : ["Configuration Item"]
 						   	}
 						},
 						callback: function(json){
