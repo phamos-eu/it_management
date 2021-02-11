@@ -465,6 +465,7 @@ def combined_solution_status(data):
 	# In allen doctypes auf dem Solution dashboard das feld Status vereinheitlichen.
 	# Für jedes dieser Statusfelder ein Farbmapping erstellen. Doppelte Belegung möglich
 	# Tabelle in Form:
+	# Freizeit die für Verhandlungen relevant ist: ~8 h unter hochkonzentration  ~ 480 €
 	# -----------------------------------------------------------
 	# - Stati                            - Farbe                            -
 	# -----------------------------------------------------------
