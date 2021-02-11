@@ -10,12 +10,12 @@ function insertion_of_status_table_in_docfield(frm, docfieldname, stati) {
 	for (let i = 0; i < stati.length; i++) {
 
 		const solution_name = stati[i]["name"];
-		const combined_status_color = stati[i]["combined_status_color"] // Should be in ["red", "orange", "yellow", "green", "grey"]
+		const combined_status_color = stati[i]["combined_status_color"] // Should be in ["red", "orange", "green"]
 
 		//Adding a cell for each found solution for frm.doc.customer
 		let tabledatacell = `
 			<td class="col col-xs-1">
-							<span class="indicator orange filterable">
+							<span class="indicator ${combined_status_color} filterable">
 								${solution_name}
 							</span>
 			</td>
@@ -109,7 +109,7 @@ frappe.ui.form.on('Issue', {
 						},
 						callback: function(json){
 						   console.log(json);
-						   insertion_of_status_table_in_docfield(frm, "solution_status", json)
+						   insertion_of_status_table_in_docfield(frm, "solution_status", json.message)
 						}
 					});
 					

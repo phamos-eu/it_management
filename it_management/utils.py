@@ -352,10 +352,13 @@ def combined_solution_status(data):
 	print(data)
 
 	# Solution names to be checked
-	solutions = []
+	result = []
 	for solution in data["solutions"]:
     	
 		doc_solution = frappe.get_doc("Solution", solution)
+
+		"""
+		My approach (unfinished):
 
 		# If selection is passed as parameter
 		if( "manual_doctype_selection" in data ):
@@ -375,17 +378,103 @@ def combined_solution_status(data):
 
 					# Quellen: https://stackoverflow.com/questions/39260407/inspecting-python-objects
 					
+					# Nächster Schritt: Überprüfen, ob childtables anhand des Typs "Array" erkannt werden können. Danach den doctype/namen auslesen und den status aus der Datenbank ziehen.
+					#frappe.desk.notifications.get_open_count("Solution",doc_solution.name, items=["Configuration Item"]) #This gets the dashboard counts
+					#meta = frappe.model.meta.get_meta("Solution") 
+					#links = meta.get_dashboard_data() #Can i get the get_dashboard_data for doctype? beta would be to parse it from javascript.
+
 					# Getting docs as_dict and then printing values
 					for key,value in doc_solution.as_dict().items():
     						print(type(value))
-							# Nächster Schritt: Überprüfen, ob childtables anhand des Typs "Array" erkannt werden können. Danach den doctype/namen auslesen und den status aus der Datenbank ziehen.
-					
-
-			
-
 
 		# If selection is not passed pull Issue Dashboard Doctypes
 		else:
 				return "No doctype selection made."
+
+		"""
+
+		"""
+		Approach taken from frappe.desk.notifications.get_open_count() as found by inspecting Network Tab in Firefox Developer Tools when loading a Solution page.
+		"""
+		doctype = "Solution" ##Change
+		name = doc_solution.name ##Change
+		items = [] ##Change
+
+		if frappe.flags.in_migrate or frappe.flags.in_install:
+			return {
+			"count": []
+		}
+
+		frappe.has_permission(doc=frappe.get_doc(doctype, name), throw=True)
+
+		meta = frappe.get_meta(doctype)
+		links = meta.get_dashboard_data()
+
+		# compile all items in a list
+		if not items:
+			for group in links.transactions:
+				items.extend(group.get("items"))
+
+		if not isinstance(items, list):
+			items = json.loads(items)
+
+		sum_stati = 0
+		len_docs = 0
+		print(items)
+		for d in items:
+			if d in links.get("internal_links", {}):
+				# internal link
+				continue
+
+			filters = frappe.desk.notifications.get_filters_for(d)   ## Change: Here I had to add the full path to method get_filters_for(d)
+			fieldname = links.get("non_standard_fieldnames", {}).get(d, links.get('fieldname'))
+
+			docs = frappe.get_all(d, fields=["name","docstatus"],
+				filters={fieldname: name}, limit=100, distinct=True, ignore_ifnull=True)
+			print(docs)
+
+			#Sum status of one dashboard entry
+			sum_status = 0
+			for doc in docs:
+				sum_status += doc.docstatus
+
+			#Sum status of all dashboard entries
+			sum_stati += sum_status
+			len_docs += len(docs)
+
+		# Calculate combined status for one solution
+		combined_status = 0
+		combined_status_color = "grey"
+		if(len_docs != 0):
+			combined_status = sum_stati / len_docs
+			if(combined_status == 0):
+				combined_status_color = "green"
+			elif(combined_status == 1):
+				combined_status_color = "orange"
+			elif(combined_status == 2):
+				combined_status_color = "red"
+
+		result.append({ "name" : name, "combined_status" : combined_status, "combined_status_color" : combined_status_color})
+
+		module = frappe.get_meta_module(doctype)
+		if hasattr(module, "get_timeline_data"):
+			out["timeline_data"] = module.get_timeline_data(doctype, name)
+
+
+	# TODO:
+	# In allen doctypes auf dem Solution dashboard das feld Status vereinheitlichen.
+	# Für jedes dieser Statusfelder ein Farbmapping erstellen. Doppelte Belegung möglich
+	# Tabelle in Form:
+	# -----------------------------------------------------------
+	# - Stati                            - Farbe                            -
+	# -----------------------------------------------------------
+	# - Implementing             - orange                          -
+	# - Running                      - green                            -
+	# - Issue                            - red                               -
+	# - Obsolet                        - grey                             -
+	# -----------------------------------------------------------
+
+	return result
+
    
    
