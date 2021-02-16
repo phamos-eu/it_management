@@ -44,7 +44,8 @@ frappe.ui.form.on('Socket', {
 					location_room: values.location_room
 				}).then(doc => {
 					console.log(doc);
-					window.location.href = "http://www.w3schools.com";
+					
+					// Add newly created Endpoint Socket to frm.doc.endpoint_socket ~ field 
 
 				})
 			}
