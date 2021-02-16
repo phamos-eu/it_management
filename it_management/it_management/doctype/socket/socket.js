@@ -36,7 +36,6 @@ frappe.ui.form.on('Socket', {
 			],
 			primary_action_label: 'Submit',
 			primary_action(values) {
-				console.log(values);
 				d.hide();
 				frappe.db.insert({
 					doctype: 'Socket',
@@ -44,9 +43,10 @@ frappe.ui.form.on('Socket', {
 					location_room: values.location_room
 				}).then(doc => {
 					console.log(doc);
-					
-					// Add newly created Endpoint Socket to frm.doc.endpoint_socket ~ field 
-
+					// Add newly created Endpoint Socket to endpoint_socket field
+					frm.set_value('endpoint_socket', doc.name);
+					frm.refresh_fields();
+					frm.save();
 				})
 			}
 		});
