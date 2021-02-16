@@ -15,5 +15,46 @@ frappe.ui.form.on('Socket', {
 				};
 			}
 		});
+	},
+	connect_socket: function(frm) {
+		console.log("Breakpoint: Connect Socket ausgelöst.")
+		let d = new frappe.ui.Dialog({
+			title: __('Enter details'),
+			fields: [
+				{
+					label: __('Identifier'),
+					fieldname: 'identifier',
+					options: "",
+					fieldtype: 'Data'
+				},
+				{
+					label: __('Location Room'),
+					fieldname: 'location_room',
+					options: "Location Room",
+					fieldtype: 'Link'
+				}
+			],
+			primary_action_label: 'Submit',
+			primary_action(values) {
+				console.log(values);
+				d.hide();
+				frappe.db.insert({
+					doctype: 'Socket',
+					identifier: values.identifier,
+					location_room: values.location_room
+				}).then(doc => {
+					console.log(doc);
+					window.location.href = "http://www.w3schools.com";
+
+				})
+			}
+		});
+		console.log(frm)
+		console.log(d)
+		d.show();
 	}
+
+	// Filter
+	// Filter auf Feld in Doctype setzen (... nein?)
+	// set_query() wie bei normalen Feldern auf dialog.set_query... anwenden
 });
