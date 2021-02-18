@@ -326,3 +326,56 @@ def for_every_doctype_set_it_landscape_from_customer():
 		return
 
 	return
+
+@frappe.whitelist()
+def get_items_from_childtable(data):
+	#Check if called from client side (not necessary)
+	if(isinstance(data,str)):
+		data = json.loads(data)
+
+	childtable = "`tab" + data["childdoctypename"] + "`"
+	fields = data["fields"]
+	parentselections = data["parentselections"]
+
+	#From fieldsarray create SQL usable String in format field1, field2
+	fields_f_string = ""
+	idx = 0
+	length = len(fields)
+	for field in fields:
+			if( idx < length - 1):
+				fields_f_string += field + ", "
+			else:
+				fields_f_string += field
+			idx += 1
+
+	print(fields_f_string)
+
+	#From parentselections array create SQL usable String in format ( 'parent1', 'parent2', ... )
+	parentselections_f_string = "( '"
+	idx = 0
+	length = len(parentselections)
+	for parent in parentselections:
+			if( idx < length - 1):
+				parentselections_f_string += parent + "', '"
+			else:
+				parentselections_f_string += parent
+			idx += 1
+	parentselections_f_string += "' )" 
+
+	print(parentselections_f_string)
+			
+
+	data = frappe.db.sql(f"""
+		SELECT
+			{fields_f_string}
+		FROM {childtable}
+		WHERE parent in {parentselections_f_string}
+		ORDER BY 
+			parent DESC,
+			idx DESC;
+	""", as_dict=1)
+
+	print(data)
+
+
+	return data
