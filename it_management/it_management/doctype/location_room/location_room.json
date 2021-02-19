@@ -20,8 +20,6 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "in_global_search": 1,
-   "in_list_view": 1,
    "label": "Title",
    "reqd": 1
   },
@@ -62,7 +60,6 @@
    "fieldname": "customer",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer"
   },
@@ -75,7 +72,7 @@
    "reqd": 1
   }
  ],
- "modified": "2020-11-10 11:04:00.200388",
+ "modified": "2021-02-19 14:57:09.953401",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Location Room",
