@@ -161,43 +161,6 @@ frappe.ui.form.on('Task', {
 		});
 	},
 	get_it_checklist: function (frm) {
-		let dialog = new frappe.ui.form.MultiSelectDialog({
-			doctype: "IT Checklist",
-			target: frm,
-			setters: {
-				customer: frm.doc.customer,
-			},
-			date_field: "modified",
-			get_query() {
-				return {
-					filters: {  }
-				}
-			},
-			action(selections) {
-				console.log(selections);
-				frappe.call({
-					method: "it_management.utils.get_items_from_childtable",
-					args : { 'data' : {
-					   "childdoctypename" : "IT Management Table",
-					   "parentselections" : selections,
-					   "fields" : ["dynamic_type", "dynamic_name", "note"]
-					   }
-					},
-					callback: function(json){
-					   console.log(json);
-						json.message.forEach(element => {
-							let row = frm.add_child('it_management_table', {
-								dynamic_type: element.dynamic_type,
-								dynamic_name: element.dynamic_name,
-								note: element.note
-							});
-						});
-					
-						frm.refresh_field('it_management_table');
-						frappe.msgprint(__('IT Checklist imported.'));
-					}
-				});
-			}
-		});
+		add_it_management_table_items(frm, "IT Checklist") 
 	}
 });
