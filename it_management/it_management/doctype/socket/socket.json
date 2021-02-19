@@ -101,8 +101,7 @@
    "fieldname": "endpoint_socket",
    "fieldtype": "Link",
    "label": "Endpoint Socket",
-   "options": "Socket",
-   "read_only": 1
+   "options": "Socket"
   },
   {
    "fieldname": "endpoint_room",
@@ -146,7 +145,7 @@
    "label": "Connect Socket"
   }
  ],
- "modified": "2021-02-11 15:17:36.315392",
+ "modified": "2021-02-19 09:20:42.386506",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Socket",
@@ -178,7 +177,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "title",
  "sort_field": "modified",
  "sort_order": "DESC",
