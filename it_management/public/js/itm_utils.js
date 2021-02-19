@@ -171,6 +171,7 @@ function activity_dialog(frm) {
 }
 
 
+
 function add_it_management_table_items(frm, source_doctype) {
 	let dialog = new frappe.ui.form.MultiSelectDialog({
 
