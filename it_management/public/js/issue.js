@@ -4,12 +4,9 @@
 cur_frm.dashboard.add_transactions([
     {
         'items': [
-            'Timesheet',
-			'Material Request',
-			'Delivery Note',
-			'Trip'
+            	'Timesheet',
         ],
-        'label': 'Activity'
+        'label': _('Activity')
     }
 ]);
 
@@ -48,8 +45,7 @@ frappe.ui.form.on('Issue', {
 	refresh: function (frm) {
 		if (!frm.is_new()) {
 			frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
-			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
-			//frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
+			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"))
 			frm.add_custom_button('Opportunity', function () { frm.trigger('make_opportunity') }, __("Make"));
 			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
@@ -105,45 +101,6 @@ frappe.ui.form.on('Issue', {
 	},
 	add_activity: function (frm) {
 		activity_dialog(frm); //This has been moved to itm_utils.js which is a loaded asset in it_management
-	},
-	make_delivery_note: function (frm) {
-		frappe.new_doc("Delivery Note", {
-			"customer": frm.doc.customer,
-			"project" : frm.doc.project,
-			"issue": frm.doc.name
-		});
-	},
-	make_sales_invoice: function (frm) {
-		let dialog = new frappe.ui.Dialog({
-			title: __("Select Item (optional)"),
-			fields: [
-				{"fieldtype": "Link", "label": __("Item Code"), "fieldname": "item_code", "options":"Item"},
-				{"fieldtype": "Link", "label": __("Customer"), "fieldname": "customer", "options":"Customer", "default": frm.doc.customer}
-			]
-		});
-
-		dialog.set_primary_action(__("Make Sales Invoice"), () => {
-			var args = dialog.get_values();
-			if(!args) return;
-			dialog.hide();
-			return frappe.call({
-				type: "GET",
-				method: "it_management.utils.make_sales_invoice",
-				args: {
-					"source_name": frm.doc.name,
-					"item_code": args.item_code,
-					"customer": args.customer
-				},
-				freeze: true,
-				callback: function(r) {
-					if(!r.exc) {
-						frappe.model.sync(r.message);
-						frappe.set_route("Form", r.message.doctype, r.message.name);
-					}
-				}
-			});
-		});
-		dialog.show();
 	},
 	make_opportunity: function (frm) {
 		let op = frappe.new_doc("Opportunity", {
