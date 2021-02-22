@@ -4,5 +4,5 @@
 frappe.ui.form.on('Network Interface Controller', {
 	// refresh: function(frm) {
 
-	// }
+	// },
 });

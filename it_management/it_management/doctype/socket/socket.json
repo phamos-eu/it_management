@@ -12,6 +12,7 @@
   "identifier",
   "general_information_section",
   "location_room",
+  "connect_socket",
   "endpoint_room",
   "endpoint_socket",
   "column_break_7",
@@ -106,7 +107,8 @@
    "fieldname": "endpoint_room",
    "fieldtype": "Link",
    "label": "Endpoint Room",
-   "options": "Location Room"
+   "options": "Location Room",
+   "read_only": 1
   },
   {
    "fieldname": "destination_location_room",
@@ -136,9 +138,14 @@
    "fieldname": "note",
    "fieldtype": "Text",
    "label": "Note"
+  },
+  {
+   "fieldname": "connect_socket",
+   "fieldtype": "Button",
+   "label": "Connect Socket"
   }
  ],
- "modified": "2020-10-13 08:40:40.508207",
+ "modified": "2021-02-19 09:20:42.386506",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Socket",
@@ -170,7 +177,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "title",
  "sort_field": "modified",
  "sort_order": "DESC",

@@ -48,26 +48,28 @@ frappe.ui.form.on('Sales Invoice', {
 });
 
 function pull_timesheets_on_save(frm){
-	//Create an array of timesheet names already in the childtable
+	//Collect timesheets in sales invoice
 	var timesheet_items = frm.doc.timesheets
-	var existing_ts = []
-	var existing_sales_invoice_ts = []
+	var names_of_timesheets_in_sales_invoice = []
+	var names_of_timesheets_detail_in_sales_invoice = []
+
 	for (let i = 0; i < timesheet_items.length; i++) {
+
 		const element = timesheet_items[i]["time_sheet"];
+		names_of_timesheets_in_sales_invoice.push(element);
+
 		const sales_invoice_ts = timesheet_items[i]["name"];
-		existing_ts.push(element);
-		existing_sales_invoice_ts.push(sales_invoice_ts);
+		names_of_timesheets_detail_in_sales_invoice.push(sales_invoice_ts);
 	}
 
-	//Go through all Tasks in Multiselect
+	//Call Backend to refresh the timesheet details in sales invoice
 	frappe.call({
 		method: "it_management.utils.add_sales_invoice_timesheets",
 		args : { 'data' : {
 			"tasks" : frm.doc.tasks,
-			"existing_ts" : existing_ts,
-			"existing_sales_invoice_ts" : existing_sales_invoice_ts,
-			"sales invoice" : frm.doc.name,
-			"pull_timesheets_on_save" : frm.doc.pull_timesheets_on_save //TODO Was ist das?
+			"names_of_timesheets_in_sales_invoice" : names_of_timesheets_in_sales_invoice,
+			"names_of_timesheets_detail_in_sales_invoice" : names_of_timesheets_detail_in_sales_invoice,
+			"sales invoice" : frm.doc.name
 			}
 		},
 		callback: function(r) {

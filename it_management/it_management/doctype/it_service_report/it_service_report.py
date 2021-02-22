@@ -79,36 +79,11 @@ def create_timesheet(self):
 	})
 	timesheet.insert()
 	self.timesheet = timesheet.name
-	'''
-	obsolet:
-	it_ticket = frappe.get_doc("IT Ticket", self.it_ticket)
-	it_ticket.add_comment("Comment", self.data_14 or _('Saved Service Report'))
-	'''
 	issue = frappe.get_doc("Issue", self.issue)
 	issue.add_comment("Comment", self.data_14 or _('Saved Service Report'))
 	
 def update_it_management_table(self):
 	for item in self.table_13:
-		'''
-		obsolet:
-		if item.identifier:
-			it_ticket = frappe.get_doc("IT Ticket", self.it_ticket)
-			for it_ticket_item in it_ticket.it_management_table:
-				if it_ticket_item.name == item.identifier:
-					it_ticket_item.dynamic_type = item.dynamic_type
-					it_ticket_item.dynamic_name = item.dynamic_name
-					it_ticket_item.note = item.note
-					it_ticket_item.checked = item.checked
-					it_ticket.save()
-		else:
-			it_ticket = frappe.get_doc("IT Ticket", self.it_ticket)
-			row = it_ticket.append('it_management_table', {})
-			row.dynamic_type = item.dynamic_type
-			row.dynamic_name = item.dynamic_name
-			row.note = item.note
-			row.checked = item.checked
-			it_ticket.save()
-		'''
 		if item.identifier:
 			issue = frappe.get_doc("Issue", self.issue)
 			for issue_item in issue.it_management_table:
@@ -126,14 +101,7 @@ def update_it_management_table(self):
 			row.note = item.note
 			row.checked = item.checked
 			issue.save()
-'''
-obsolet:
 
-def update_it_ticket_status(self):
-	it_ticket = frappe.get_doc("IT Ticket", self.it_ticket)
-	it_ticket.status = self.status
-	it_ticket.save()
-'''
 def update_issue_status(self):
 	issue = frappe.get_doc("Issue", self.issue)
 	issue.status = self.status

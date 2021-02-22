@@ -169,3 +169,51 @@ function activity_dialog(frm) {
 	*/
 	
 }
+
+
+
+function add_it_management_table_items(frm, source_doctype) {
+	let dialog = new frappe.ui.form.MultiSelectDialog({
+
+		// Read carefully and adjust parameters
+		doctype: source_doctype, // Doctype that needs to be selected in the dialog (e.g. "IT Checklist")
+		target: frm,
+		setters: {
+			// Dropdown Filterfields
+			customer: frm.doc.customer,
+		},
+		date_field: "modified", // "modified", "creation", ...
+		get_query() {
+			// Filter for shown documents
+			return {
+				filters: {  }
+			}
+		},
+		action(selections) {
+			frappe.call({
+				method: "it_management.utils.get_items_from_childtable",
+				args : { 'data' : {
+					// Configure these two Parameters
+				   "childdoctypename" : "IT Management Table", // What is the childtable doctype that contains the wanted items?
+				   "parentselections" : selections,
+				   "fields" : ["dynamic_type", "dynamic_name", "note"] // Fields that we need to pull from the childtable doctype
+				   }
+				},
+				callback: function(json){
+
+					// Do something with the items (e.g. add them to the childtable within the current document)
+					json.message.forEach(item => {
+						let row = frm.add_child('it_management_table', {
+							dynamic_type: item.dynamic_type,
+							dynamic_name: item.dynamic_name,
+							note: item.note
+						});
+					});
+					frm.refresh_field('it_management_table');
+					frappe.msgprint(__('Items') + ' ' + __('from') + ' ' + source_doctype + ' ' + __('imported.'));
+
+				}
+			});
+		}
+	});
+}

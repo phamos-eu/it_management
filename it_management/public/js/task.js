@@ -39,6 +39,7 @@ frappe.ui.form.on('Task', {
 		//cur_frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 		cur_frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
 		cur_frm.add_custom_button('Opportunity', function () { frm.trigger('make_opportunity') }, __("Make"));
+		frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 	},
 	make_ticket: function (frm) {
 		let options = {
@@ -158,7 +159,8 @@ frappe.ui.form.on('Task', {
 		let op = frappe.new_doc("Opportunity", {
 			"task" : frm.doc.name
 		});
+	},
+	get_it_checklist: function (frm) {
+		add_it_management_table_items(frm, "IT Checklist") 
 	}
 });
-
-

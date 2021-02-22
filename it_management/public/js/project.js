@@ -1,6 +1,5 @@
 frappe.ui.form.on('Project', {
 	refresh: function (frm) {
-		cur_frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
 		cur_frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 		cur_frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
 		cur_frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));

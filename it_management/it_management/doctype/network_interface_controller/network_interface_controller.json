@@ -12,6 +12,7 @@
   "type",
   "host",
   "hostname",
+  "fqdn",
   "socket",
   "customer"
  ],
@@ -83,9 +84,14 @@
    "fieldtype": "Data",
    "label": "IP v6",
    "search_index": 1
+  },
+  {
+   "fieldname": "fqdn",
+   "fieldtype": "Data",
+   "label": "Fully Qualified Domain Name (FQDN)"
   }
  ],
- "modified": "2020-11-13 13:12:31.341495",
+ "modified": "2021-02-16 16:05:16.608990",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Network Interface Controller",

@@ -151,8 +151,8 @@ def add_sales_invoice_timesheets(data):
 
 		#Remove all existing Timesheets from Sales Invoice if Tasks have been selecte
 		if len(data["tasks"]) > 0:
-			print(data["existing_sales_invoice_ts"])
-			for sits in data["existing_sales_invoice_ts"]:
+			print(data["names_of_timesheets_detail_in_sales_invoice"])
+			for sits in data["names_of_timesheets_detail_in_sales_invoice"]:
 				print("Deleteing: " + str(sits))
 				doc = frappe.get_doc("Sales Invoice Timesheet",sits)
 				doc.delete()
@@ -164,7 +164,6 @@ def add_sales_invoice_timesheets(data):
 					AND `sales_invoice` IS NULL""".format(task=task["task"]), as_dict=True)
 
 			for tsdetail in tsdetails:
-				#if tsdetail["parent"] not in data["existing_ts"]:
 				#Insert selected Timesheets to Sales Invoice
 				doc = frappe.get_doc('Sales Invoice', data["sales invoice"])
 				doc.append('timesheets', {
@@ -185,13 +184,46 @@ def add_sales_invoice_timesheets(data):
 		return "Done"
 	except Exception as ex:
 		frappe.throw(str(ex), ex, "Error while saving or while adding timesheets.")
-	
+
+def finditer_with_line_numbers(pattern, string, flags=0):
+    '''
+    A version of 're.finditer' that returns '(match, line_number)' pairs.
+    '''
+    import re
+
+    matches = list(re.finditer(pattern, string, flags))
+    if not matches:
+        return []
+
+    end = matches[-1].start()
+    # -1 so a failed 'rfind' maps to the first line.
+    newline_table = {-1: 0}
+    for i, m in enumerate(re.finditer(r'\n', string), 1):
+        # don't find newlines past our last match
+        offset = m.start()
+        if offset > end:
+            break
+        newline_table[offset] = i
+
+    # Failing to find the newline is OK, -1 maps to 0.
+    for m in matches:
+        newline_offset = string.rfind('\n', 0, m.start())
+        line_number = newline_table[newline_offset]
+        yield (m, line_number)
 			
 @frappe.whitelist()
 def turn_off_auto_fetching_timesheets():
-	js_file = open("/home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/sales_invoice/sales_invoice.js", 'r+')
+	js_file = open("/home/marius/frappe-bench/apps/erpnext/erpnext/accounts/doctype/sales_invoice/sales_invoice.js", 'r+')
+
+	js_file_content_string = js_file.read()
+
+	#Source: https://stackoverflow.com/questions/16673778/python-regex-match-in-multiline-but-still-want-to-get-the-line-number
+	for match in finditer_with_line_numbers(r"frappe.ui.form.on('Sales Invoice Timesheet'",js_file_content_string):
+    		print(match)
+			
+	"""
 	js_file_content = js_file.readlines()
-	if js_file_content[836] == "/* frappe.ui.form.on('Sales Invoice Timesheet', {\n":
+	if js_file_content[831] == "/* frappe.ui.form.on('Sales Invoice Timesheet', {\n":
 		frappe.throw(_("Diese Funktion wurde bereits ausgeführt."))
 	else:
 		if js_file_content[825] == "frappe.ui.form.on('Sales Invoice Timesheet', {\n":
@@ -228,6 +260,7 @@ def turn_off_auto_fetching_timesheets():
 				frappe.throw(_("Achtung, hier (sales_invoice.py) scheint etwas nicht zu stimmen!"))
 		else:
 			frappe.throw(_("Achtung, hier (sales_invoice.js) scheint etwas nicht zu stimmen!"))
+	"""
 
 @frappe.whitelist()
 def for_every_customer_create_default_landscape():
@@ -293,3 +326,56 @@ def for_every_doctype_set_it_landscape_from_customer():
 		return
 
 	return
+
+@frappe.whitelist()
+def get_items_from_childtable(data):
+	#Check if called from client side (not necessary)
+	if(isinstance(data,str)):
+		data = json.loads(data)
+
+	childtable = "`tab" + data["childdoctypename"] + "`"
+	fields = data["fields"]
+	parentselections = data["parentselections"]
+
+	#From fieldsarray create SQL usable String in format field1, field2
+	fields_f_string = ""
+	idx = 0
+	length = len(fields)
+	for field in fields:
+			if( idx < length - 1):
+				fields_f_string += field + ", "
+			else:
+				fields_f_string += field
+			idx += 1
+
+	print(fields_f_string)
+
+	#From parentselections array create SQL usable String in format ( 'parent1', 'parent2', ... )
+	parentselections_f_string = "( '"
+	idx = 0
+	length = len(parentselections)
+	for parent in parentselections:
+			if( idx < length - 1):
+				parentselections_f_string += parent + "', '"
+			else:
+				parentselections_f_string += parent
+			idx += 1
+	parentselections_f_string += "' )" 
+
+	print(parentselections_f_string)
+			
+
+	data = frappe.db.sql(f"""
+		SELECT
+			{fields_f_string}
+		FROM {childtable}
+		WHERE parent in {parentselections_f_string}
+		ORDER BY 
+			parent DESC,
+			idx DESC;
+	""", as_dict=1)
+
+	print(data)
+
+
+	return data

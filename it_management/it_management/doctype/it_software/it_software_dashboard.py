@@ -6,7 +6,6 @@ def get_data():
     return {
         'fieldname': 'it_software',
         'non_standard_fieldnames': {
-            #'IT Ticket': 'dynamic_name'
 			'Issue': 'dynamic_name',
 			'Software Instance': 'software',
 			'Licence': 'software',

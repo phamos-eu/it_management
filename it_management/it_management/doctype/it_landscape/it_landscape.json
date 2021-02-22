@@ -36,13 +36,12 @@
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
-   "in_standard_filter": 1,
    "label": "Customer Name",
    "search_index": 1
   }
  ],
- "modified": "2020-12-29 06:06:14.543823",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2021-02-19 13:34:14.376812",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Landscape",
  "owner": "Administrator",

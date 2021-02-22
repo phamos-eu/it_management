@@ -16,5 +16,5 @@ frappe.ui.form.on('Configuration Item', {
 				};
 			}
 		});
-	}
+	},
 });
