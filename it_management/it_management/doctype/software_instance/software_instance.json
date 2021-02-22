@@ -90,6 +90,7 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Customer",
+   "options": "Customer",
    "read_only": 1
   },
   {
@@ -115,8 +116,8 @@
    "options": "IT Landscape"
   }
  ],
- "modified": "2020-12-04 09:07:03.173016",
- "modified_by": "Administrator",
+ "modified": "2020-12-29 06:37:05.929568",
+ "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Software Instance",
  "nsm_parent_field": "parent_software_instance",
