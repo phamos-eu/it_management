@@ -104,7 +104,6 @@
    "fieldtype": "Link",
    "label": "IT Landscape",
    "options": "IT Landscape",
-   "reqd": 1
   }
  ],
  "modified": "2020-11-14 19:11:09.074156",
