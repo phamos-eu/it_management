@@ -1,6 +1,6 @@
 {
  "allow_rename": 1,
- "autoname": "format:{location_room}-{label}-{#####}",
+ "autoname": "format:{location_room}-{identifier}",
  "creation": "2019-03-13 12:37:32.181683",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -33,7 +33,8 @@
   {
    "fieldname": "identifier",
    "fieldtype": "Data",
-   "label": "Identifier"
+   "label": "Identifier",
+   "reqd": 1
   },
   {
    "fieldname": "title",
@@ -49,7 +50,8 @@
    "fieldname": "source_location_room",
    "fieldtype": "Link",
    "label": "Source Location Room",
-   "options": "Location Room"
+   "options": "Location Room",
+   "reqd": 1
   },
   {
    "fieldname": "source_label",
@@ -145,7 +147,7 @@
    "label": "Connect Socket"
   }
  ],
- "modified": "2021-02-19 09:20:42.386506",
+ "modified": "2021-02-25 09:20:42.386506",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Socket",
