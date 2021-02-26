@@ -1,19 +1,49 @@
 // Copyright (c) 2019, IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
 // For license information, please see license.txt
-//
 
+function toggle_childtable_filter(cur_frm, toggle=false) {
+	if (cur_frm.doc.customer) {
+		frappe.model.get_value(cur_frm.doctype, cur_frm.name, ["filter_based_on_customer"], function(obj){
+			console.log(obj);
+		});
+
+		// The toggle switch
+		if (toggle == true && cur_frm.doc.toggle_switch_filter == 0 ){
+			cur_frm.set_value('filter_based_on_customer', '1');
+			cur_frm.set_value('toggle_switch_filter', '1');
+		} else if (toggle == true && cur_frm.doc.toggle_switch_filter == 1) {
+			cur_frm.set_value('filter_based_on_customer', '0');
+			cur_frm.set_value('toggle_switch_filter', '0');
+		}
+
+		// Setting the filters depending on the checkbox/togglefield "filter_based_on_customer"
+		if (cur_frm.doc.filter_based_on_customer) {
+			cur_frm.set_query('dynamic_name', 'it_management_table', function (row) {
+				return {
+					'filters': {
+						'customer': cur_frm.doc.customer
+					}
+				};
+			});
+			cur_frm.refresh_field('it_management_table');
+		}
+	}
+
+	// Setting more filters depending on the checkbox/togglefield "filter_based_on_customer"
+	cur_frm.set_query('dynamic_type', 'it_management_table', function () {
+		return {
+			'filters': {
+				'module': 'IT Management',
+				'istable': 0,
+			}
+		};
+	});
+}
 
 frappe.ui.form.on('Issue', {
 	onload: function (frm) {
 		// restrict Dynamic Links to IT Mnagement
-		frm.set_query('dynamic_type', 'it_management_table', function () {
-			return {
-				'filters': {
-					'module': 'IT Management',
-					'istable': 0,
-				}
-			};
-		});
+		toggle_childtable_filter(frm);
 		frm.set_query('project', function () {
 			// restrict project to customer
 			if (frm.doc.customer) {
@@ -46,23 +76,11 @@ frappe.ui.form.on('Issue', {
 		frm.trigger('contact');
 		
 	},
+	filter_based_on_customer: function(frm) {
+		toggle_childtable_filter(frm, true);
+	},
 	customer: function (frm) {
-		if (cur_frm.doc.customer) {
-			cur_frm.set_value('filter_based_on_customer', '1');
-			if (cur_frm.doc.filter_based_on_customer) {
-				// restrict Document to Customer
-				frm.set_query('dynamic_name', 'it_management_table', function (row) {
-					return {
-						'filters': {
-							'customer': cur_frm.doc.customer
-						}
-					};
-				});
-				cur_frm.refresh_field('it_management_table');
-			}
-		} else {
-			cur_frm.set_value('filter_based_on_customer', 0);
-		}
+		toggle_childtable_filter(frm);
 	},
 	contact: function (frm) {
         if (cur_frm.doc.contact) {

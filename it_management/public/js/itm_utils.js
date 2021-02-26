@@ -200,7 +200,6 @@ function add_it_management_table_items(frm, source_doctype) {
 				   }
 				},
 				callback: function(json){
-
 					// Do something with the items (e.g. add them to the childtable within the current document)
 					json.message.forEach(item => {
 						let row = frm.add_child('it_management_table', {
