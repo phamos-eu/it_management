@@ -1,51 +1,9 @@
 // Copyright (c) 2019, IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
 // For license information, please see license.txt
 
-// TODO Under Construction !
-
-function toggle_childtable_filter(cur_frm, toggle=false) {
-	if (cur_frm.doc.customer) {
-		frappe.model.get_value(cur_frm.doctype, cur_frm.name, ["filter_based_on_customer"], function(obj){
-			console.log(obj);
-		});
-
-		// The toggle switch
-		if (toggle == true && cur_frm.doc.toggle_switch_filter == 0 ){
-			cur_frm.set_value('filter_based_on_customer', '1');
-			cur_frm.set_value('toggle_switch_filter', '1');
-		} else if (toggle == true && cur_frm.doc.toggle_switch_filter == 1) {
-			cur_frm.set_value('filter_based_on_customer', '0');
-			cur_frm.set_value('toggle_switch_filter', '0');
-		}
-
-		// Setting the filters depending on the checkbox/togglefield "filter_based_on_customer"
-		if (cur_frm.doc.filter_based_on_customer) {
-			cur_frm.set_query('dynamic_name', 'it_management_table', function (row) {
-				return {
-					'filters': {
-						'customer': cur_frm.doc.customer
-					}
-				};
-			});
-			cur_frm.refresh_field('it_management_table');
-		}
-	}
-
-	// Setting more filters depending on the checkbox/togglefield "filter_based_on_customer"
-	cur_frm.set_query('dynamic_type', 'it_management_table', function () {
-		return {
-			'filters': {
-				'module': 'IT Management',
-				'istable': 0,
-			}
-		};
-	});
-}
-
 frappe.ui.form.on('Issue', {
 	onload: function (frm) {
-		// restrict Dynamic Links to IT Mnagement
-		toggle_childtable_filter(frm);
+		// Filter: Restrict Dynamic Links to IT Management
 		frm.set_query('project', function () {
 			// restrict project to customer
 			if (frm.doc.customer) {
@@ -68,21 +26,21 @@ frappe.ui.form.on('Issue', {
 		});
 	},
 	refresh: function (frm) {
+		// Filter IT Management Table
+		filter_it_management_table_based_on_customer(frm, "it_management_table")
+
+		// Add Buttons
 		if (!frm.is_new()) {
 			frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
 			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
-			//frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
 			frm.add_custom_button('Opportunity', function () { frm.trigger('make_opportunity') }, __("Make"));
 			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
 		frm.trigger('contact');
-		
-	},
-	filter_based_on_customer: function(frm) {
-		toggle_childtable_filter(frm, true);
 	},
 	customer: function (frm) {
-		toggle_childtable_filter(frm);
+		// When field customer input => filter IT Management Table
+		filter_it_management_table_based_on_customer(cur_frm, "it_management_table")
 	},
 	contact: function (frm) {
         if (cur_frm.doc.contact) {
@@ -123,6 +81,7 @@ frappe.ui.form.on('Issue', {
 			"issue": frm.doc.name
 		});
 	},
+	/*
 	make_sales_invoice: function (frm) {
 		let dialog = new frappe.ui.Dialog({
 			title: __("Select Item (optional)"),
@@ -155,6 +114,7 @@ frappe.ui.form.on('Issue', {
 		});
 		dialog.show();
 	},
+	*/
 	make_opportunity: function (frm) {
 		let op = frappe.new_doc("Opportunity", {
 			"issue":frm.doc.name 

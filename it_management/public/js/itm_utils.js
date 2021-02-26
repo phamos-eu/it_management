@@ -170,6 +170,36 @@ function activity_dialog(frm) {
 	
 }
 
+function filter_it_management_table_based_on_customer(cur_frm, fieldname) {
+	/**
+	 * Parameter:
+	 * cur_frm.customer must be a field of cur_frm
+	 * fieldname : the doc.fieldname where the it_management_table resides in
+	 */
+
+	// Setting more filters depending on the checkbox/togglefield "filter_based_on_customer"
+	cur_frm.set_query('dynamic_type', fieldname, function () {
+		return {
+			'filters': {
+				'module': 'IT Management',
+				'istable': 0,
+			}
+		}
+	});
+
+	// Setting the filters depending on the checkbox/togglefield "filter_based_on_customer"
+	if (cur_frm.doc.customer) {
+		cur_frm.set_query('dynamic_name', fieldname, function (row) {
+			return {
+				'filters': {
+					'customer': cur_frm.doc.customer
+				}
+			};
+		});
+		cur_frm.refresh_field(fieldname);
+	}
+}
+
 
 
 function add_it_management_table_items(frm, source_doctype) {
