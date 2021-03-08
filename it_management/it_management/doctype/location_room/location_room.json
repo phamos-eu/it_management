@@ -68,11 +68,10 @@
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
-   "options": "IT Landscape",
-   "reqd": 1
+   "options": "IT Landscape"
   }
  ],
- "modified": "2021-02-19 14:57:09.953401",
+ "modified": "2021-02-25 14:57:09.953401",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Location Room",
