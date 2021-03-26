@@ -54,7 +54,7 @@ function activity_dialog(frm) {
 				fieldname: 'sb_2'
 			},
 			{
-				fieldtype: 'Text Editor',
+				fieldtype: 'Text',
 				fieldname: 'note',
 			},
 			{
@@ -85,7 +85,6 @@ function activity_dialog(frm) {
 				label: __('To Time'),
 				default: frappe.datetime.now_datetime(),
 			}
-
 		],
 	})
 
