@@ -26,9 +26,14 @@ def execute(filters=None):
 	return conditions["columns"], data
 
 def get_data():
+	"""
+	#TODO Initial Report Template ( first try )
+	Under Construction:
+	The goal is it to get data in the form of an array from the database via frappe.get_list(...)
+	"""
 
 	data = []
 
-	
+
 
 	return data
