@@ -73,7 +73,7 @@
    "fetch_from": null,
    "fetch_if_empty": 0,
    "fieldname": "configuration_item",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "hidden": 1,
    "idx": 59,
    "ignore_user_permissions": 0,
