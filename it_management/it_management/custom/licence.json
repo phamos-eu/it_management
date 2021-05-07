@@ -1,7 +1,32 @@
+
 {
  "custom_fields": [],
  "custom_perms": [],
  "doctype": "Licence",
- "property_setters": [],
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2019-12-30 12:35:30.871030",
+   "default_value": null,
+   "doc_type": "Licence",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "naming_series",
+   "idx": 0,
+   "modified": "2019-12-30 12:35:30.871030",
+   "modified_by": "wolfram.schmidt@tueit.de",
+   "name": "Licence-naming_series-reqd",
+   "owner": "wolfram.schmidt@tueit.de",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "reqd",
+   "property_type": "Check",
+   "value": "1"
+  },
+ ],
  "sync_on_migrate": 1
 }
