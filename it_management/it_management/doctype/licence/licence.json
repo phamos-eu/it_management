@@ -27,9 +27,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Data",
-   "hidden": 0,
    "options": "LIC-",
-   "reqd": 1,
    "label": "Naming Series"
   },
   {
