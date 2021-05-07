@@ -26,29 +26,6 @@
    "property_type": "Check",
    "value": "1"
   },
-  {
-   "_assign": null,
-   "_comments": null,
-   "_liked_by": null,
-   "_user_tags": null,
-   "creation": "2019-12-30 11:38:39.562489",
-   "default_value": null,
-   "doc_type": "Licence",
-   "docstatus": 0,
-   "doctype_or_field": "DocField",
-   "field_name": "naming_series",
-   "idx": 0,
-   "modified": "2019-12-30 11:38:39.562489",
-   "modified_by": "wolfram.schmidt@tueit.de",
-   "name": "Licence-naming_series-default",
-   "owner": "wolfram.schmidt@tueit.de",
-   "parent": null,
-   "parentfield": null,
-   "parenttype": null,
-   "property": "default",
-   "property_type": "Text",
-   "value": "LIC-"
-  }
  ],
  "sync_on_migrate": 1
 }
