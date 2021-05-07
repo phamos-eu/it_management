@@ -26,7 +26,7 @@
    "property": "reqd",
    "property_type": "Check",
    "value": "1"
-  },
+  }
  ],
  "sync_on_migrate": 1
 }
