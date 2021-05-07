@@ -27,6 +27,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Data",
+   "options": "Email",
    "label": "Naming Series"
   },
   {
