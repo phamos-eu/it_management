@@ -2,7 +2,6 @@ frappe.ui.form.on('Project', {
 	refresh: function (frm) {
 		cur_frm.add_custom_button('Purchase Order', function () { frm.trigger('make_purchase_order') }, __("Make"));
 		cur_frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
-		cur_frm.add_custom_button('IT Service Report', function () { frm.trigger('make_it_service_report') }, __("Make"));
 		cur_frm.add_custom_button('Sales Invoice', function () { frm.trigger('make_sales_invoice') }, __("Make"));
 	},
 	add_activity: function (frm) {
@@ -25,16 +24,6 @@ frappe.ui.form.on('Project', {
 		} else {
 			frappe.new_doc("Delivery Note", {
 				"project" : frm.doc.name
-			});
-		}
-	},
-	make_it_service_report: function (frm) {
-		if (frm.is_new()) {
-			show_alert(__('Save the document first.'));
-			return;
-		} else {
-			frappe.new_doc("IT Service Report", {
-				"project": frm.doc.name
 			});
 		}
 	},
