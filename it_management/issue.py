@@ -6,7 +6,7 @@ from frappe import _
 
 # the `data` argument is generated first at the doctype-level,
 # and passed along to the next app to be modified
-def get_dashboard_data(data):
+def get_dashboard_data():
     return {
         'fieldname': 'issue',
         'non_standard_fieldnames': {
