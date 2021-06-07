@@ -347,8 +347,8 @@ def get_items_from_childtable(data):
 			else:
 				fields_f_string += field
 			idx += 1
+	fields_f_string += ", idx "
 
-	print(fields_f_string)
 
 	#From parentselections array create SQL usable String in format ( 'parent1', 'parent2', ... )
 	parentselections_f_string = "( '"
@@ -361,8 +361,6 @@ def get_items_from_childtable(data):
 				parentselections_f_string += parent
 			idx += 1
 	parentselections_f_string += "' )" 
-
-	print(parentselections_f_string)
 			
 
 	data = frappe.db.sql(f"""
@@ -372,10 +370,9 @@ def get_items_from_childtable(data):
 		WHERE parent in {parentselections_f_string}
 		ORDER BY 
 			parent DESC,
-			idx DESC;
+			idx ASC;
 	""", as_dict=1)
 
-	print(data)
 
 
 	return data

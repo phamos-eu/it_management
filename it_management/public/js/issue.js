@@ -1,19 +1,9 @@
 // Copyright (c) 2019, IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
 // For license information, please see license.txt
-//
-
 
 frappe.ui.form.on('Issue', {
 	onload: function (frm) {
-		// restrict Dynamic Links to IT Mnagement
-		frm.set_query('dynamic_type', 'it_management_table', function () {
-			return {
-				'filters': {
-					'module': 'IT Management',
-					'istable': 0,
-				}
-			};
-		});
+		// Filter: Restrict Dynamic Links to IT Management
 		frm.set_query('project', function () {
 			// restrict project to customer
 			if (frm.doc.customer) {
@@ -36,32 +26,21 @@ frappe.ui.form.on('Issue', {
 		});
 	},
 	refresh: function (frm) {
+		// Filter IT Management Table
+		filter_it_management_table_based_on_customer(frm, "it_management_table")
+
+		// Add Buttons
 		if (!frm.is_new()) {
 			frm.add_custom_button('Timesheet', function () { frm.trigger('add_activity') }, __("Make"));
-			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"))
+			frm.add_custom_button('Delivery Note', function () { frm.trigger('make_delivery_note') }, __("Make"));
 			frm.add_custom_button('Opportunity', function () { frm.trigger('make_opportunity') }, __("Make"));
 			frm.add_custom_button('IT Checklist', function () { frm.trigger('get_it_checklist') }, __("Get Items from"));
 		}
 		frm.trigger('contact');
-		
 	},
 	customer: function (frm) {
-		if (cur_frm.doc.customer) {
-			cur_frm.set_value('filter_based_on_customer', '1');
-			if (cur_frm.doc.filter_based_on_customer) {
-				// restrict Document to Customer
-				frm.set_query('dynamic_name', 'it_management_table', function (row) {
-					return {
-						'filters': {
-							'customer': cur_frm.doc.customer
-						}
-					};
-				});
-				cur_frm.refresh_field('it_management_table');
-			}
-		} else {
-			cur_frm.set_value('filter_based_on_customer', 0);
-		}
+		// When field customer input => filter IT Management Table
+		filter_it_management_table_based_on_customer(cur_frm, "it_management_table")
 	},
 	contact: function (frm) {
         if (cur_frm.doc.contact) {
@@ -95,6 +74,47 @@ frappe.ui.form.on('Issue', {
 	add_activity: function (frm) {
 		activity_dialog(frm); //This has been moved to itm_utils.js which is a loaded asset in it_management
 	},
+	make_delivery_note: function (frm) {
+		frappe.new_doc("Delivery Note", {
+			"customer": frm.doc.customer,
+			"project" : frm.doc.project,
+			"issue": frm.doc.name
+		});
+	},
+	/*
+	make_sales_invoice: function (frm) {
+		let dialog = new frappe.ui.Dialog({
+			title: __("Select Item (optional)"),
+			fields: [
+				{"fieldtype": "Link", "label": __("Item Code"), "fieldname": "item_code", "options":"Item"},
+				{"fieldtype": "Link", "label": __("Customer"), "fieldname": "customer", "options":"Customer", "default": frm.doc.customer}
+			]
+		});
+
+		dialog.set_primary_action(__("Make Sales Invoice"), () => {
+			var args = dialog.get_values();
+			if(!args) return;
+			dialog.hide();
+			return frappe.call({
+				type: "GET",
+				method: "it_management.utils.make_sales_invoice",
+				args: {
+					"source_name": frm.doc.name,
+					"item_code": args.item_code,
+					"customer": args.customer
+				},
+				freeze: true,
+				callback: function(r) {
+					if(!r.exc) {
+						frappe.model.sync(r.message);
+						frappe.set_route("Form", r.message.doctype, r.message.name);
+					}
+				}
+			});
+		});
+		dialog.show();
+	},
+	*/
 	make_opportunity: function (frm) {
 		let op = frappe.new_doc("Opportunity", {
 			"issue":frm.doc.name 

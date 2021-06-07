@@ -27,7 +27,6 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Data",
-   "hidden": 1,
    "label": "Naming Series"
   },
   {
@@ -119,7 +118,7 @@
    "reqd": 1
   }
  ],
- "modified": "2020-11-15 17:40:13.524799",
+ "modified": "2021-05-07 17:40:13.524799",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "Licence",

@@ -33,6 +33,7 @@
   {
    "fieldname": "identifier",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Identifier",
    "reqd": 1
   },
@@ -50,8 +51,7 @@
    "fieldname": "source_location_room",
    "fieldtype": "Link",
    "label": "Source Location Room",
-   "options": "Location Room",
-   "reqd": 1
+   "options": "Location Room"
   },
   {
    "fieldname": "source_label",
@@ -147,7 +147,7 @@
    "label": "Connect Socket"
   }
  ],
- "modified": "2021-02-25 09:20:42.386506",
+ "modified": "2021-03-25 13:37:42.529970",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Socket",
