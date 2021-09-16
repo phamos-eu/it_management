@@ -15,7 +15,7 @@ app_license = "GPL"
 # ------------------
 
 # Custom Error Handling for Custom Error
-fixtures = [‘Property Setter’]
+fixtures = ['Property Setter']
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/it_management/css/it_management.css"
