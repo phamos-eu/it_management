@@ -56,30 +56,5 @@
  ],
  "custom_perms": [],
  "doctype": "Timesheet",
- "property_setters": [
-  {
-   "_assign": null,
-   "_comments": null,
-   "_liked_by": null,
-   "_user_tags": null,
-   "creation": "2019-06-12 18:15:03.279309",
-   "default_value": null,
-   "doc_type": "Timesheet",
-   "docstatus": 0,
-   "doctype_or_field": "DocType",
-   "field_name": null,
-   "idx": 0,
-   "modified": "2021-06-12 18:15:03.279309",
-   "modified_by": "wolfram.schmidt@tueit.de",
-   "name": "Timesheet-read_only_onload",
-   "owner": "wolfram.schmidt@tueit.de",
-   "parent": null,
-   "parentfield": null,
-   "parenttype": null,
-   "property": "read_only_onload",
-   "property_type": "Check",
-   "value": null
-  }
- ],
  "sync_on_migrate": 1
 }
