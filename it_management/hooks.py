@@ -132,6 +132,5 @@ doctype_js = {
 # }
 
 override_doctype_dashboards = {
-    "Event": "it_management.event.get_dashboard_data",
-    "Contact": "it_management.contact.get_dashboard_data"
+    "Event": "it_management.event.get_dashboard_data"
 }
