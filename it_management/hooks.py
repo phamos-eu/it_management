@@ -14,9 +14,6 @@ app_license = "GPL"
 # Includes in <head>
 # ------------------
 
-# Custom Error Handling for Custom Error
-fixtures = ['Property Setter']
-
 # include js, css files in header of desk.html
 # app_include_css = "/assets/it_management/css/it_management.css"
 app_include_js = ["/assets/it_management/js/itm_utils.js"]
@@ -133,8 +130,3 @@ doctype_js = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "it_management.event.get_events"
 # }
-
-override_doctype_dashboards = {
-    "Event": "it_management.event.get_dashboard_data",
-    "Contact": "it_management.contact.get_dashboard_data"
-}
