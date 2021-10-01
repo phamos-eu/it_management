@@ -372,7 +372,7 @@ def get_items_from_childtable(data):
 		WHERE parent in {parentselections_f_string}
 		ORDER BY 
 			parent DESC,
-			idx DESC;
+			idx ASC;
 	""", as_dict=1)
 
 	print(data)
