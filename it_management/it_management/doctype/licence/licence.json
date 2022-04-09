@@ -119,11 +119,11 @@
    "reqd": 1
   }
  ],
- "modified": "2021-05-07 17:40:13.524799",
- "modified_by": "wolfram.schmidt@tueit.de",
+ "modified": "2022-04-09 17:40:13.524799",
+ "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Licence",
- "owner": "wolfram.schmidt@tueit.de",
+ "owner": "Administrator",
  "permissions": [
   {
    "create": 1,
