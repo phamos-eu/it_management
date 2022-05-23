@@ -99,6 +99,7 @@
    "fieldname": "make_and_model",
    "fieldtype": "Link",
    "label": "Make and Model",
+   "hidden": 1,
    "options": "Item"
   },
   {
@@ -257,7 +258,7 @@
   }
  ],
  "image_field": "image",
- "modified": "2021-02-19 12:24:09.872685",
+ "modified": "2022-05-23 12:24:09.872685",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",
