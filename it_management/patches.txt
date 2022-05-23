@@ -4,4 +4,3 @@ it_management.patches.0_2.it_ticket
 it_management.patches.0_2.ci_type
 it_management.patches.0_2.solution_type
 it_management.patches.0_3.task_checklist
-it_management.patches.v13_4.rename_configuration_item
