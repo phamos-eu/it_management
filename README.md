@@ -4,23 +4,15 @@ IT Management is an ERPNext app for managing your companies or customers IT land
 
 We are focusing on accessability, ease of use and extensibility. Also we are building very close to ERPNext's style guide and navigation.
 
-For further information read our Wiki https://github.com/tueit/it_management/wiki or get in contact with us https://www.tueit.de/
+For further information read our Wiki https://doku.phamos.eu/books/it-management or get in contact with us https://phamos.eu/contact
 
 ### Installation
-See Wiki https://github.com/tueit/it_management/wiki/Installation
+
 
 ## ERPNext
 Official Website https://erpnext.com/
 Discussion Board https://discuss.erpnext.com/
 Repo https://github.com/frappe/erpnext
-
-## Release Notes
-https://github.com/tueit/it_management/wiki/Patch-Notes
-
-## Contribute
-We have two major branches which are use.
-1. master
-2. development
 
 #### License
 
