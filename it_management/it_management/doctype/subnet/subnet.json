@@ -128,6 +128,7 @@
    "options": "Configuration Item"
   },
   {
+   "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
    "options": "IT Landscape"
@@ -167,7 +168,7 @@
    "options": "Location"
   }
  ],
- "modified": "2022-06-10 12:15:49.191222",
+ "modified": "2022-06-10 15:15:49.191222",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Subnet",
