@@ -45,7 +45,6 @@ def get_data():
                 'label': _('Service'),
                 'items': [
                     'Issue',
-                    'Maintenance Visit',
                     'IT Checklist'
                 ]
             },
