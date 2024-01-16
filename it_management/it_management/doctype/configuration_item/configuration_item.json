@@ -249,8 +249,6 @@
    "read_only": 1
   },
   {
-   "fetch_from": "customer.it_landscape",
-   "fetch_if_empty": 1,
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
@@ -258,7 +256,7 @@
   }
  ],
  "image_field": "image",
- "modified": "2022-05-23 12:24:09.872685",
+ "modified": "2022-06-10 12:24:09.872685",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Configuration Item",

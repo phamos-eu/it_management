@@ -1,0 +1,36 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"EkdyV3N5Ie\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">IT Management</span>\",\"col\":12}},{\"id\":\"0vWI7JIgVu\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"IT Landscape\",\"col\":3}}]",
+ "creation": "2024-01-16 04:51:02.486516",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "setting-gear",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "IT Management",
+ "links": [],
+ "modified": "2024-01-16 05:12:58.346628",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "IT Management",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 39.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "IT Landscape",
+   "link_to": "IT Landscape",
+   "type": "DocType"
+  }
+ ],
+ "title": "IT Management"
+}

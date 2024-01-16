@@ -145,13 +145,10 @@
    "options": "Solution"
   },
   {
-   "fetch_from": "customer.it_landscape",
-   "fetch_if_empty": 1,
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
-   "options": "IT Landscape",
-   "reqd": 1
+   "options": "IT Landscape"
   },
   {
    "fieldname": "column_break_6",
@@ -179,7 +176,7 @@
    "label": "Starts on"
   }
  ],
- "modified": "2020-11-14 19:13:20.220285",
+ "modified": "2022-06-10 19:13:20.220285",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "IT Backup",

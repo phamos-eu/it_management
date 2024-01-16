@@ -6,7 +6,7 @@ def get_data():
     return {
         'fieldname': 'host_domain',
         'non_standard_fieldnames': {
-            'Configuration Item': 'domain_name',
+        #'Configuration Item': 'domain_name',
 			'Issue': 'dynamic_name'
         },
         'transactions': [

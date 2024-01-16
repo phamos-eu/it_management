@@ -128,12 +128,10 @@
    "options": "Configuration Item"
   },
   {
-   "fetch_from": "customer.it_landscape",
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "label": "IT Landscape",
-   "options": "IT Landscape",
-   "reqd": 1
+   "options": "IT Landscape"
   },
   {
    "fieldname": "general_section",
@@ -170,7 +168,7 @@
    "options": "Location"
   }
  ],
- "modified": "2021-01-04 12:15:49.191222",
+ "modified": "2022-06-10 15:15:49.191222",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "Subnet",

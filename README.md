@@ -14,7 +14,9 @@ Your best to install IT Management via the frappecloud.com marketplace
 From the frappe-bench folder, execute
 
 $ bench get-app it_management https://github.com/phamos-eu/it_management.git
+
 $ bench install-app it_management
+
 If you are using a multi-tenant environment, use the following command
 
 $ bench --site site_name install-app it_management

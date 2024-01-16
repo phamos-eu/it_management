@@ -68,14 +68,11 @@
    "options": "User Account"
   },
   {
-   "fetch_from": "customer.it_landscape",
-   "fetch_if_empty": 1,
    "fieldname": "it_landscape",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "IT Landscape",
-   "options": "IT Landscape",
-   "reqd": 1
+   "options": "IT Landscape"
   },
   {
    "fieldname": "general_section",
@@ -87,7 +84,7 @@
    "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-11-15 17:42:17.666176",
+ "modified": "2022-06-10 17:42:17.666176",
  "modified_by": "wolfram.schmidt@tueit.de",
  "module": "IT Management",
  "name": "User Group",
