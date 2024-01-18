@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_rename": 1,
  "autoname": "field:title",
  "creation": "2020-11-10 10:05:10.349031",
@@ -8,7 +9,9 @@
  "field_order": [
   "title",
   "customer",
-  "customer_name"
+  "customer_name",
+  "company_section_section",
+  "company"
  ],
  "fields": [
   {
@@ -20,30 +23,34 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
-   "in_global_search": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
+   "hidden": 1,
    "label": "Customer",
-   "options": "Customer",
-   "search_index": 1
+   "options": "Customer"
   },
   {
-   "fetch_from": "customer.customer_name",
-   "fetch_if_empty": 1,
    "fieldname": "customer_name",
    "fieldtype": "Data",
-   "in_global_search": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "label": "Customer Name",
-   "search_index": 1
+   "hidden": 1,
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "company_section_section",
+   "fieldtype": "Tab Break",
+   "label": "Company Section"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
   }
  ],
- "modified": "2022-06-10 13:34:14.376812",
+ "links": [],
+ "modified": "2024-01-18 16:11:41.098875",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Landscape",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -75,5 +82,6 @@
  "search_fields": "customer,customer_name",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }
