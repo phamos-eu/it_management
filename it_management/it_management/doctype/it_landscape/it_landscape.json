@@ -8,10 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "customer",
-  "customer_name",
-  "company_section_section",
-  "company"
+  "disabled"
  ],
  "fields": [
   {
@@ -21,32 +18,14 @@
    "unique": 1
   },
   {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Customer",
-   "options": "Customer"
-  },
-  {
-   "fieldname": "customer_name",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Customer Name"
-  },
-  {
-   "fieldname": "company_section_section",
-   "fieldtype": "Tab Break",
-   "label": "Company Section"
-  },
-  {
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "label": "Company",
-   "options": "Company"
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "links": [],
- "modified": "2024-01-18 16:11:41.098875",
+ "modified": "2024-01-19 11:10:47.938276",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Landscape",
@@ -79,7 +58,6 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "customer,customer_name",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
