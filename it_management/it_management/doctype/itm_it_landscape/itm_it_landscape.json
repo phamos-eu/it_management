@@ -26,8 +26,13 @@
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-01-19 15:43:53.482421",
+ "links": [
+  {
+   "link_doctype": "ITM Host Item",
+   "link_fieldname": "itm_it_landscape"
+  }
+ ],
+ "modified": "2024-01-22 12:28:07.281366",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM IT Landscape",
