@@ -9,15 +9,11 @@
  "field_order": [
   "disabled",
   "location_name",
-  "is_location_group",
-  "address_html",
-  "address_line_1",
-  "address_line_2",
-  "city",
-  "state",
+  "location_primary_address",
+  "location_primary_contact",
+  "is_group",
   "lft",
   "rgt",
-  "is_group",
   "old_parent",
   "parent_itm_location"
  ],
@@ -32,37 +28,6 @@
    "fieldname": "location_name",
    "fieldtype": "Data",
    "label": "Location Name"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_location_group",
-   "fieldtype": "Check",
-   "label": "Is Location Group"
-  },
-  {
-   "fieldname": "address_html",
-   "fieldtype": "HTML",
-   "label": "Address HTML"
-  },
-  {
-   "fieldname": "address_line_1",
-   "fieldtype": "Data",
-   "label": "Address Line 1"
-  },
-  {
-   "fieldname": "address_line_2",
-   "fieldtype": "Data",
-   "label": "Address Line 2"
-  },
-  {
-   "fieldname": "city",
-   "fieldtype": "Data",
-   "label": "City"
-  },
-  {
-   "fieldname": "state",
-   "fieldtype": "Data",
-   "label": "State"
   },
   {
    "fieldname": "lft",
@@ -81,6 +46,7 @@
    "read_only": 1
   },
   {
+   "default": "0",
    "fieldname": "is_group",
    "fieldtype": "Check",
    "label": "Is Group"
@@ -96,12 +62,24 @@
    "fieldtype": "Link",
    "label": "Parent ITM Location",
    "options": "ITM Location"
+  },
+  {
+   "fieldname": "location_primary_address",
+   "fieldtype": "Link",
+   "label": "Location Primary Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "location_primary_contact",
+   "fieldtype": "Link",
+   "label": "Location Primary Contact",
+   "options": "Contact"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-01-23 16:32:39.706758",
+ "modified": "2024-01-25 01:03:12.353108",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Location",
