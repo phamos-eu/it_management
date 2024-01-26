@@ -11,7 +11,8 @@
   "title",
   "status",
   "serial_number",
-  "itm_it_landscape"
+  "itm_it_landscape",
+  "itm_location"
  ],
  "fields": [
   {
@@ -36,16 +37,17 @@
    "fieldtype": "Link",
    "label": "ITM IT Landscape",
    "options": "ITM IT Landscape"
+  },
+  {
+   "fieldname": "itm_location",
+   "fieldtype": "Link",
+   "label": "ITM Location",
+   "options": "ITM Location"
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [
-  {
-   "link_doctype": "ITM IT Landscape",
-   "link_fieldname": "name"
-  }
- ],
- "modified": "2024-01-22 12:27:09.065863",
+ "links": [],
+ "modified": "2024-01-26 12:33:37.031520",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Host Item",
