@@ -11,7 +11,6 @@
   "disabled",
   "location_name",
   "location_address",
-  "location_contact",
   "is_group",
   "lft",
   "rgt",
@@ -72,18 +71,12 @@
    "fieldtype": "Link",
    "label": "Location Address",
    "options": "Address"
-  },
-  {
-   "fieldname": "location_contact",
-   "fieldtype": "Link",
-   "label": "Location Contact",
-   "options": "Contact"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-01-26 11:35:28.667583",
+ "modified": "2024-01-26 11:39:28.247976",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Location",
