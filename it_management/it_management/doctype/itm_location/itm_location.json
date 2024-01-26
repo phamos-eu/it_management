@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:location_name",
  "creation": "2024-01-23 16:32:39.706758",
  "default_view": "List",
  "doctype": "DocType",
@@ -27,7 +28,10 @@
   {
    "fieldname": "location_name",
    "fieldtype": "Data",
-   "label": "Location Name"
+   "in_list_view": 1,
+   "label": "Location Name",
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "lft",
@@ -79,10 +83,11 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-01-26 09:49:46.180758",
+ "modified": "2024-01-26 11:35:28.667583",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Location",
+ "naming_rule": "By fieldname",
  "nsm_parent_field": "parent_itm_location",
  "owner": "Administrator",
  "permissions": [
