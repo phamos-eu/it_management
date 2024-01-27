@@ -8,14 +8,14 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "disabled",
   "location_name",
   "location_address",
   "is_group",
   "lft",
   "rgt",
   "old_parent",
-  "parent_itm_location"
+  "parent_itm_location",
+  "disabled"
  ],
  "fields": [
   {
@@ -57,6 +57,7 @@
   {
    "fieldname": "old_parent",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Old Parent",
    "options": "ITM Location"
   },
@@ -75,8 +76,13 @@
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
- "links": [],
- "modified": "2024-01-26 11:39:28.247976",
+ "links": [
+  {
+   "link_doctype": "ITM Host Item",
+   "link_fieldname": "itm_location"
+  }
+ ],
+ "modified": "2024-01-26 23:05:07.351708",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Location",
