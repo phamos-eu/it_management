@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2024-01-30 20:30:49.597040",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "itm_host_item",
+  "itm_landscape",
+  "itm_software"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "fieldname": "itm_host_item",
+   "fieldtype": "Link",
+   "label": "ITM Host Item",
+   "options": "ITM Host Item"
+  },
+  {
+   "fieldname": "itm_landscape",
+   "fieldtype": "Link",
+   "label": "ITM Landscape",
+   "options": "ITM Landscape"
+  },
+  {
+   "fieldname": "itm_software",
+   "fieldtype": "Link",
+   "label": "ITM Software",
+   "options": "ITM Software"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-31 12:08:53.851958",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "ITM Software Instance",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
