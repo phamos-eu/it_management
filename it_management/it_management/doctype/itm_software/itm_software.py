@@ -18,3 +18,6 @@ class ITMSoftware(Document):
 			if ddfr <= 0:
 				self.disabled = True
 				self.status = "Outdated"
+			else:
+				self.disabled = False
+				self.status = "Active"
