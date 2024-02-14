@@ -16,8 +16,6 @@ class ITMSoftware(Document):
 			ddfr = date_diff(self.end_of_life, nowdate())
 			#print(ddfr)
 			if ddfr <= 0:
-				self.disabled = True
 				self.status = "Outdated"
 			else:
-				self.disabled = False
 				self.status = "Active"
