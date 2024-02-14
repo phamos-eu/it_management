@@ -9,13 +9,20 @@ class ITMSoftware(Document):
 
 	def validate(self):
 		self.toggle_eof()
+		
 	
 	def toggle_eof(self):
 		
 		if(self.end_of_life):
+			
 			ddfr = date_diff(self.end_of_life, nowdate())
 			#print(ddfr)
 			if ddfr <= 0:
-				self.status = "Outdated"
+				if(self.value_holder):
+					self.end_of_life = self.value_holder
+					self.value_holder = ""
+					self.status = "Active"
+				else:
+					self.status = "Outdated"
 			else:
 				self.status = "Active"

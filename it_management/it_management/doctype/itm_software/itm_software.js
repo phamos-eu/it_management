@@ -9,6 +9,9 @@ frappe.ui.form.on('ITM Software', {
 		if (frm.doc.status == "Active"){
 			frm.set_value("disabled", false);
 		}
-		frm.set_value("end_of_life", "");
+		if (frm.doc.end_of_life){
+			frm.set_value("value_holder",frm.doc.end_of_life);
+		}
+		
 	}
 });
