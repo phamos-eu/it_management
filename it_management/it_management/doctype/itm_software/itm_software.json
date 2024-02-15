@@ -12,8 +12,7 @@
   "description",
   "end_of_life",
   "status",
-  "disabled",
-  "value_holder"
+  "disabled"
  ],
  "fields": [
   {
@@ -43,12 +42,6 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
-  },
-  {
-   "fieldname": "value_holder",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Value Holder"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -58,7 +51,7 @@
    "link_fieldname": "itm_software"
   }
  ],
- "modified": "2024-02-14 15:54:36.429883",
+ "modified": "2024-02-15 11:18:59.512803",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Software",
