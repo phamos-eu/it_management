@@ -47,8 +47,13 @@
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-01-30 10:28:52.371137",
+ "links": [
+  {
+   "link_doctype": "ITM Software Instance",
+   "link_fieldname": "itm_host_item"
+  }
+ ],
+ "modified": "2024-02-16 11:47:34.256152",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Host Item",
