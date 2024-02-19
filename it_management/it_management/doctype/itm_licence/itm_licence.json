@@ -1,0 +1,119 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2024-02-19 16:05:07.301191",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "itm_landscape",
+  "status",
+  "column_break_xcelu",
+  "software",
+  "limited",
+  "expiration_date",
+  "floating_licence",
+  "section_break_5dygu",
+  "note"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "fieldname": "itm_landscape",
+   "fieldtype": "Link",
+   "label": "ITM Landscape",
+   "options": "ITM Landscape"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Implementing\nRunning\nIssue\nStorage\nObsolet"
+  },
+  {
+   "fieldname": "column_break_xcelu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "software",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Software",
+   "options": "ITM Software"
+  },
+  {
+   "description": "Licence ist limited to number of instances",
+   "fieldname": "limited",
+   "fieldtype": "Int",
+   "label": "Limited"
+  },
+  {
+   "fieldname": "expiration_date",
+   "fieldtype": "Date",
+   "in_standard_filter": 1,
+   "label": "Expiration Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "floating_licence",
+   "fieldtype": "Check",
+   "label": "Floating Licence"
+  },
+  {
+   "fieldname": "section_break_5dygu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Text Editor",
+   "label": "Note"
+  }
+ ],
+ "links": [],
+ "modified": "2024-02-19 16:05:07.301191",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "ITM Licence",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title"
+}
