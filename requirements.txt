@@ -1,1 +1,1 @@
-frappe
+# "frappe>=16.0.0" # Installed and managed by bench.
