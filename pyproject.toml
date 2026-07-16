@@ -7,7 +7,7 @@ name = "it_management"
 version = "0.0.1"
 description = "IT Management - An ERPNext app for managing IT landscapes, configuration items, and assets"
 readme = "README.md"
-license = "GPLv3"
+license = "GPL-3.0-only"
 requires-python = ">=3.7"
 authors = [
     {name = "IT-Geraete und IT-Loesungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups", email = "info@tueit.de"}
@@ -17,7 +17,6 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: System Administrators",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.7",
