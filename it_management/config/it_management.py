@@ -15,6 +15,12 @@ def get_data():
                 },
                 {
                     "type": "doctype",
+                    "name": "ITM Host Item",
+                    "label": _("ITM Host Item"),
+                    "description": _("ITM Host Item")
+                },
+                {
+                    "type": "doctype",
                     "name": "Solution",
                     "label": _("Solution"),
                     "description": _("Solution")
@@ -169,6 +175,35 @@ def get_data():
                     "name": "IT Management Settings",
                     "label": _("Settings"),
                     "description": _("IT Management Settings")
+                }
+            ]
+        },
+        {
+            "label": _("Standalone Mode"),
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "ITM Customer",
+                    "label": _("ITM Customer"),
+                    "description": _("Customer for standalone mode")
+                },
+                {
+                    "type": "doctype",
+                    "name": "ITM Customer Group",
+                    "label": _("ITM Customer Group"),
+                    "description": _("Customer Group for standalone mode")
+                },
+                {
+                    "type": "doctype",
+                    "name": "ITM Item",
+                    "label": _("ITM Item"),
+                    "description": _("Item for standalone mode")
+                },
+                {
+                    "type": "doctype",
+                    "name": "ITM Item Group",
+                    "label": _("ITM Item Group"),
+                    "description": _("Item Group for standalone mode")
                 }
             ]
         }

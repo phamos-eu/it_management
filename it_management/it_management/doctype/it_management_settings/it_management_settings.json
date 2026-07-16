@@ -4,11 +4,25 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "section_erpnext_integration",
+  "use_erpnext_links",
   "section_sales_invoice",
   "turn_off_auto_fetching_timesheets",
   "customer"
  ],
  "fields": [
+  {
+   "fieldname": "section_erpnext_integration",
+   "fieldtype": "Section Break",
+   "label": "ERPNext Integration"
+  },
+  {
+   "fieldname": "use_erpnext_links",
+   "fieldtype": "Check",
+   "label": "Use ERPNext Link Fields",
+   "default": 1,
+   "description": "If enabled, use standard ERPNext doctypes (Customer, Item, etc.). If disabled, IT Management will work standalone with Frappe only."
+  },
   {
    "fieldname": "section_sales_invoice",
    "fieldtype": "Section Break",
