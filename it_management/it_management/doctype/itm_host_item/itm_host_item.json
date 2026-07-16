@@ -11,6 +11,12 @@
   "title",
   "status",
   "serial_number",
+  "customer_section",
+  "customer",
+  "itm_customer",
+  "item_section",
+  "item_code",
+  "itm_item",
   "itm_landscape",
   "itm_location"
  ],
@@ -32,6 +38,46 @@
    "fieldname": "serial_number",
    "fieldtype": "Data",
    "label": "Serial Number"
+  },
+  {
+   "fieldname": "customer_section",
+   "fieldtype": "Section Break",
+   "label": "Customer",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "depends_on": "eval:doc.use_erpnext_links || !doc.use_erpnext_links"
+  },
+  {
+   "fieldname": "itm_customer",
+   "fieldtype": "Link",
+   "label": "ITM Customer",
+   "options": "ITM Customer",
+   "depends_on": "eval:!doc.use_erpnext_links"
+  },
+  {
+   "fieldname": "item_section",
+   "fieldtype": "Section Break",
+   "label": "Item",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "depends_on": "eval:doc.use_erpnext_links || !doc.use_erpnext_links"
+  },
+  {
+   "fieldname": "itm_item",
+   "fieldtype": "Link",
+   "label": "ITM Item",
+   "options": "ITM Item",
+   "depends_on": "eval:!doc.use_erpnext_links"
   },
   {
    "fieldname": "itm_location",

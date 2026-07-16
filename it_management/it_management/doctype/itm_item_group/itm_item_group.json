@@ -1,0 +1,52 @@
+{
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "itm_item_group_name",
+  "parent_itm_item_group",
+  "is_group"
+ ],
+ "fields": [
+  {
+   "fieldname": "itm_item_group_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Group Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "parent_itm_item_group",
+   "fieldtype": "Link",
+   "label": "Parent Item Group",
+   "options": "ITM Item Group"
+  },
+  {
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  }
+ ],
+ "is_tree": 1,
+ "module": "IT Management",
+ "name": "ITM Item Group",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
