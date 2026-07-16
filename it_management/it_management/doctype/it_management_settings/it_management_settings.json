@@ -5,10 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "section_erpnext_integration",
-  "use_erpnext_links",
-  "section_sales_invoice",
-  "turn_off_auto_fetching_timesheets",
-  "customer"
+  "use_erpnext_links"
  ],
  "fields": [
   {
@@ -22,33 +19,6 @@
    "label": "Use ERPNext Link Fields",
    "default": 1,
    "description": "If enabled, use standard ERPNext doctypes (Customer, Item, etc.). If disabled, IT Management will work standalone with Frappe only."
-  },
-  {
-   "fieldname": "section_sales_invoice",
-   "fieldtype": "Section Break",
-   "label": "Sales Invoice"
-  },
-  {
-   "fieldname": "turn_off_auto_fetching_timesheets",
-   "fieldtype": "Button",
-   "label": "Turn off auto fetching Timesheets"
-  },
-  {
-    "fieldname": "for_every_customer_create_default_landscape",
-    "fieldtype": "Button",
-    "label": "For every customer create default landscape"
-   },
-   {
-    "fieldname": "for_every_doctype_set_it_landscape_from_customer",
-    "fieldtype": "Button",
-    "label": "For every doctype set it landscape from customer"
-   },
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Customer",
-   "options": "Customer"
   }
  ],
  "issingle": 1,
