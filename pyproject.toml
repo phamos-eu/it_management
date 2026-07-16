@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "it_management"
+version = "0.0.1"
+description = "IT Management - An ERPNext app for managing IT landscapes, configuration items, and assets"
+readme = "README.md"
+license = {text = "GPLv3"}
+requires-python = ">=3.7"
+authors = [
+    {name = "IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups", email = "Dienstleistungsverträge, Accounts und Internetleistungen.info@tueit.de"}
+]
+keywords = ["ERPNext", "IT Management", "Configuration Items", "ITIL", "CMDB"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Framework :: Frappe",
+    "Topic :: Office/Business :: ERP",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = [
+    "frappe>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "flake8",
+    "black",
+    "isort",
+]
+
+[project.urls]
+Homepage = "https://github.com/phamos-eu/it_management"
+Documentation = "https://doku.phamos.eu/books/it-management"
+Repository = "https://github.com/phamos-eu/it_management"
+Issues = "https://github.com/phamos-eu/it_management/issues"
+
+[tool.setuptools]
+packages = ["it_management"]
+include-package-data = true
+
+[tool.black]
+line-length = 88
+target-version = ["py37", "py38", "py39", "py310", "py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["it_management"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
