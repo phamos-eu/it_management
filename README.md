@@ -4,7 +4,7 @@ IT Management is an ERPNext app for managing your companies or customers IT land
 
 We are focusing on accessability, ease of use and extensibility. Also we are building very close to ERPNext's style guide and navigation.
 
-For further information read our Wiki https://doku.phamos.eu/books/it-management or get in contact with us https://phamos.eu/contact
+For further information read our Wiki https://doku.phamos.eu/books/it-management, visit our website https://phamos.eu, or get in contact with us https://phamos.eu/contact
 
 ### Installation
 #### Frappecloud
