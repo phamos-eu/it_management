@@ -7,10 +7,10 @@ name = "it_management"
 version = "0.0.1"
 description = "IT Management - An ERPNext app for managing IT landscapes, configuration items, and assets"
 readme = "README.md"
-license = {text = "GPLv3"}
+license = "GPLv3"
 requires-python = ">=3.7"
 authors = [
-    {name = "IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups", email = "Dienstleistungsverträge, Accounts und Internetleistungen.info@tueit.de"}
+    {name = "IT-Geraete und IT-Loesungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups", email = "info@tueit.de"}
 ]
 keywords = ["ERPNext", "IT Management", "Configuration Items", "ITIL", "CMDB"]
 classifiers = [
