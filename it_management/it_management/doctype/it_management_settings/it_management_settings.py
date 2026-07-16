@@ -20,10 +20,3 @@ class ITManagementSettings(Document):
 					_("ERPNext is not installed. Please install ERPNext to use ERPNext link fields."),
 					title=_("ERPNext Required")
 				)
-
-	def on_update(self):
-		"""Update field visibility when settings change."""
-		from it_management.it_management.utils.erpnext_integration import sync_all_erpnext_fields
-		
-		# Sync all doctypes that have ERPNext fields
-		sync_all_erpnext_fields()
