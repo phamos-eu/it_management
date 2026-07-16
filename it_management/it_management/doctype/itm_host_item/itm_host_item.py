@@ -1,4 +1,4 @@
-# Copyright (c) 2024, IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
+# Copyright (c) 2024, IT-Gerte und IT-Lsungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
 # For license information, please see license.txt
 
 import frappe
@@ -100,3 +100,12 @@ class ITMHostItem(Document):
 									_("The doctype '{0}' does not exist. Please install ERPNext or disable 'Use ERPNext Link Fields' in IT Management Settings.").format(target_doctype),
 									title=_("Missing Doctype")
 								)
+		
+		# Validate solution relationships - prevent duplicate solutions
+		if hasattr(self, 'itm_host_item_solution_table') and self.itm_host_item_solution_table:
+			solutions = [row.itm_solution for row in self.itm_host_item_solution_table if row.itm_solution]
+			if len(solutions) != len(set(solutions)):
+				frappe.throw(
+					_("A solution can only be linked once to a host item"),
+					title=_("Duplicate Solution")
+				)

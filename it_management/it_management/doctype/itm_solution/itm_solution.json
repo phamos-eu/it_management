@@ -21,7 +21,9 @@
   "section_break_7",
   "description",
   "itm_solution_table",
-  "itm_user_account_table"
+  "itm_user_account_table",
+  "host_items_section",
+  "itm_host_item_solution_table"
  ],
  "fields": [
   {
@@ -117,6 +119,19 @@
    "hidden": 1,
    "label": "User Account Table",
    "options": "ITM User Account Table"
+  },
+  {
+   "fieldname": "host_items_section",
+   "fieldtype": "Section Break",
+   "label": "Host Items",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "itm_host_item_solution_table",
+   "fieldtype": "Table",
+   "label": "Host Items",
+   "options": "ITM Host Item Solution Table",
+   "read_only": 1
   }
  ],
  "links": [],
