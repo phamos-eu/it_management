@@ -81,7 +81,7 @@ doctype_js = {
 # ------------
 
 # before_install = "it_management.install.before_install"
-# after_install = "it_management.install.after_install"
+after_install = "it_management.patches.0_4.erpnext_field_visibility.execute"
 
 # Uninstalatiom
 
@@ -109,13 +109,11 @@ before_uninstall = "it_management.it_management.server_script.delete_custom_fiel
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"IT Management Settings": {
+		"on_update": "it_management.it_management.doctype.it_management_settings.it_management_settings.on_update"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
