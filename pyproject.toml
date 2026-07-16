@@ -47,6 +47,9 @@ Documentation = "https://doku.phamos.eu/books/it-management"
 Repository = "https://github.com/phamos-eu/it_management"
 Issues = "https://github.com/phamos-eu/it_management/issues"
 
+[tool.bench.frappe-dependencies]
+frappe = ">=13.0.0,<16.0.0"
+
 [tool.setuptools]
 packages = ["it_management"]
 include-package-data = true
