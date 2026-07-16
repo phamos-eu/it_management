@@ -109,11 +109,13 @@ before_uninstall = "it_management.it_management.server_script.delete_custom_fiel
 # ---------------
 # Hook on document methods and events
 
-doc_events = {
-	"IT Management Settings": {
-		"on_update": "it_management.it_management.doctype.it_management_settings.it_management_settings.on_update"
-	}
-}
+# doc_events = {
+# 	"*": {
+# 		"on_update": "method",
+# 		"on_cancel": "method",
+# 		"on_trash": "method"
+#	}
+# }
 
 # Scheduled Tasks
 # ---------------

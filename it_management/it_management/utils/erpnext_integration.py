@@ -4,7 +4,7 @@
 
 """
 Utilities for ERPNext integration management.
-Handles dynamic field creation/removal based on ERPNext availability and settings.
+Handles validation and field visibility logic for ERPNext integration.
 """
 
 from __future__ import unicode_literals
@@ -131,7 +131,7 @@ def create_custom_field(doctype, fieldname, fieldtype, options=None, label=None,
 		return False
 
 	# Check if it's a custom field
-	custom_field_name = f"{doctype}-{fieldname}"
+	custom_field_name = "{0}-{1}".format(doctype, fieldname)
 	try:
 		frappe.get_doc("Custom Field", custom_field_name)
 		return False  # Already exists as custom field
@@ -165,7 +165,7 @@ def remove_custom_field(doctype, fieldname):
 		doctype: The doctype
 		fieldname: The fieldname to remove
 	"""
-	custom_field_name = f"{doctype}-{fieldname}"
+	custom_field_name = "{0}-{1}".format(doctype, fieldname)
 	
 	# Check if it's a standard field (not custom)
 	meta = frappe.get_meta(doctype)
@@ -181,114 +181,5 @@ def remove_custom_field(doctype, fieldname):
 	except frappe.DoesNotExistError:
 		return False
 	except Exception as e:
-		frappe.log_error(f"Error deleting custom field {custom_field_name}: {e}")
+		frappe.log_error("Error deleting custom field {0}: {1}".format(custom_field_name, str(e)))
 		return False
-
-
-def update_field_visibility(doctype, fieldname, hide=False):
-	"""
-	Update field visibility using depends_on.
-	
-	Args:
-		doctype: The doctype
-		fieldname: The fieldname
-		hide: If True, hide the field; if False, show it
-	"""
-	try:
-		meta = frappe.get_meta(doctype)
-		field = meta.get_field(fieldname)
-		if field:
-			if hide:
-				field.depends_on = "eval:False"
-			else:
-				field.depends_on = ""
-			meta.save()
-			return True
-	except Exception as e:
-		frappe.log_error(f"Error updating field visibility for {doctype}.{fieldname}: {e}")
-		return False
-	
-
-def sync_erpnext_fields_for_doctype(doctype):
-	"""
-	Synchronize ERPNext fields for a specific doctype based on settings.
-	
-	This function:
-	1. Checks if ERPNext is installed
-	2. Checks the IT Management Settings
-	3. Shows/hides or creates/removes fields accordingly
-	
-	Args:
-		doctype: The doctype to sync
-	"""
-	from frappe.utils import getdate
-	
-	# Get the field mapping for this doctype
-	mapping = get_erpnext_doctype_fields_mapping()
-	if doctype not in mapping:
-		return False
-	
-	config = mapping[doctype]
-	erpnext_fields = config.get("erpnext_fields", [])
-	itm_fields = config.get("itm_fields", [])
-	
-	if not erpnext_fields:
-		return False
-	
-	# Get settings
-	try:
-		settings = frappe.get_single("IT Management Settings")
-		use_erpnext = settings.use_erpnext_links if settings else True
-	except Exception:
-		use_erpnext = True
-	
-	# Check if ERPNext is installed
-	erpnext_installed = is_erpnext_installed()
-	
-	# Determine if ERPNext fields should be visible
-	show_erpnext_fields = erpnext_installed and use_erpnext
-	
-	# For each ERPNext field, update visibility
-	for fieldname in erpnext_fields:
-		# Check if the target doctype exists (only if ERPNext field)
-		field_meta = get_field_metadata(doctype, fieldname)
-		if field_meta and field_meta.fieldtype == "Link":
-			target_doctype = field_meta.options
-			# Check if target doctype exists
-			try:
-				frappe.get_meta(target_doctype)
-				target_exists = True
-			except Exception:
-				target_exists = False
-			
-			# If target doesn't exist, hide the field
-			if not target_exists:
-				update_field_visibility(doctype, fieldname, hide=True)
-				continue
-			
-		# Update visibility based on settings
-		update_field_visibility(doctype, fieldname, hide=not show_erpnext_fields)
-	
-	# For ITM fields, show them when ERPNext fields are hidden
-	for fieldname in itm_fields:
-		update_field_visibility(doctype, fieldname, hide=show_erpnext_fields)
-	
-	return True
-
-
-def sync_all_erpnext_fields():
-	"""
-	Synchronize ERPNext fields for all configured doctypes.
-	
-	This should be called when:
-	- IT Management Settings are saved
-	- The app is installed/updated
-	- ERPNext is installed/uninstalled
-	"""
-	mapping = get_erpnext_doctype_fields_mapping()
-	
-	for doctype in mapping.keys():
-		sync_erpnext_fields_for_doctype(doctype)
-	
-	# Also clear any cached meta
-	frappe.clear_cache(doctype=True)
