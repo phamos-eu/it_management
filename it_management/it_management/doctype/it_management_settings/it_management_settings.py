@@ -3,8 +3,27 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-# import frappe
+import frappe
 from frappe.model.document import Document
+from frappe import _
+
 
 class ITManagementSettings(Document):
-	pass
+	def validate(self):
+		"""Validate settings before saving."""
+		# Validate ERPNext is installed when enabling ERPNext links
+		if self.use_erpnext_links:
+			from it_management.it_management.utils.erpnext_integration import is_erpnext_installed
+			
+			if not is_erpnext_installed():
+				frappe.throw(
+					_("ERPNext is not installed. Please install ERPNext to use ERPNext link fields."),
+					title=_("ERPNext Required")
+				)
+
+	def on_update(self):
+		"""Update field visibility when settings change."""
+		from it_management.it_management.utils.erpnext_integration import sync_all_erpnext_fields
+		
+		# Sync all doctypes that have ERPNext fields
+		sync_all_erpnext_fields()
