@@ -11,7 +11,8 @@
   "title",
   "itm_host_item",
   "itm_landscape",
-  "itm_software"
+  "itm_software",
+  "itm_solution"
  ],
  "fields": [
   {
@@ -37,6 +38,12 @@
    "fieldtype": "Link",
    "label": "Software",
    "options": "ITM Software"
+  },
+  {
+   "fieldname": "itm_solution",
+   "fieldtype": "Link",
+   "label": "Solution",
+   "options": "ITM Solution"
   }
  ],
  "index_web_pages_for_search": 1,

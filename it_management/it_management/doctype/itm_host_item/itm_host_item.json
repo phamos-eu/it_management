@@ -18,7 +18,9 @@
   "item_code",
   "itm_item",
   "itm_landscape",
-  "itm_location"
+  "itm_location",
+  "solution_section",
+  "itm_host_item_solution_table"
  ],
  "fields": [
   {
@@ -90,6 +92,18 @@
    "fieldtype": "Link",
    "label": "Landscape",
    "options": "ITM Landscape"
+  },
+  {
+   "fieldname": "solution_section",
+   "fieldtype": "Section Break",
+   "label": "Solutions",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "itm_host_item_solution_table",
+   "fieldtype": "Table",
+   "label": "Solutions",
+   "options": "ITM Host Item Solution Table"
   }
  ],
  "index_web_pages_for_search": 1,
