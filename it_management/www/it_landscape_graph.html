@@ -1,0 +1,60 @@
+{# Copyright (c) 2024, IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors #}
+{# For license information, please see license.txt #}
+
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="it-landscape-graph-container">
+    <div class="graph-controls">
+        <div class="control-group">
+            <label for="landscape-filter">{{ _("Filter by Landscape:") }}</label>
+            <select id="landscape-filter" class="form-control">
+                <option value="">{{ _("All Landscapes") }}</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="solution-filter">{{ _("Filter by Solution:") }}</label>
+            <select id="solution-filter" class="form-control" multiple>
+                <option value="">{{ _("All Solutions") }}</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="search-box">{{ _("Search Hosts:") }}</label>
+            <input type="text" id="search-box" class="form-control" placeholder="{{ _('Type to search...') }}">
+        </div>
+        
+        <div class="control-group">
+            <button id="export-png" class="btn btn-primary btn-sm">
+                {{ _("Export as PNG") }}
+            </button>
+        </div>
+        
+        <div class="control-group">
+            <button id="reset-view" class="btn btn-default btn-sm">
+                {{ _("Reset View") }}
+            </button>
+        </div>
+    </div>
+    
+    <div class="graph-legend">
+        <strong>{{ _("Legend:") }}</strong>
+        <span class="legend-item"><span class="legend-color" style="background-color: #4CAF50;"></span> {{ _("Running") }}</span>
+        <span class="legend-item"><span class="legend-color" style="background-color: #F44336;"></span> {{ _("Issue") }}</span>
+        <span class="legend-item"><span class="legend-color" style="background-color: #FFC107;"></span> {{ _("Implementing") }}</span>
+        <span class="legend-item"><span class="legend-color" style="background-color: #9E9E9E;"></span> {{ _("Storage/Obsolet") }}</span>
+    </div>
+    
+    <div id="graph-container"></div>
+    
+    <div id="node-tooltip" class="graph-tooltip" style="display: none;"></div>
+</div>
+
+<!-- Load GoJS from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/2.3.7/go.js"></script>
+
+<!-- Load our custom JS and CSS -->
+<script src="/assets/it_management/www/it_landscape_graph.js"></script>
+<link rel="stylesheet" href="/assets/it_management/www/it_landscape_graph.css">
+{% endblock %}
