@@ -91,7 +91,7 @@ before_uninstall = "it_management.it_management.server_script.delete_custom_fiel
 # ------------------
 # See frappe.core.notifications.get_notification_config
 
-# notification_config = "it_management.notifications.get_notification_config"
+# notification_config = "it_management.notifications.get_notifications_config"
 
 # Permissions
 # -----------
@@ -145,7 +145,13 @@ before_uninstall = "it_management.it_management.server_script.delete_custom_fiel
 
 # Overriding Whitelisted Methods
 # ------------------------------
-#
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "it_management.event.get_events"
-# }
+
+override_whitelisted_methods = {
+	"it_management.api.get_landscape_graph_data": "it_management.api.get_landscape_graph_data"
+}
+
+# Website Route Rules
+# --------------------
+website_route_rules = [
+	{"from_route": "/it-landscape-graph", "to_route": "it_landscape_graph"}
+]
