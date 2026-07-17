@@ -14,7 +14,7 @@ def execute():
 	if not frappe.db.exists("Page", page_name):
 		page = frappe.get_doc({
 			"doctype": "Page",
-			"name": page_name,
+			"page_name": page_name,  # Set page_name, not name - this is what autoname uses
 			"title": "IT Landscape Graph",
 			"route": "/it-landscape-graph",
 			"module": "IT Management",
