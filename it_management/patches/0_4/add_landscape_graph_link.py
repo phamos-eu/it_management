@@ -6,10 +6,33 @@ import frappe
 
 def execute():
 	"""
-	Add IT Landscape Graph link to the IT Management workspace sidebar.
+	Create a Page for IT Landscape Graph and add link to IT Management workspace.
 	Compatible with Frappe v15 and v16.
 	"""
-	# Check if the workspace exists
+	# Step 1: Create the Page DocType record
+	page_name = "it-landscape-graph"
+	if not frappe.db.exists("Page", page_name):
+		page = frappe.get_doc({
+			"doctype": "Page",
+			"name": page_name,
+			"title": "IT Landscape Graph",
+			"route": "/it-landscape-graph",
+			"module": "IT Management",
+			"is_virtual_page": 0,
+			"script": """
+// Redirect to the actual HTML file
+window.location.href = '/assets/it_management/www/it_landscape_graph.html';
+""",
+			"is_single": 0,
+			"published": 1
+		})
+		page.insert(ignore_permissions=True)
+		frappe.db.commit()
+		frappe.log(f"Created Page: {page_name}")
+	else:
+		frappe.log(f"Page {page_name} already exists")
+
+	# Step 2: Add link to IT Management workspace
 	workspace_name = "IT Management"
 	if not frappe.db.exists("Workspace", workspace_name):
 		frappe.log(f"Workspace '{workspace_name}' not found, skipping link addition")
@@ -19,7 +42,7 @@ def execute():
 
 	# Check if the link already exists
 	link_exists = any(
-		link.get("link_to") == "/app/it-landscape-graph"
+		link.get("link_to") == page_name
 		for link in workspace.get("links", [])
 	)
 
@@ -29,14 +52,14 @@ def execute():
 
 	# Add the link to the workspace
 	# In v15, workspace links use "link_type", "link_to", "label"
+	# link_to should be the Page name, not the URL
 	new_link = {
 		"link_type": "Page",
-		"link_to": "/app/it-landscape-graph",
+		"link_to": page_name,  # This is the Page name, not the URL
 		"label": "IT Landscape Graph",
-		"idx": 10  # Position in the sidebar
+		"idx": 10
 	}
 
-	# In v15, we append directly to the links list
 	workspace.append("links", new_link)
 	workspace.save(ignore_permissions=True)
 	
