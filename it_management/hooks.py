@@ -81,7 +81,7 @@ doctype_js = {
 # ------------
 
 # before_install = "it_management.install.before_install"
-after_install = "it_management.patches.0_4.erpnext_field_visibility.execute"
+# after_install = "it_management.install.after_install"
 
 # Uninstalatiom
 
@@ -91,7 +91,7 @@ before_uninstall = "it_management.it_management.server_script.delete_custom_fiel
 # ------------------
 # See frappe.core.notifications.get_notification_config
 
-# notification_config = "it_management.notifications.get_notifications_config"
+# notification_config = "it_management.notifications.get_notification_config"
 
 # Permissions
 # -----------
@@ -153,5 +153,5 @@ override_whitelisted_methods = {
 # Website Route Rules
 # --------------------
 website_route_rules = [
-	{"from_route": "/it-landscape-graph", "to_route": "it_landscape_graph"}
+	{"from_route": "/it-landscape-graph", "to_route": "www/it_landscape_graph.html"}
 ]
