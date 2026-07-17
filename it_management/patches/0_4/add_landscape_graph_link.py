@@ -7,6 +7,7 @@ import frappe
 def execute():
 	"""
 	Add IT Landscape Graph link to the IT Management workspace sidebar.
+	Compatible with Frappe v15 and v16.
 	"""
 	# Check if the workspace exists
 	workspace_name = "IT Management"
@@ -27,14 +28,15 @@ def execute():
 		return
 
 	# Add the link to the workspace
+	# In v15, workspace links use "link_type", "link_to", "label"
 	new_link = {
 		"link_type": "Page",
 		"link_to": "/app/it-landscape-graph",
 		"label": "IT Landscape Graph",
-		"icon": "fa fa-project-diagram",
 		"idx": 10  # Position in the sidebar
 	}
 
+	# In v15, we append directly to the links list
 	workspace.append("links", new_link)
 	workspace.save(ignore_permissions=True)
 	
