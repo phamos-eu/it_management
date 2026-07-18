@@ -104,14 +104,14 @@ def get_erpnext_doctype_fields_mapping():
 			"itm_fields": [],
 		},
 		"ITM Solution": {
-			"erpnext_fields": ["customer"],
+			"erpnext_fields": ["customer", "supplier"],
 			"itm_fields": [],
 		},
 	}
 
 
 # DocTypes whose ERPNext Links are managed as Custom Fields (not in JSON).
-# Extend this map as more DocTypes are migrated off standard Link fields.
+# All ITM-* DocTypes that previously linked to Customer/Item/Supplier.
 MANAGED_ERPNEXT_CUSTOM_FIELDS = {
 	"ITM Host Item": {
 		"customer": {
@@ -124,8 +124,90 @@ MANAGED_ERPNEXT_CUSTOM_FIELDS = {
 			"options": "Item",
 			"insert_after": "item_section",
 		},
-	}
+	},
+	"ITM Location Room": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "itm_location",
+			"hidden": 1,
+		},
+	},
+	"ITM Solution": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "column_break_3",
+			"in_list_view": 1,
+			"in_standard_filter": 1,
+		},
+		"supplier": {
+			"label": "Supplier",
+			"options": "Supplier",
+			"insert_after": "itm_location",
+		},
+	},
+	"ITM Solution Table": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "status",
+			"hidden": 1,
+		},
+	},
+	"ITM Trip": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "employee_name",
+			"reqd": 1,
+			"in_list_view": 1,
+		},
+	},
+	"ITM User Account": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "general_section",
+			"in_standard_filter": 1,
+			"allow_in_quick_entry": 1,
+		},
+	},
+	"ITM User Account Type": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "title",
+			"hidden": 1,
+		},
+	},
+	"ITM User Group": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "general_section",
+		},
+	},
+	"ITM User Group Table": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "itm_user_group",
+			"hidden": 1,
+		},
+	},
 }
+
+# Extra Custom Field attributes copied from the former standard DocFields.
+_CF_SPEC_ATTRS = (
+	"hidden",
+	"reqd",
+	"in_list_view",
+	"in_standard_filter",
+	"bold",
+	"read_only",
+	"allow_in_quick_entry",
+)
 
 ERPNEXT_CF_MODULE = "IT Management"
 
@@ -261,7 +343,7 @@ def _is_standard_docfield(doctype, fieldname):
 	)
 
 
-def migrate_standard_erpnext_link_field(doctype, fieldname, label=None):
+def migrate_standard_erpnext_link_field(doctype, fieldname, label=None, cf_attrs=None):
 	"""
 	Data-safe removal of a standard ERPNext Link field before model sync.
 
@@ -283,6 +365,7 @@ def migrate_standard_erpnext_link_field(doctype, fieldname, label=None):
 		return "absent"
 
 	label = label or fieldname.replace("_", " ").title()
+	cf_attrs = cf_attrs or {}
 	table = _table_name(doctype)
 	tmp_col = "_{0}_mig".format(fieldname)
 	value_count = _nonempty_value_count(doctype, fieldname)
@@ -304,12 +387,17 @@ def migrate_standard_erpnext_link_field(doctype, fieldname, label=None):
 		if get_custom_field(doctype, fieldname):
 			remove_custom_field(doctype, fieldname)
 
+		cf_kwargs = {"module": ERPNEXT_CF_MODULE}
+		for key in _CF_SPEC_ATTRS:
+			if key in cf_attrs and cf_attrs[key] is not None:
+				cf_kwargs[key] = cf_attrs[key]
+
 		create_custom_field(
 			doctype,
 			fieldname,
 			"Data",
 			label=label,
-			module=ERPNEXT_CF_MODULE,
+			**cf_kwargs
 		)
 
 		if frappe.db.has_column(doctype, fieldname) and frappe.db.has_column(doctype, tmp_col):
@@ -325,11 +413,21 @@ def migrate_standard_erpnext_link_field(doctype, fieldname, label=None):
 	return "removed-empty"
 
 
+def _spec_field_attrs(spec):
+	"""Return Custom Field attribute kwargs from a managed-field spec."""
+	attrs = {}
+	for key in _CF_SPEC_ATTRS:
+		if key in spec and spec[key] is not None:
+			attrs[key] = spec[key]
+	return attrs
+
+
 def ensure_erpnext_link_custom_field(doctype, fieldname, spec):
 	"""Ensure a Link Custom Field exists (upgrade Data → Link when enabling)."""
 	options = spec.get("options")
 	label = spec.get("label") or fieldname
 	insert_after = spec.get("insert_after")
+	extra = _spec_field_attrs(spec)
 
 	custom = get_custom_field(doctype, fieldname)
 	if custom:
@@ -346,6 +444,10 @@ def ensure_erpnext_link_custom_field(doctype, fieldname, spec):
 		if insert_after and custom.insert_after != insert_after:
 			custom.insert_after = insert_after
 			changed = True
+		for key, value in extra.items():
+			if custom.get(key) != value:
+				custom.set(key, value)
+				changed = True
 		if changed:
 			custom.save(ignore_permissions=True)
 			frappe.clear_cache(doctype=doctype)
@@ -359,6 +461,7 @@ def ensure_erpnext_link_custom_field(doctype, fieldname, spec):
 	kwargs = {"module": ERPNEXT_CF_MODULE}
 	if insert_after:
 		kwargs["insert_after"] = insert_after
+	kwargs.update(extra)
 
 	created = create_custom_field(
 		doctype,
@@ -441,7 +544,10 @@ def migrate_managed_erpnext_standard_fields(doctypes=None):
 		for fieldname, spec in fields.items():
 			try:
 				action = migrate_standard_erpnext_link_field(
-					doctype, fieldname, label=spec.get("label")
+					doctype,
+					fieldname,
+					label=spec.get("label"),
+					cf_attrs=_spec_field_attrs(spec),
 				)
 				results.append("{0}.{1}: {2}".format(doctype, fieldname, action))
 			except Exception:

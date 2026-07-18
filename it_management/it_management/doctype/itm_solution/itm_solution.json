@@ -13,11 +13,9 @@
   "importance",
   "itm_solution_type",
   "column_break_3",
-  "customer",
   "customer_name",
   "itm_landscape",
   "itm_location",
-  "supplier",
   "section_break_7",
   "description",
   "itm_solution_table",
@@ -53,27 +51,13 @@
    "in_standard_filter": 1
   },
   {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Customer",
-   "options": "Customer"
-  },
-  {
    "bold": 1,
-   "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
    "in_global_search": 1,
    "label": "Customer Name",
-   "read_only": 1
-  },
-  {
-   "fieldname": "supplier",
-   "fieldtype": "Link",
-   "label": "Supplier",
-   "options": "Supplier"
+   "read_only": 1,
+   "fetch_from": "customer.customer_name"
   },
   {
    "fieldname": "section_break_7",
@@ -135,7 +119,7 @@
   }
  ],
  "links": [],
- "modified": "2026-04-06 12:02:51.377562",
+ "modified": "2026-07-18 14:20:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Solution",
@@ -168,7 +152,7 @@
   }
  ],
  "row_format": "Dynamic",
- "search_fields": "customer, customer_name, itm_solution_type",
+ "search_fields": "customer_name, itm_solution_type",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

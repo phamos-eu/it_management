@@ -10,7 +10,6 @@
  "field_order": [
   "itm_user_account_type",
   "general_section",
-  "customer",
   "customer_name",
   "itm_landscape",
   "contact",
@@ -41,20 +40,12 @@
    "label": "General"
   },
   {
-   "allow_in_quick_entry": 1,
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_standard_filter": 1,
-   "label": "Customer",
-   "options": "Customer"
-  },
-  {
    "bold": 1,
-   "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
    "label": "Customer Name",
-   "read_only": 1
+   "read_only": 1,
+   "fetch_from": "customer.customer_name"
   },
   {
    "fieldname": "contact",
@@ -187,7 +178,7 @@
   }
  ],
  "links": [],
- "modified": "2026-04-06 12:04:34.550368",
+ "modified": "2026-07-18 14:20:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM User Account",
@@ -220,7 +211,7 @@
   }
  ],
  "row_format": "Dynamic",
- "search_fields": "description,user_name,customer",
+ "search_fields": "description, user_name, customer_name",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

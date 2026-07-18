@@ -2,20 +2,27 @@
 # For license information, please see license.txt
 
 """
-Migrate ITM Host Item ERPNext Link fields off the DocType JSON.
+Migrate ERPNext Link fields off ITM Host Item and ITM Solution DocTypes.
 
-Runs as a pre_model_sync patch (default patches.txt format) so it executes
-BEFORE DocType sync. That lets us preserve valued columns as Data Custom Fields
-before JSON sync would drop them.
+Aligned with the Host Item + Solution scope from PR discussions: these fields
+must not ship as standard Links (FormMeta fails without ERPNext). They are
+managed as Custom Fields when ERPNext is installed and
+"Use ERPNext Link Fields" is enabled.
 
-After migration:
-- Fresh schema has no customer / item_code standard fields
-- Settings toggle creates Link Custom Fields via sync_erpnext_custom_fields()
+Data-safe (pre_model_sync):
+- valued Link columns → Data Custom Fields (same fieldname)
+- empty Link columns → removed
+- then sync_erpnext_custom_fields() applies the settings toggle
+
+Further ITM-* DocTypes are covered by migrate_itm_erpnext_link_fields.
 
 Compatible with Frappe v15 and v16.
 """
 
 import frappe
+
+# Same DocTypes/fields as the Host Item + Solution alignment target
+_HOST_ITEM_AND_SOLUTION = ("ITM Host Item", "ITM Solution")
 
 
 def execute():
@@ -24,15 +31,13 @@ def execute():
 		sync_erpnext_custom_fields,
 	)
 
-	if not frappe.db.exists("DocType", "ITM Host Item"):
-		frappe.log("ITM Host Item DocType not found, skipping patch")
-		return
-
-	for line in migrate_managed_erpnext_standard_fields(doctypes=["ITM Host Item"]):
+	for line in migrate_managed_erpnext_standard_fields(doctypes=list(_HOST_ITEM_AND_SOLUTION)):
 		frappe.log("ERPNext field migration: {0}".format(line))
 
-	for line in sync_erpnext_custom_fields(doctypes=["ITM Host Item"]):
+	for line in sync_erpnext_custom_fields(doctypes=list(_HOST_ITEM_AND_SOLUTION)):
 		frappe.log("ERPNext custom field sync: {0}".format(line))
 
 	frappe.db.commit()
-	frappe.clear_cache(doctype="ITM Host Item")
+	for doctype in _HOST_ITEM_AND_SOLUTION:
+		if frappe.db.exists("DocType", doctype):
+			frappe.clear_cache(doctype=doctype)
