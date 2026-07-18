@@ -11,3 +11,4 @@ it_management.patches.0_4.fix_customer_field_dependency
 it_management.patches.0_4.add_landscape_graph_link
 it_management.patches.0_4.fix_landscape_graph_page
 it_management.patches.0_4.rename_itm_host_item_obsolet_status
+it_management.patches.0_4.migrate_itm_lifecycle_health_status

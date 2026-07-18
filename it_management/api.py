@@ -37,35 +37,54 @@ def get_landscape_graph_data(landscape=None, solutions=None):
 	# Fetch all ITM Host Items (with or without Solution)
 	host_items = frappe.get_all(
 		"ITM Host Item",
-		fields=["name", "title", "status", "itm_solution", "itm_landscape"],
+		fields=["name", "title", "lifecycle_status", "itm_landscape"],
 		filters=filters,
 		order_by="title"
 	)
 
+	# Solution membership lives on ITM Host Item Solution Table (M2M)
+	host_solutions = {}
+	if host_items:
+		host_names = [host["name"] for host in host_items]
+		for row in frappe.get_all(
+			"ITM Host Item Solution Table",
+			filters={
+				"parent": ["in", host_names],
+				"parenttype": "ITM Host Item",
+			},
+			fields=["parent", "itm_solution"],
+		):
+			if not row.itm_solution:
+				continue
+			host_solutions.setdefault(row.parent, []).append(row.itm_solution)
+
 	# Filter by solutions if specified
 	if selected_solutions:
+		selected = set(selected_solutions)
 		host_items = [
-			host for host in host_items 
-			if host.get("itm_solution") in selected_solutions
+			host
+			for host in host_items
+			if selected.intersection(host_solutions.get(host["name"], []))
 		]
 
 	# Build nodes list
 	nodes = []
 	for host in host_items:
+		solutions = host_solutions.get(host["name"], [])
 		node = {
 			"key": host["name"],
 			"text": host["title"] or host["name"],
-			"status": host.get("status", ""),
-			"solution": host.get("itm_solution", ""),
-			"landscape": host.get("itm_landscape", "")
+			"status": host.get("lifecycle_status", ""),
+			"solution": solutions[0] if solutions else "",
+			"solutions": solutions,
+			"landscape": host.get("itm_landscape", ""),
 		}
 		nodes.append(node)
 
-	# Build groups (Solutions) - only for hosts that have a solution
+	# Build groups (Solutions) from M2M membership
 	solution_groups = {}
 	for host in host_items:
-		solution_name = host.get("itm_solution")
-		if solution_name:
+		for solution_name in host_solutions.get(host["name"], []):
 			if solution_name not in solution_groups:
 				solution_groups[solution_name] = {
 					"members": []
@@ -73,7 +92,8 @@ def get_landscape_graph_data(landscape=None, solutions=None):
 			# Use the solution name as the key, but sanitize it for GoJS
 			safe_key = f"SOL-{solution_name.replace(' ', '-').replace('_', '-')}"
 			solution_groups[solution_name]["key"] = safe_key
-			solution_groups[solution_name]["members"].append(host["name"])
+			if host["name"] not in solution_groups[solution_name]["members"]:
+				solution_groups[solution_name]["members"].append(host["name"])
 
 	# Convert groups dict to list
 	groups = []
