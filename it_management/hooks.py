@@ -38,7 +38,7 @@ app_include_js = ["/assets/it_management/js/itm_utils.js"]
 # web_include_js = "/assets/it_management/js/it_management.js"
 
 # include js in page
-# page_js = {"page" : "public/js/file.js"}
+page_js = {"it-landscape-graph": "public/js/it_landscape_graph.js"}
 
 # include js in doctype views
 doctype_js = {
@@ -145,7 +145,7 @@ before_uninstall = "it_management.it_management.server_script.delete_custom_fiel
 
 # Overriding Whitelisted Methods
 # ------------------------------
-
-override_whitelisted_methods = {
-	"it_management.api.get_landscape_graph_data": "it_management.api.get_landscape_graph_data"
-}
+#
+# override_whitelisted_methods = {
+# 	"frappe.desk.doctype.event.event.get_events": "it_management.event.get_events"
+# }
