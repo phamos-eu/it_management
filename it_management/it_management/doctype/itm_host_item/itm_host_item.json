@@ -52,14 +52,13 @@
    "fieldtype": "Link",
    "label": "Customer",
    "options": "Customer",
-   "depends_on": "eval:doc.use_erpnext_links || !doc.use_erpnext_links"
+   "depends_on": "eval:false"
   },
   {
    "fieldname": "itm_customer",
    "fieldtype": "Link",
    "label": "ITM Customer",
-   "options": "ITM Customer",
-   "depends_on": "eval:!doc.use_erpnext_links"
+   "options": "ITM Customer"
   },
   {
    "fieldname": "item_section",
@@ -72,14 +71,13 @@
    "fieldtype": "Link",
    "label": "Item",
    "options": "Item",
-   "depends_on": "eval:doc.use_erpnext_links || !doc.use_erpnext_links"
+   "depends_on": "eval:false"
   },
   {
    "fieldname": "itm_item",
    "fieldtype": "Link",
    "label": "ITM Item",
-   "options": "ITM Item",
-   "depends_on": "eval:!doc.use_erpnext_links"
+   "options": "ITM Item"
   },
   {
    "fieldname": "itm_location",

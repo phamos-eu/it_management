@@ -183,3 +183,145 @@ def remove_custom_field(doctype, fieldname):
 	except Exception as e:
 		frappe.log_error("Error deleting custom field {0}: {1}".format(custom_field_name, str(e)))
 		return False
+
+
+# FormMeta.add_search_fields() (Frappe v15) throws when a Link field's options
+# DocType is missing. depends_on/hidden do NOT skip that check.
+# Neutralize options to "[Select]" (excluded by FormMeta) when ERPNext is absent.
+ERPNEXT_LINK_PS_MODULE = "IT Management"
+NEUTRALIZED_LINK_OPTIONS = "[Select]"
+NEUTRALIZED_DEPENDS_ON = "eval:False"
+_ERPNEXT_LINK_PS_PROPERTIES = ("options", "depends_on")
+
+
+def _iter_erpnext_link_fields():
+	"""Yield (doctype, fieldname) pairs from the integration mapping."""
+	mapping = get_erpnext_doctype_fields_mapping()
+	for doctype, config in mapping.items():
+		for fieldname in config.get("erpnext_fields", []):
+			yield doctype, fieldname
+
+
+def _delete_erpnext_link_property_setters(doctype, fieldname):
+	"""Remove IT Management property setters used to neutralize ERPNext links."""
+	names = frappe.get_all(
+		"Property Setter",
+		filters={
+			"doc_type": doctype,
+			"field_name": fieldname,
+			"property": ["in", list(_ERPNEXT_LINK_PS_PROPERTIES)],
+			"module": ERPNEXT_LINK_PS_MODULE,
+		},
+		pluck="name",
+	)
+	for name in names:
+		frappe.delete_doc("Property Setter", name, force=1, ignore_permissions=True)
+
+
+def _upsert_property_setter(doctype, fieldname, property_name, value, property_type):
+	"""Replace any prior IT Management setter, then create a fresh one."""
+	existing = frappe.get_all(
+		"Property Setter",
+		filters={
+			"doc_type": doctype,
+			"field_name": fieldname,
+			"property": property_name,
+			"module": ERPNEXT_LINK_PS_MODULE,
+		},
+		pluck="name",
+	)
+	for name in existing:
+		frappe.delete_doc("Property Setter", name, force=1, ignore_permissions=True)
+
+	frappe.make_property_setter(
+		{
+			"doctype": doctype,
+			"doctype_or_field": "DocField",
+			"fieldname": fieldname,
+			"property": property_name,
+			"value": value,
+			"property_type": property_type,
+		},
+		ignore_validate=True,
+		validate_fields_for_doctype=False,
+		is_system_generated=True,
+		module=ERPNEXT_LINK_PS_MODULE,
+	)
+
+
+def neutralize_erpnext_link_field(doctype, fieldname):
+	"""
+	Clear invalid ERPNext Link targets so form meta can load without ERPNext.
+
+	Sets options to [Select] (skipped by FormMeta.add_search_fields) and hides
+	the field via depends_on.
+	"""
+	if not frappe.db.exists("DocType", doctype):
+		return False
+
+	meta = frappe.get_meta(doctype)
+	field = meta.get_field(fieldname)
+	if not field or field.fieldtype != "Link":
+		return False
+
+	# Already neutralized
+	if field.options == NEUTRALIZED_LINK_OPTIONS and field.depends_on == NEUTRALIZED_DEPENDS_ON:
+		return False
+
+	_upsert_property_setter(
+		doctype, fieldname, "options", NEUTRALIZED_LINK_OPTIONS, "Text"
+	)
+	_upsert_property_setter(
+		doctype, fieldname, "depends_on", NEUTRALIZED_DEPENDS_ON, "Data"
+	)
+	frappe.clear_cache(doctype=doctype)
+	return True
+
+
+def restore_erpnext_link_field(doctype, fieldname):
+	"""Remove neutralization setters so DocType JSON defaults apply again."""
+	if not frappe.db.exists("DocType", doctype):
+		return False
+
+	before = frappe.get_all(
+		"Property Setter",
+		filters={
+			"doc_type": doctype,
+			"field_name": fieldname,
+			"property": ["in", list(_ERPNEXT_LINK_PS_PROPERTIES)],
+			"module": ERPNEXT_LINK_PS_MODULE,
+		},
+		pluck="name",
+	)
+	if not before:
+		return False
+
+	_delete_erpnext_link_property_setters(doctype, fieldname)
+	frappe.clear_cache(doctype=doctype)
+	return True
+
+
+def sync_erpnext_link_fields():
+	"""
+	Ensure ERPNext Link fields are safe for the current install.
+
+	- ERPNext missing: neutralize options/depends_on via Property Setters
+	- ERPNext present: remove those setters so standard Link targets work
+	"""
+	erpnext_installed = is_erpnext_installed()
+	changed = []
+
+	for doctype, fieldname in _iter_erpnext_link_fields():
+		try:
+			if erpnext_installed:
+				if restore_erpnext_link_field(doctype, fieldname):
+					changed.append("{0}.{1} (restored)".format(doctype, fieldname))
+			else:
+				if neutralize_erpnext_link_field(doctype, fieldname):
+					changed.append("{0}.{1} (neutralized)".format(doctype, fieldname))
+		except Exception:
+			frappe.log_error(
+				title="ERPNext link field sync failed for {0}.{1}".format(doctype, fieldname)
+			)
+
+	return changed
