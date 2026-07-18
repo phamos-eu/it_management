@@ -8,71 +8,40 @@ from frappe import _
 
 class ITMHostItem(Document):
 	def onload(self):
-		"""Show ERPNext or ITM link fields based on install + settings."""
+		"""Hide ITM link fields while ERPNext Link Custom Fields are active."""
 		from it_management.it_management.utils.erpnext_integration import (
-			is_erpnext_installed,
+			use_erpnext_link_fields,
 			get_erpnext_doctype_fields_mapping,
 		)
 
-		try:
-			settings = frappe.get_single("IT Management Settings")
-			use_erpnext = settings.use_erpnext_links if settings else False
-		except Exception:
-			use_erpnext = False
-
-		show_erpnext_fields = is_erpnext_installed() and use_erpnext
-		config = get_erpnext_doctype_fields_mapping().get("ITM Host Item", {})
-		erpnext_fields = config.get("erpnext_fields", [])
-		itm_fields = config.get("itm_fields", [])
+		show_erpnext_fields = use_erpnext_link_fields()
+		itm_fields = (
+			get_erpnext_doctype_fields_mapping()
+			.get("ITM Host Item", {})
+			.get("itm_fields", [])
+		)
 
 		if not (hasattr(self, "meta") and hasattr(self.meta, "get_field")):
 			return
 
-		for fieldname in erpnext_fields:
-			field = self.meta.get_field(fieldname)
-			if not field:
-				continue
-
-			target_exists = False
-			if field.fieldtype == "Link" and field.options and field.options != "[Select]":
-				try:
-					frappe.get_meta(field.options)
-					target_exists = True
-				except Exception:
-					target_exists = False
-
-			if target_exists and show_erpnext_fields:
-				field.depends_on = ""
-			else:
-				field.depends_on = "eval:False"
-
 		for fieldname in itm_fields:
 			field = self.meta.get_field(fieldname)
-			if not field:
-				continue
-			field.depends_on = "eval:False" if show_erpnext_fields else ""
+			if field:
+				field.depends_on = "eval:False" if show_erpnext_fields else ""
 
 	def validate(self):
-		"""Validate ERPNext link targets when those fields are in use."""
+		"""Validate ERPNext link targets when those Custom Fields are in use."""
 		from it_management.it_management.utils.erpnext_integration import (
-			is_erpnext_installed,
+			use_erpnext_link_fields,
 			get_erpnext_doctype_fields_mapping,
 		)
 
-		try:
-			settings = frappe.get_single("IT Management Settings")
-			use_erpnext = settings.use_erpnext_links if settings else False
-		except Exception:
-			use_erpnext = False
-
-		show_erpnext_fields = is_erpnext_installed() and use_erpnext
-		erpnext_fields = (
-			get_erpnext_doctype_fields_mapping()
-			.get("ITM Host Item", {})
-			.get("erpnext_fields", [])
-		)
-
-		if show_erpnext_fields:
+		if use_erpnext_link_fields():
+			erpnext_fields = (
+				get_erpnext_doctype_fields_mapping()
+				.get("ITM Host Item", {})
+				.get("erpnext_fields", [])
+			)
 			for fieldname in erpnext_fields:
 				value = self.get(fieldname)
 				if not value:
@@ -91,7 +60,6 @@ class ITMHostItem(Document):
 						title=_("Missing Doctype"),
 					)
 
-		# Validate solution relationships - prevent duplicate solutions
 		if self.get("itm_host_item_solution_table"):
 			solutions = [
 				row.itm_solution

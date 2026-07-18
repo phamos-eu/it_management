@@ -12,10 +12,8 @@
   "status",
   "serial_number",
   "customer_section",
-  "customer",
   "itm_customer",
   "item_section",
-  "item_code",
   "itm_item",
   "itm_landscape",
   "itm_location",
@@ -48,13 +46,6 @@
    "collapsible": 1
   },
   {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "label": "Customer",
-   "options": "Customer",
-   "depends_on": "eval:false"
-  },
-  {
    "fieldname": "itm_customer",
    "fieldtype": "Link",
    "label": "ITM Customer",
@@ -65,13 +56,6 @@
    "fieldtype": "Section Break",
    "label": "Item",
    "collapsible": 1
-  },
-  {
-   "fieldname": "item_code",
-   "fieldtype": "Link",
-   "label": "Item",
-   "options": "Item",
-   "depends_on": "eval:false"
   },
   {
    "fieldname": "itm_item",
@@ -111,7 +95,7 @@
    "link_fieldname": "itm_host_item"
   }
  ],
- "modified": "2026-04-06 12:07:29.739521",
+ "modified": "2026-07-18 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Host Item",
