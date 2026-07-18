@@ -1,7 +1,7 @@
 {
  "app": "it_management",
  "charts": [],
- "content": "[{\"id\":\"EkdyV3N5Ie\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">IT Management</span>\",\"col\":12}},{\"id\":\"rwNPVL-p3-\",\"type\":\"paragraph\",\"data\":{\"text\":\"Welcome to the IT Management App. This app is built on Frappe and can be run without using ERPNext. If desired it can be activated for ERPNext through the settings. Each DocType created for the IT Management app carries the prefix ITM to avoid name duplicates and to quickly identity them as belonging to the IT Management app.\",\"col\":12}},{\"id\":\"lVIHnh6pht\",\"type\":\"paragraph\",\"data\":{\"text\":\"Your IT overview starts with the ITM Landscape. An ITM Landscape is linked to most other DocTypes in this app and will help you navigate all the different DocTypes available to your ITM Landscapes.\",\"col\":12}},{\"id\":\"pferI51Txs\",\"type\":\"card\",\"data\":{\"card_name\":\"Configuration\",\"col\":4}}]",
+ "content": "[{\"id\":\"EkdyV3N5Ie\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">IT Management</span>\",\"col\":12}},{\"id\":\"rwNPVL-p3-\",\"type\":\"paragraph\",\"data\":{\"text\":\"Welcome to the IT Management App. This app is built on Frappe and can be run without using ERPNext. If desired it can be activated for ERPNext through the settings. Each DocType created for the IT Management app carries the prefix ITM to avoid name duplicates and to quickly identity them as belonging to the IT Management app.\",\"col\":12}},{\"id\":\"lVIHnh6pht\",\"type\":\"paragraph\",\"data\":{\"text\":\"Your IT overview starts with the ITM Landscape. An ITM Landscape is linked to most other DocTypes in this app and will help you navigate all the different DocTypes available to your ITM Landscapes.\",\"col\":12}},{\"id\":\"pferI51Txs\",\"type\":\"card\",\"data\":{\"card_name\":\"Configuration\",\"col\":4}},{\"id\":\"itmNetCard1\",\"type\":\"card\",\"data\":{\"card_name\":\"Network\",\"col\":4}}]",
  "creation": "2024-01-16 04:51:02.486516",
  "custom_blocks": [],
  "docstatus": 0,
@@ -122,7 +122,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-07-18 23:05:00.000000",
+ "modified": "2026-07-18 23:45:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Management",
