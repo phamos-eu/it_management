@@ -2,50 +2,84 @@
 # For license information, please see license.txt
 
 import frappe
-import os
+
+
+PAGE_NAME = "it-landscape-graph"
+WORKSPACE_NAME = "IT Management"
 
 
 def execute():
 	"""
-	Create a Page for IT Landscape Graph and add link to IT Management workspace.
+	Ensure the IT Landscape Graph Desk Page exists and is linked in the
+	IT Management workspace.
+
+	Page assets live at:
+	it_management/page/it_landscape_graph/it_landscape_graph.js
 	Compatible with Frappe v15 and v16.
 	"""
-	# Step 1: Create the Page DocType record
-	page_name = "it-landscape-graph"
-	if not frappe.db.exists("Page", page_name):
-		# Skip Page.validate() which requires developer mode (patches run without it)
-		page = frappe.get_doc({
-			"doctype": "Page",
-			"page_name": page_name,
-			"title": "IT Landscape Graph",
-			"route": "/it-landscape-graph",
-			"module": "IT Management",
-			"is_virtual_page": 1,  # Set to 1 to prevent asset loading
-			"script": """
-// Redirect to the actual HTML file
-window.location.href = '/assets/it_management/www/it_landscape_graph.html';
-""",
-			"is_single": 0,
-			"published": 1
-		})
-		page.flags.ignore_validate = True
-		page.insert(ignore_permissions=True)
-		frappe.db.commit()
-		frappe.log(f"Created Page: {page_name}")
-	else:
-		frappe.log(f"Page {page_name} already exists")
+	_ensure_page()
+	_ensure_workspace_link()
 
-	# Step 2: Add link to IT Management workspace
-	workspace_name = "IT Management"
-	if not frappe.db.exists("Workspace", workspace_name):
-		frappe.log(f"Workspace '{workspace_name}' not found, skipping link addition")
+
+def _ensure_page():
+	"""Create or repair the Page document used by Desk routing."""
+	page_values = {
+		"page_name": PAGE_NAME,
+		"title": "IT Landscape Graph",
+		"module": "IT Management",
+		"standard": "Yes",
+	}
+
+	if frappe.db.exists("Page", PAGE_NAME):
+		page = frappe.get_doc("Page", PAGE_NAME)
+		changed = False
+		for fieldname, value in page_values.items():
+			if page.get(fieldname) != value:
+				page.set(fieldname, value)
+				changed = True
+
+		if not page.roles:
+			page.append("roles", {"role": "System Manager"})
+			page.append("roles", {"role": "Desk User"})
+			changed = True
+
+		if changed:
+			# Page.validate() requires developer mode for new pages; keep
+			# ignore_validate for safe updates during migrate as well.
+			page.flags.ignore_validate = True
+			page.save(ignore_permissions=True)
+			frappe.db.commit()
+			frappe.log(f"Updated Page: {PAGE_NAME}")
+		else:
+			frappe.log(f"Page {PAGE_NAME} already up to date")
 		return
 
-	workspace = frappe.get_doc("Workspace", workspace_name)
+	page = frappe.get_doc(
+		{
+			"doctype": "Page",
+			**page_values,
+			"roles": [
+				{"role": "System Manager"},
+				{"role": "Desk User"},
+			],
+		}
+	)
+	# Skip Page.validate() developer-mode check during migrate
+	page.flags.ignore_validate = True
+	page.insert(ignore_permissions=True)
+	frappe.db.commit()
+	frappe.log(f"Created Page: {PAGE_NAME}")
 
-	# Check if the link already exists
+
+def _ensure_workspace_link():
+	"""Add a workspace link to the Desk Page if missing."""
+	if not frappe.db.exists("Workspace", WORKSPACE_NAME):
+		frappe.log(f"Workspace '{WORKSPACE_NAME}' not found, skipping link addition")
+		return
+
+	workspace = frappe.get_doc("Workspace", WORKSPACE_NAME)
 	link_exists = any(
-		link.get("link_to") == page_name
+		link.get("link_to") == PAGE_NAME and link.get("link_type") == "Page"
 		for link in workspace.get("links", [])
 	)
 
@@ -53,18 +87,15 @@ window.location.href = '/assets/it_management/www/it_landscape_graph.html';
 		frappe.log("IT Landscape Graph link already exists in workspace")
 		return
 
-	# Add the link to the workspace
-	# In v15, workspace links use "link_type", "link_to", "label"
-	# link_to should be the Page name, not the URL
-	new_link = {
-		"link_type": "Page",
-		"link_to": page_name,  # This is the Page name, not the URL
-		"label": "IT Landscape Graph",
-		"idx": 10
-	}
-
-	workspace.append("links", new_link)
+	workspace.append(
+		"links",
+		{
+			"type": "Link",
+			"link_type": "Page",
+			"link_to": PAGE_NAME,
+			"label": "IT Landscape Graph",
+		},
+	)
 	workspace.save(ignore_permissions=True)
-	
 	frappe.db.commit()
 	frappe.log("IT Landscape Graph link added to IT Management workspace")

@@ -6,3 +6,4 @@ it_management.patches.0_2.solution_type
 it_management.patches.0_3.task_checklist
 it_management.patches.0_4.erpnext_field_visibility
 it_management.patches.0_4.add_landscape_graph_link
+it_management.patches.0_4.fix_landscape_graph_page
