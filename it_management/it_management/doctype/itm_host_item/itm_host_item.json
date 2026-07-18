@@ -10,7 +10,11 @@
  "field_order": [
   "title",
   "status",
+  "deployment",
   "serial_number",
+  "hosting_section",
+  "hosted_by_software_instance",
+  "hosted_on",
   "customer_section",
   "itm_customer",
   "item_section",
@@ -36,9 +40,45 @@
    "options": "Implementing\nRunning\nIssue\nStorage\nObsolete"
   },
   {
+   "default": "Physical",
+   "fieldname": "deployment",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Deployment",
+   "options": "Physical\nVirtual",
+   "reqd": 1
+  },
+  {
    "fieldname": "serial_number",
    "fieldtype": "Data",
    "label": "Serial Number"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:doc.deployment=='Virtual'",
+   "fieldname": "hosting_section",
+   "fieldtype": "Section Break",
+   "label": "Hosting"
+  },
+  {
+   "depends_on": "eval:doc.deployment=='Virtual'",
+   "description": "Software Instance that provides hosting for this virtual host (e.g. Hyper-V, ESXi, Proxmox).",
+   "fieldname": "hosted_by_software_instance",
+   "fieldtype": "Link",
+   "label": "Hosted by Software Instance",
+   "mandatory_depends_on": "eval:doc.deployment=='Virtual'",
+   "options": "ITM Software Instance"
+  },
+  {
+   "depends_on": "eval:doc.deployment=='Virtual'",
+   "description": "Parent host derived from the hosting Software Instance.",
+   "fetch_from": "hosted_by_software_instance.itm_host_item",
+   "fieldname": "hosted_on",
+   "fieldtype": "Link",
+   "label": "Hosted On",
+   "options": "ITM Host Item",
+   "read_only": 1
   },
   {
    "fieldname": "customer_section",
@@ -94,9 +134,13 @@
   {
    "link_doctype": "ITM Software Instance",
    "link_fieldname": "itm_host_item"
+  },
+  {
+   "link_doctype": "ITM Host Item",
+   "link_fieldname": "hosted_on"
   }
  ],
- "modified": "2026-07-18 14:00:00.000000",
+ "modified": "2026-07-18 21:10:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Host Item",
