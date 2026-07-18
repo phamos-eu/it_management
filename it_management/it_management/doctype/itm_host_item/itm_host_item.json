@@ -151,9 +151,17 @@
   {
    "link_doctype": "ITM Host Item",
    "link_fieldname": "hosted_on"
+  },
+  {
+   "link_doctype": "ITM Network Interface Controller",
+   "link_fieldname": "itm_host_item"
+  },
+  {
+   "link_doctype": "ITM Host Domain",
+   "link_fieldname": "itm_host_item"
   }
  ],
- "modified": "2026-07-18 22:10:00.000000",
+ "modified": "2026-07-18 23:05:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Host Item",
