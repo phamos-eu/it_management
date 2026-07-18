@@ -45,6 +45,18 @@
   {
    "child": 0,
    "collapsible": 1,
+   "icon": "map-pin",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "ITM Location",
+   "link_to": "ITM Location",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
    "icon": "settings",
    "indent": 0,
    "keep_closed": 0,
@@ -127,7 +139,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-07-18 23:05:00.000000",
+ "modified": "2026-07-18 23:55:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Management",

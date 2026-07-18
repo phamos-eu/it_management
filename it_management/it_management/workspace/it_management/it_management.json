@@ -1,7 +1,7 @@
 {
  "app": "it_management",
  "charts": [],
- "content": "[{\"id\":\"EkdyV3N5Ie\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">IT Management</span>\",\"col\":12}},{\"id\":\"rwNPVL-p3-\",\"type\":\"paragraph\",\"data\":{\"text\":\"Welcome to the IT Management App. This app is built on Frappe and can be run without using ERPNext. If desired it can be activated for ERPNext through the settings. Each DocType created for the IT Management app carries the prefix ITM to avoid name duplicates and to quickly identity them as belonging to the IT Management app.\",\"col\":12}},{\"id\":\"lVIHnh6pht\",\"type\":\"paragraph\",\"data\":{\"text\":\"Your IT overview starts with the ITM Landscape. An ITM Landscape is linked to most other DocTypes in this app and will help you navigate all the different DocTypes available to your ITM Landscapes.\",\"col\":12}},{\"id\":\"pferI51Txs\",\"type\":\"card\",\"data\":{\"card_name\":\"Configuration\",\"col\":4}}]",
+ "content": "[{\"id\": \"EkdyV3N5Ie\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">IT Management</span>\", \"col\": 12}}, {\"id\": \"rwNPVL-p3-\", \"type\": \"paragraph\", \"data\": {\"text\": \"Welcome to the IT Management App. This app is built on Frappe and can be run without using ERPNext. If desired it can be activated for ERPNext through the settings. Each DocType created for the IT Management app carries the prefix ITM to avoid name duplicates and to quickly identity them as belonging to the IT Management app.\", \"col\": 12}}, {\"id\": \"lVIHnh6pht\", \"type\": \"paragraph\", \"data\": {\"text\": \"Your IT overview starts with the ITM Landscape. An ITM Landscape is linked to most other DocTypes in this app and will help you navigate all the different DocTypes available to your ITM Landscapes.\", \"col\": 12}}, {\"id\": \"itmCfgHdr1\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Configuration</span>\", \"col\": 12}}, {\"id\": \"pferI51Txs\", \"type\": \"card\", \"data\": {\"card_name\": \"Configuration\", \"col\": 4}}, {\"id\": \"itmNetHdr1\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Networking</span>\", \"col\": 12}}, {\"id\": \"itmNetPara1\", \"type\": \"paragraph\", \"data\": {\"text\": \"Networking for each ITM Landscape: locations, LANs, subnets, IP addresses, host NICs, wall sockets, and host domains.\", \"col\": 12}}, {\"id\": \"itmNetCard1\", \"type\": \"card\", \"data\": {\"card_name\": \"Networking\", \"col\": 6}}]",
  "creation": "2024-01-16 04:51:02.486516",
  "custom_blocks": [],
  "docstatus": 0,
@@ -14,115 +14,145 @@
  "label": "IT Management",
  "links": [
   {
+   "type": "Card Break",
+   "label": "Configuration",
+   "link_type": "DocType",
+   "link_count": 3,
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Configuration",
-   "link_count": 3,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
+   "onboard": 0
   },
   {
-   "hidden": 0,
-   "is_query_report": 0,
+   "type": "Link",
    "label": "ITM Landscape",
-   "link_count": 0,
    "link_to": "ITM Landscape",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
+   "link_count": 0,
    "hidden": 0,
    "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
    "label": "ITM Host Item",
-   "link_count": 0,
    "link_to": "ITM Host Item",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
+   "link_count": 0,
    "hidden": 0,
    "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
    "label": "IT Management Settings",
-   "link_count": 0,
    "link_to": "IT Management Settings",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Network",
-   "link_count": 6,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "ITM Local Area Network",
    "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Networking",
+   "link_type": "DocType",
+   "link_count": 9,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Landscape",
+   "link_to": "ITM Landscape",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Location",
+   "link_to": "ITM Location",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Host Item",
+   "link_to": "ITM Host Item",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Local Area Network",
    "link_to": "ITM Local Area Network",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
+   "link_count": 0,
    "hidden": 0,
    "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
    "label": "ITM Subnet",
-   "link_count": 0,
    "link_to": "ITM Subnet",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
+   "link_count": 0,
    "hidden": 0,
    "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
    "label": "ITM IP Address",
-   "link_count": 0,
    "link_to": "ITM IP Address",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
+   "link_count": 0,
    "hidden": 0,
    "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
    "label": "ITM Network Interface Controller",
-   "link_count": 0,
    "link_to": "ITM Network Interface Controller",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
+   "link_count": 0,
    "hidden": 0,
    "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
    "label": "ITM Socket",
-   "link_count": 0,
    "link_to": "ITM Socket",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
+   "link_count": 0,
    "hidden": 0,
    "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
    "label": "ITM Host Domain",
-   "link_count": 0,
    "link_to": "ITM Host Domain",
    "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
   }
  ],
- "modified": "2026-07-18 23:05:00.000000",
+ "modified": "2026-07-18 23:55:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Management",
