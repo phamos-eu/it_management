@@ -1,4 +1,4 @@
-# Copyright (c) 2024, IT-Gerte und IT-Lsungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
+# Copyright (c) 2024, IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
 # For license information, please see license.txt
 
 import frappe
@@ -8,104 +8,98 @@ from frappe import _
 
 class ITMHostItem(Document):
 	def onload(self):
-		"""Dynamically show/hide ERPNext vs ITM fields based on settings and ERPNext availability."""
+		"""Show ERPNext or ITM link fields based on install + settings."""
 		from it_management.it_management.utils.erpnext_integration import (
 			is_erpnext_installed,
-			get_erpnext_doctype_fields_mapping
+			get_erpnext_doctype_fields_mapping,
 		)
-		
-		# Get settings
+
 		try:
 			settings = frappe.get_single("IT Management Settings")
-			use_erpnext = settings.use_erpnext_links if settings else True
+			use_erpnext = settings.use_erpnext_links if settings else False
 		except Exception:
-			use_erpnext = True
-		
-		# Check if ERPNext is installed
-		erpnext_installed = is_erpnext_installed()
-		
-		# Determine if ERPNext fields should be shown
-		show_erpnext_fields = erpnext_installed and use_erpnext
-		
-		# Get field mapping for this doctype
-		mapping = get_erpnext_doctype_fields_mapping()
-		config = mapping.get("ITM Host Item", {})
+			use_erpnext = False
+
+		show_erpnext_fields = is_erpnext_installed() and use_erpnext
+		config = get_erpnext_doctype_fields_mapping().get("ITM Host Item", {})
 		erpnext_fields = config.get("erpnext_fields", [])
 		itm_fields = config.get("itm_fields", [])
-		
-		# Update depends_on for ERPNext fields
-		if hasattr(self, 'meta') and hasattr(self.meta, 'get_field'):
-			for fieldname in erpnext_fields:
-				field = self.meta.get_field(fieldname)
-				if field:
-					# Check if target doctype exists
-					if field.fieldtype == "Link":
-						try:
-							frappe.get_meta(field.options)
-							target_exists = True
-						except Exception:
-							target_exists = False
-					
-					if target_exists and show_erpnext_fields:
-						field.depends_on = ""
-					else:
-						field.depends_on = "eval:False"
-				
-			# Update depends_on for ITM fields
-			for fieldname in itm_fields:
-				field = self.meta.get_field(fieldname)
-				if field:
-					if show_erpnext_fields:
-						field.depends_on = "eval:False"
-					else:
-						field.depends_on = ""
-	
+
+		if not (hasattr(self, "meta") and hasattr(self.meta, "get_field")):
+			return
+
+		for fieldname in erpnext_fields:
+			field = self.meta.get_field(fieldname)
+			if not field:
+				continue
+
+			target_exists = False
+			if field.fieldtype == "Link" and field.options and field.options != "[Select]":
+				try:
+					frappe.get_meta(field.options)
+					target_exists = True
+				except Exception:
+					target_exists = False
+
+			if target_exists and show_erpnext_fields:
+				field.depends_on = ""
+			else:
+				field.depends_on = "eval:False"
+
+		for fieldname in itm_fields:
+			field = self.meta.get_field(fieldname)
+			if not field:
+				continue
+			field.depends_on = "eval:False" if show_erpnext_fields else ""
+
 	def validate(self):
-		"""Validate the document."""
+		"""Validate ERPNext link targets when those fields are in use."""
 		from it_management.it_management.utils.erpnext_integration import (
 			is_erpnext_installed,
-			get_erpnext_doctype_fields_mapping
+			get_erpnext_doctype_fields_mapping,
 		)
-		
-		# Get settings
+
 		try:
 			settings = frappe.get_single("IT Management Settings")
-			use_erpnext = settings.use_erpnext_links if settings else True
+			use_erpnext = settings.use_erpnext_links if settings else False
 		except Exception:
-			use_erpnext = True
-		
-		# Check if ERPNext is installed
-		erpnext_installed = is_erpnext_installed()
-		show_erpnext_fields = erpnext_installed and use_erpnext
-		
-		# Get field mapping
-		mapping = get_erpnext_doctype_fields_mapping()
-		config = mapping.get("ITM Host Item", {})
-		erpnext_fields = config.get("erpnext_fields", [])
-		
-		# If ERPNext fields are shown, validate that the linked doctypes exist
+			use_erpnext = False
+
+		show_erpnext_fields = is_erpnext_installed() and use_erpnext
+		erpnext_fields = (
+			get_erpnext_doctype_fields_mapping()
+			.get("ITM Host Item", {})
+			.get("erpnext_fields", [])
+		)
+
 		if show_erpnext_fields:
 			for fieldname in erpnext_fields:
-				if hasattr(self, fieldname):
-					value = getattr(self, fieldname)
-					if value:
-						# Check if the target doctype exists
-						field_meta = self.meta.get_field(fieldname)
-						if field_meta and field_meta.fieldtype == "Link":
-							target_doctype = field_meta.options
-							try:
-								frappe.get_meta(target_doctype)
-							except frappe.DoesNotExistError:
-								frappe.throw(
-									_("The doctype '{0}' does not exist. Please install ERPNext or disable 'Use ERPNext Link Fields' in IT Management Settings.").format(target_doctype),
-									title=_("Missing Doctype")
-								)
-		
+				value = self.get(fieldname)
+				if not value:
+					continue
+				field_meta = self.meta.get_field(fieldname)
+				if not (field_meta and field_meta.fieldtype == "Link" and field_meta.options):
+					continue
+				try:
+					frappe.get_meta(field_meta.options)
+				except frappe.DoesNotExistError:
+					frappe.throw(
+						_(
+							"The doctype '{0}' does not exist. Please install ERPNext or disable "
+							"'Use ERPNext Link Fields' in IT Management Settings."
+						).format(field_meta.options),
+						title=_("Missing Doctype"),
+					)
+
 		# Validate solution relationships - prevent duplicate solutions
-		if hasattr(self, 'itm_host_item_solution_table') and self.itm_host_item_solution_table:
-			solutions = [row.itm_solution for row in self.itm_host_item_solution_table if row.itm_solution]
+		if self.get("itm_host_item_solution_table"):
+			solutions = [
+				row.itm_solution
+				for row in self.itm_host_item_solution_table
+				if row.itm_solution
+			]
 			if len(solutions) != len(set(solutions)):
 				frappe.throw(
 					_("A solution can only be linked once to a host item"),
-					title=_("Duplicate Solution")
+					title=_("Duplicate Solution"),
 				)

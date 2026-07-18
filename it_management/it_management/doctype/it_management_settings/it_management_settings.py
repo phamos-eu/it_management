@@ -20,3 +20,9 @@ class ITManagementSettings(Document):
 					_("ERPNext is not installed. Please install ERPNext to use ERPNext link fields."),
 					title=_("ERPNext Required")
 				)
+
+	def on_update(self):
+		"""Keep ERPNext Link field meta safe for the current install."""
+		from it_management.it_management.utils.erpnext_integration import sync_erpnext_link_fields
+
+		sync_erpnext_link_fields()
