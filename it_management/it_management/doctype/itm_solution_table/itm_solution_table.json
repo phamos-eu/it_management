@@ -17,11 +17,11 @@
    "label": "Note"
   },
   {
-   "fetch_from": "solution.status",
+   "fetch_from": "itm_solution.lifecycle_status",
    "fieldname": "status",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Status",
+   "label": "Lifecycle Status",
    "read_only": 1
   },
   {

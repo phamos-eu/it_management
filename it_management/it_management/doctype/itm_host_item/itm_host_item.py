@@ -60,6 +60,11 @@ class ITMHostItem(Document):
 						title=_("Missing Doctype"),
 					)
 
+		if not self.lifecycle_status:
+			self.lifecycle_status = "Implementing"
+		if not self.health_status:
+			self.health_status = "Unknown"
+
 		self._validate_deployment_hosting()
 
 		if self.get("itm_host_item_solution_table"):
@@ -73,6 +78,46 @@ class ITMHostItem(Document):
 					_("A solution can only be linked once to a host item"),
 					title=_("Duplicate Solution"),
 				)
+
+	def on_update(self):
+		from it_management.it_management.utils.status import (
+			cascade_host_lifecycle_to_software_instances,
+			solutions_linked_to_host,
+			update_solution_health,
+		)
+
+		if self.has_value_changed("lifecycle_status"):
+			cascade_host_lifecycle_to_software_instances(self.name, self.lifecycle_status)
+
+		before = self.get_doc_before_save()
+		before_solutions = {
+			row.itm_solution
+			for row in (before.get("itm_host_item_solution_table") if before else []) or []
+			if row.itm_solution
+		}
+		after_solutions = {
+			row.itm_solution
+			for row in self.get("itm_host_item_solution_table") or []
+			if row.itm_solution
+		}
+		membership_changed = before_solutions != after_solutions
+
+		if (
+			self.has_value_changed("lifecycle_status")
+			or self.has_value_changed("health_status")
+			or membership_changed
+		):
+			for solution in solutions_linked_to_host(self):
+				update_solution_health(solution)
+
+	def after_insert(self):
+		from it_management.it_management.utils.status import (
+			solutions_linked_to_host,
+			update_solution_health,
+		)
+
+		for solution in solutions_linked_to_host(self):
+			update_solution_health(solution)
 
 	def _validate_deployment_hosting(self):
 		"""Physical hosts clear hosting links; Virtual hosts require a Software Instance."""

@@ -9,7 +9,8 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "status",
+  "lifecycle_status",
+  "health_status",
   "deployment",
   "serial_number",
   "hosting_section",
@@ -33,11 +34,23 @@
   },
   {
    "default": "Implementing",
-   "fieldname": "status",
+   "fieldname": "lifecycle_status",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Status",
-   "options": "Implementing\nRunning\nIssue\nStorage\nObsolete"
+   "in_standard_filter": 1,
+   "label": "Lifecycle Status",
+   "options": "Implementing\nRunning\nStorage\nObsolete",
+   "reqd": 1
+  },
+  {
+   "default": "Unknown",
+   "fieldname": "health_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Health Status",
+   "options": "Healthy\nWarning\nCritical\nUnknown",
+   "reqd": 1
   },
   {
    "default": "Physical",
@@ -140,7 +153,7 @@
    "link_fieldname": "hosted_on"
   }
  ],
- "modified": "2026-07-18 21:10:00.000000",
+ "modified": "2026-07-18 22:10:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Host Item",
