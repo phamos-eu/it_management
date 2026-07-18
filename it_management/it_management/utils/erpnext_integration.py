@@ -170,6 +170,7 @@ MANAGED_ERPNEXT_CUSTOM_FIELDS = {
 			"options": "Customer",
 			"insert_after": "general_section",
 			"in_standard_filter": 1,
+			"allow_in_quick_entry": 1,
 		},
 	},
 	"ITM User Account Type": {
@@ -205,6 +206,7 @@ _CF_SPEC_ATTRS = (
 	"in_standard_filter",
 	"bold",
 	"read_only",
+	"allow_in_quick_entry",
 )
 
 ERPNEXT_CF_MODULE = "IT Management"

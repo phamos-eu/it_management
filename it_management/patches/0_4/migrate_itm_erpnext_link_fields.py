@@ -2,14 +2,17 @@
 # For license information, please see license.txt
 
 """
-Migrate all ITM-* DocType ERPNext Link fields to settings-driven Custom Fields.
+Migrate all remaining ITM-* DocType ERPNext Link fields to Custom Fields.
 
-Covers every ITM DocType that linked to Customer / Item / Supplier (including
-ITM Solution, ITM Trip, ITM User Account, child tables, etc.).
+Companion to remove_erpnext_fields_from_itm_host_item (Host Item + Solution).
+This patch covers every other ITM DocType that linked to Customer / Item /
+Supplier, and is also safe to re-run for Host Item / Solution (idempotent).
 
-Pre_model_sync (default patches.txt): preserve valued columns as Data Custom
-Fields before DocType JSON sync would drop them, then apply the current
-IT Management Settings toggle.
+Needed because sites that already executed the Host-Item-only patch will not
+re-run it after that file was extended to include ITM Solution.
+
+Pre_model_sync: preserve valued columns as Data Custom Fields, then apply
+IT Management Settings via sync_erpnext_custom_fields().
 
 Compatible with Frappe v15 and v16.
 """
@@ -23,6 +26,7 @@ def execute():
 		sync_erpnext_custom_fields,
 	)
 
+	# All managed ITM DocTypes (Host Item, Solution, Trip, User Account, …)
 	for line in migrate_managed_erpnext_standard_fields():
 		frappe.log("ITM ERPNext field migration: {0}".format(line))
 
