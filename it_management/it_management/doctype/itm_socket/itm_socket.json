@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{itm_location}-{identifier}",
+ "creation": "2026-07-18 23:00:00.000000",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "identifier",
+  "itm_location",
+  "itm_landscape",
+  "endpoint_socket",
+  "endpoint_location",
+  "note"
+ ],
+ "fields": [
+  {
+   "fieldname": "identifier",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Identifier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "itm_location",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Location (Room)",
+   "options": "ITM Location",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "itm_location.itm_landscape",
+   "fieldname": "itm_landscape",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Landscape",
+   "options": "ITM Landscape",
+   "read_only": 1
+  },
+  {
+   "fieldname": "endpoint_socket",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Endpoint Socket",
+   "options": "ITM Socket"
+  },
+  {
+   "fetch_from": "endpoint_socket.itm_location",
+   "fieldname": "endpoint_location",
+   "fieldtype": "Link",
+   "label": "Endpoint Location",
+   "options": "ITM Location",
+   "read_only": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "ITM Network Interface Controller",
+   "link_fieldname": "itm_socket"
+  }
+ ],
+ "modified": "2026-07-18 23:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "ITM Socket",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -114,6 +114,42 @@ def get_data():
             "items": [
                 {
                     "type": "doctype",
+                    "name": "ITM Local Area Network",
+                    "label": _("ITM Local Area Network"),
+                    "description": _("ITM Local Area Network")
+                },
+                {
+                    "type": "doctype",
+                    "name": "ITM Subnet",
+                    "label": _("ITM Subnet"),
+                    "description": _("ITM Subnet")
+                },
+                {
+                    "type": "doctype",
+                    "name": "ITM IP Address",
+                    "label": _("ITM IP Address"),
+                    "description": _("ITM IP Address")
+                },
+                {
+                    "type": "doctype",
+                    "name": "ITM Network Interface Controller",
+                    "label": _("ITM Network Interface Controller"),
+                    "description": _("ITM Network Interface Controller")
+                },
+                {
+                    "type": "doctype",
+                    "name": "ITM Socket",
+                    "label": _("ITM Socket"),
+                    "description": _("ITM Socket")
+                },
+                {
+                    "type": "doctype",
+                    "name": "ITM Host Domain",
+                    "label": _("ITM Host Domain"),
+                    "description": _("ITM Host Domain")
+                },
+                {
+                    "type": "doctype",
                     "name": "Host Domain",
                     "label": _("Host Domain"),
                     "description": _("Host Domain")
@@ -132,9 +168,9 @@ def get_data():
                 },
                 {
                     "type": "doctype",
-                    "name": "Subnet Block",
-                    "label": _("Subnet Block"),
-                    "description": _("Subnet Block")
+                    "name": "Socket",
+                    "label": _("Socket"),
+                    "description": _("Socket")
                 }
             ]
         },

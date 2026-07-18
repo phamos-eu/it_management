@@ -51,9 +51,78 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Network",
+   "link_count": 6,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ITM Local Area Network",
+   "link_count": 0,
+   "link_to": "ITM Local Area Network",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ITM Subnet",
+   "link_count": 0,
+   "link_to": "ITM Subnet",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ITM IP Address",
+   "link_count": 0,
+   "link_to": "ITM IP Address",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ITM Network Interface Controller",
+   "link_count": 0,
+   "link_to": "ITM Network Interface Controller",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ITM Socket",
+   "link_count": 0,
+   "link_to": "ITM Socket",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ITM Host Domain",
+   "link_count": 0,
+   "link_to": "ITM Host Domain",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2026-04-06 04:57:22.171412",
+ "modified": "2026-07-18 23:05:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Management",
