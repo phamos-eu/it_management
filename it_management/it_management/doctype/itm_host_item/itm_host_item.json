@@ -28,11 +28,12 @@
    "unique": 1
   },
   {
+   "default": "Implementing",
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "\nImplementing\nRunning\nIssue\nStorage\nObsolete"
+   "options": "Implementing\nRunning\nIssue\nStorage\nObsolete"
   },
   {
    "fieldname": "serial_number",
