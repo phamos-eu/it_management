@@ -6,7 +6,12 @@ frappe.provide("it_management.landscape_graph");
 (function () {
 	"use strict";
 
-	const CYTOSCAPE_SRC = "/assets/it_management/js/lib/cytoscape.min.js";
+	// Vendored build (UMD patched to always set window.cytoscape). CDN is last resort.
+	const CYTOSCAPE_SOURCES = [
+		"/assets/it_management/js/cytoscape.min.js",
+		"/assets/it_management/js/lib/cytoscape.min.js",
+		"https://cdn.jsdelivr.net/npm/cytoscape@3.30.4/dist/cytoscape.min.js",
+	];
 
 	const HEALTH_COLORS = {
 		Healthy: "#2e7d32",
@@ -22,52 +27,127 @@ frappe.provide("it_management.landscape_graph");
 		Obsolete: "#546e7a",
 	};
 
+	function get_cytoscape_global() {
+		if (typeof window.cytoscape === "function") {
+			return window.cytoscape;
+		}
+		return null;
+	}
+
+	function load_script_tag(src) {
+		return new Promise((resolve, reject) => {
+			const script = document.createElement("script");
+			script.src = src;
+			script.async = true;
+			script.onload = () => resolve(src);
+			script.onerror = () => reject(new Error("Failed to fetch " + src));
+			document.head.appendChild(script);
+		});
+	}
+
+	function frappe_require_script(src) {
+		return new Promise((resolve, reject) => {
+			if (!window.frappe || typeof frappe.require !== "function") {
+				reject(new Error("frappe.require unavailable"));
+				return;
+			}
+
+			let settled = false;
+			const timer = setTimeout(() => {
+				if (!settled) {
+					settled = true;
+					reject(new Error("Timed out loading " + src));
+				}
+			}, 15000);
+
+			try {
+				const result = frappe.require(src, () => {
+					if (settled) {
+						return;
+					}
+					settled = true;
+					clearTimeout(timer);
+					resolve(src);
+				});
+				// Newer Frappe returns a Promise from frappe.require
+				if (result && typeof result.then === "function") {
+					result.then(
+						() => {
+							if (settled) {
+								return;
+							}
+							settled = true;
+							clearTimeout(timer);
+							resolve(src);
+						},
+						(err) => {
+							if (settled) {
+								return;
+							}
+							settled = true;
+							clearTimeout(timer);
+							reject(err || new Error("frappe.require failed for " + src));
+						}
+					);
+				}
+			} catch (err) {
+				if (!settled) {
+					settled = true;
+					clearTimeout(timer);
+					reject(err);
+				}
+			}
+		});
+	}
+
 	/**
-	 * Cytoscape's UMD build calls define() when RequireJS is present (Frappe Desk),
-	 * which skips setting window.cytoscape. Load via a classic script tag with AMD
-	 * temporarily disabled so the browser-global export runs.
+	 * Load Cytoscape and ensure window.cytoscape is set.
+	 * Tries local assets via frappe.require, then script tags, then CDN.
 	 */
 	it_management.landscape_graph.ensure_cytoscape = function () {
-		if (typeof window.cytoscape === "function") {
-			return Promise.resolve(window.cytoscape);
+		const existing = get_cytoscape_global();
+		if (existing) {
+			return Promise.resolve(existing);
 		}
 
 		if (it_management.landscape_graph._cytoscape_loading) {
 			return it_management.landscape_graph._cytoscape_loading;
 		}
 
-		it_management.landscape_graph._cytoscape_loading = new Promise(
-			(resolve, reject) => {
-				const previous_define = window.define;
-				const restore_define = () => {
-					if (previous_define !== undefined) {
-						window.define = previous_define;
-					}
-				};
+		const errors = [];
 
-				// Force the UMD browser branch: (global).cytoscape = factory()
-				if (typeof window.define === "function" && window.define.amd) {
-					window.define = undefined;
+		it_management.landscape_graph._cytoscape_loading = (async () => {
+			for (const src of CYTOSCAPE_SOURCES) {
+				if (get_cytoscape_global()) {
+					return get_cytoscape_global();
 				}
 
-				const script = document.createElement("script");
-				script.src = CYTOSCAPE_SRC;
-				script.async = true;
-				script.onload = () => {
-					restore_define();
-					if (typeof window.cytoscape === "function") {
-						resolve(window.cytoscape);
+				const is_remote = src.indexOf("http") === 0;
+				try {
+					if (!is_remote) {
+						try {
+							await frappe_require_script(src);
+						} catch (require_err) {
+							errors.push(String(require_err && require_err.message || require_err));
+							await load_script_tag(src);
+						}
 					} else {
-						reject(new Error("Cytoscape loaded but global was not set"));
+						await load_script_tag(src);
 					}
-				};
-				script.onerror = () => {
-					restore_define();
-					reject(new Error("Failed to fetch " + CYTOSCAPE_SRC));
-				};
-				document.head.appendChild(script);
+				} catch (err) {
+					errors.push(String(err && err.message || err));
+					continue;
+				}
+
+				const cy = get_cytoscape_global();
+				if (cy) {
+					return cy;
+				}
+				errors.push("Loaded " + src + " but window.cytoscape was not set");
 			}
-		).finally(() => {
+
+			throw new Error(errors.join(" | ") || "Unknown Cytoscape load failure");
+		})().finally(() => {
 			it_management.landscape_graph._cytoscape_loading = null;
 		});
 
@@ -111,10 +191,12 @@ frappe.provide("it_management.landscape_graph");
 				})
 				.catch((err) => {
 					console.error(err);
+					const detail = escapeHtml((err && err.message) || String(err || ""));
 					frappe.msgprint({
 						title: __("Missing library"),
 						message: __(
-							"Cytoscape.js failed to load. Hard-refresh the page or run bench clear-cache / bench build if assets are missing."
+							"Cytoscape.js failed to load. Run bench clear-cache and hard-refresh. Details: {0}",
+							[detail]
 						),
 						indicator: "red",
 					});
