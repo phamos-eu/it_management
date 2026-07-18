@@ -73,9 +73,13 @@
   {
    "link_doctype": "ITM User Account",
    "link_fieldname": "itm_software_instance"
+  },
+  {
+   "link_doctype": "ITM Host Item",
+   "link_fieldname": "hosted_by_software_instance"
   }
  ],
- "modified": "2026-07-18 22:00:00.000000",
+ "modified": "2026-07-18 22:10:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Software Instance",

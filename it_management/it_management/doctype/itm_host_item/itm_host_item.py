@@ -65,6 +65,8 @@ class ITMHostItem(Document):
 		if not self.health_status:
 			self.health_status = "Unknown"
 
+		self._validate_deployment_hosting()
+
 		if self.get("itm_host_item_solution_table"):
 			solutions = [
 				row.itm_solution
@@ -116,3 +118,36 @@ class ITMHostItem(Document):
 
 		for solution in solutions_linked_to_host(self):
 			update_solution_health(solution)
+
+	def _validate_deployment_hosting(self):
+		"""Physical hosts clear hosting links; Virtual hosts require a Software Instance."""
+		if not self.deployment:
+			self.deployment = "Physical"
+
+		if self.deployment == "Physical":
+			self.hosted_by_software_instance = None
+			self.hosted_on = None
+			return
+
+		if self.deployment != "Virtual":
+			return
+
+		if not self.hosted_by_software_instance:
+			frappe.throw(
+				_("Virtual hosts must be linked to a hosting Software Instance."),
+				title=_("Missing Hosting Software Instance"),
+			)
+
+		# Keep hosted_on in sync even if fetch_from did not run (e.g. API/import)
+		parent_host = frappe.db.get_value(
+			"ITM Software Instance",
+			self.hosted_by_software_instance,
+			"itm_host_item",
+		)
+		self.hosted_on = parent_host
+
+		if self.hosted_on and self.hosted_on == self.name:
+			frappe.throw(
+				_("A host item cannot be hosted on itself."),
+				title=_("Invalid Hosting"),
+			)
