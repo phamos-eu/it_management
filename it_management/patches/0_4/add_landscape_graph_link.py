@@ -12,8 +12,8 @@ def execute():
 	# Step 1: Create the Page DocType record
 	page_name = "it-landscape-graph"
 	if not frappe.db.exists("Page", page_name):
-		# Use frappe.db.insert to bypass Page validation which requires developer mode
-		page_data = {
+		# Use ignore_validations=True to bypass Page validation which requires developer mode
+		page = frappe.get_doc({
 			"doctype": "Page",
 			"page_name": page_name,
 			"title": "IT Landscape Graph",
@@ -26,8 +26,8 @@ window.location.href = '/assets/it_management/www/it_landscape_graph.html';
 """,
 			"is_single": 0,
 			"published": 1
-		}
-		frappe.db.insert(page_data, ignore_permissions=True)
+		})
+		page.insert(ignore_permissions=True, ignore_validations=True)
 		frappe.db.commit()
 		frappe.log(f"Created Page: {page_name}")
 	else:
