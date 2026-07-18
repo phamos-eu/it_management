@@ -7,8 +7,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "title",
-  "customer"
+  "title"
  ],
  "fields": [
   {
@@ -16,17 +15,10 @@
    "fieldtype": "Data",
    "label": "Title",
    "unique": 1
-  },
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Customer",
-   "options": "Customer"
   }
  ],
  "links": [],
- "modified": "2025-12-17 15:32:01.396274",
+ "modified": "2026-07-18 14:20:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM User Account Type",

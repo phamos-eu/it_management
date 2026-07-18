@@ -9,7 +9,6 @@
   "status",
   "employee",
   "employee_name",
-  "customer",
   "customer_name",
   "destination",
   "date",
@@ -46,20 +45,12 @@
    "read_only": 1
   },
   {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
    "in_standard_filter": 1,
    "label": "Customer Name",
-   "read_only": 1
+   "read_only": 1,
+   "fetch_from": "customer.customer_name"
   },
   {
    "fieldname": "destination",
@@ -122,7 +113,7 @@
   }
  ],
  "links": [],
- "modified": "2026-04-06 11:56:31.694931",
+ "modified": "2026-07-18 14:20:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Trip",
