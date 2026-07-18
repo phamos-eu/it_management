@@ -4,10 +4,17 @@
 
 """
 Utilities for ERPNext integration management.
-Handles validation and field visibility logic for ERPNext integration.
+
+ERPNext Link fields (Customer, Item, …) are optional:
+- Fresh DocType JSON does not ship them for managed DocTypes (ITM Host Item).
+- They are created as Custom Fields when ERPNext is installed and
+  IT Management Settings.use_erpnext_links is enabled.
+- Disabling the setting removes empty Link Custom Fields, or converts valued
+  ones to Data so values are never dropped.
 """
 
 from __future__ import unicode_literals
+
 import frappe
 from frappe import _
 
@@ -16,7 +23,7 @@ def is_erpnext_installed():
 	"""Check if ERPNext app is installed."""
 	try:
 		installed_apps = frappe.get_installed_apps()
-		return 'erpnext' in installed_apps
+		return "erpnext" in installed_apps
 	except Exception:
 		return False
 
@@ -26,14 +33,14 @@ def validate_erpnext_required():
 	if not is_erpnext_installed():
 		frappe.throw(
 			_("ERPNext is not installed. Please install ERPNext to use this feature."),
-			title=_("ERPNext Required")
+			title=_("ERPNext Required"),
 		)
 
 
 def get_erpnext_doctype_fields_mapping():
 	"""
 	Get mapping of doctypes and their ERPNext/ITM field pairs.
-	
+
 	Returns:
 		dict: {
 			"ITM Host Item": {
@@ -46,77 +53,117 @@ def get_erpnext_doctype_fields_mapping():
 	return {
 		"ITM Host Item": {
 			"erpnext_fields": ["customer", "item_code"],
-			"itm_fields": ["itm_customer", "itm_item"]
+			"itm_fields": ["itm_customer", "itm_item"],
 		},
 		"Software Instance": {
 			"erpnext_fields": ["customer", "supplier"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"Configuration Item": {
 			"erpnext_fields": ["customer", "item_code", "supplier"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"IT Hardware": {
 			"erpnext_fields": ["item_code"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"Licence": {
 			"erpnext_fields": ["item_code", "supplier"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"ITM User Account": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"User Account": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"Subnet Table": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"Location Room": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"ITM Solution Table": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"User Group Table": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"IT Checklist Table": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"Solution Table": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
+			"itm_fields": [],
 		},
 		"ITM Solution": {
 			"erpnext_fields": ["customer"],
-			"itm_fields": []
-		}
+			"itm_fields": [],
+		},
 	}
+
+
+# DocTypes whose ERPNext Links are managed as Custom Fields (not in JSON).
+# Extend this map as more DocTypes are migrated off standard Link fields.
+MANAGED_ERPNEXT_CUSTOM_FIELDS = {
+	"ITM Host Item": {
+		"customer": {
+			"label": "Customer",
+			"options": "Customer",
+			"insert_after": "customer_section",
+		},
+		"item_code": {
+			"label": "Item",
+			"options": "Item",
+			"insert_after": "item_section",
+		},
+	}
+}
+
+ERPNEXT_CF_MODULE = "IT Management"
+
+
+def use_erpnext_link_fields():
+	"""True when ERPNext is installed and the settings toggle is enabled."""
+	if not is_erpnext_installed():
+		return False
+	try:
+		settings = frappe.get_single("IT Management Settings")
+		return bool(settings.use_erpnext_links) if settings else False
+	except Exception:
+		return False
 
 
 def get_field_metadata(doctype, fieldname):
 	"""Get field metadata from doctype."""
 	try:
 		meta = frappe.get_meta(doctype)
-		field = meta.get_field(fieldname)
-		return field
+		return meta.get_field(fieldname)
 	except Exception:
 		return None
+
+
+def get_custom_field(doctype, fieldname):
+	"""Return Custom Field doc for dt/fieldname, or None."""
+	name = frappe.db.get_value(
+		"Custom Field", {"dt": doctype, "fieldname": fieldname}, "name"
+	)
+	if not name:
+		return None
+	return frappe.get_doc("Custom Field", name)
 
 
 def create_custom_field(doctype, fieldname, fieldtype, options=None, label=None, **kwargs):
 	"""
 	Create a custom field if it doesn't exist.
-	
+
 	Args:
 		doctype: The doctype to add the field to
 		fieldname: The fieldname
@@ -125,69 +172,292 @@ def create_custom_field(doctype, fieldname, fieldtype, options=None, label=None,
 		label: The field label
 		**kwargs: Additional field properties
 	"""
-	# Check if field already exists in the doctype
-	meta = frappe.get_meta(doctype)
+	meta = frappe.get_meta(doctype, cached=False)
 	if meta.has_field(fieldname):
 		return False
 
-	# Check if it's a custom field
-	custom_field_name = "{0}-{1}".format(doctype, fieldname)
-	try:
-		frappe.get_doc("Custom Field", custom_field_name)
-		return False  # Already exists as custom field
-	except frappe.DoesNotExistError:
-		pass
+	if get_custom_field(doctype, fieldname):
+		return False
 
-	# Create the custom field
 	custom_field = frappe.new_doc("Custom Field")
 	custom_field.dt = doctype
 	custom_field.fieldname = fieldname
 	custom_field.fieldtype = fieldtype
 	custom_field.label = label or fieldname
-	
+	custom_field.module = kwargs.pop("module", ERPNEXT_CF_MODULE)
+
 	if options:
 		custom_field.options = options
-	
-	# Set common properties
+
 	for key, value in kwargs.items():
 		if hasattr(custom_field, key):
 			setattr(custom_field, key, value)
-	
+
 	custom_field.insert(ignore_permissions=True)
+	frappe.clear_cache(doctype=doctype)
 	return True
 
 
 def remove_custom_field(doctype, fieldname):
+	"""Remove a custom field if it exists (never touches standard fields)."""
+	custom_field = get_custom_field(doctype, fieldname)
+	if not custom_field:
+		return False
+
+	frappe.delete_doc("Custom Field", custom_field.name, force=1, ignore_permissions=True)
+	frappe.clear_cache(doctype=doctype)
+	return True
+
+
+def _table_name(doctype):
+	return "tab{0}".format(doctype)
+
+
+def _nonempty_value_count(doctype, fieldname):
+	"""Count rows with a non-empty value in the column (0 if column missing)."""
+	if not frappe.db.has_column(doctype, fieldname):
+		return 0
+	table = _table_name(doctype)
+	return frappe.db.sql(
+		"SELECT COUNT(*) FROM `{0}` WHERE IFNULL(`{1}`, '') != ''".format(table, fieldname)
+	)[0][0]
+
+
+def _remove_standard_docfield(doctype, fieldname):
+	"""Remove a standard DocField from the DocType (runs under in_patch)."""
+	if not frappe.db.exists("DocType", doctype):
+		return False
+
+	doc = frappe.get_doc("DocType", doctype)
+	removed = False
+	for df in list(doc.fields):
+		if df.fieldname == fieldname:
+			doc.remove(df)
+			removed = True
+
+	if isinstance(doc.field_order, list) and fieldname in doc.field_order:
+		doc.field_order = [f for f in doc.field_order if f != fieldname]
+		removed = True
+	elif isinstance(doc.field_order, str) and fieldname in doc.field_order:
+		# Older sites may store field_order as text
+		order = [f.strip() for f in doc.field_order.split(",") if f.strip()]
+		if fieldname in order:
+			doc.field_order = [f for f in order if f != fieldname]
+			removed = True
+
+	if not removed:
+		return False
+
+	doc.flags.ignore_validate = True
+	doc.save(ignore_permissions=True)
+	frappe.clear_cache(doctype=doctype)
+	return True
+
+
+def _is_standard_docfield(doctype, fieldname):
+	"""True if fieldname is defined on the DocType document (not only Custom Field)."""
+	return bool(
+		frappe.db.exists("DocField", {"parent": doctype, "fieldname": fieldname})
+	)
+
+
+def migrate_standard_erpnext_link_field(doctype, fieldname, label=None):
 	"""
-	Remove a custom field if it exists.
-	
+	Data-safe removal of a standard ERPNext Link field before model sync.
+
+	- If the column has values: preserve them as a Data Custom Field (same name).
+	- If empty: drop the standard DocField only.
+	"""
+	if not frappe.db.exists("DocType", doctype):
+		return "skipped-missing-doctype"
+
+	_delete_erpnext_link_property_setters(doctype, fieldname)
+
+	custom = get_custom_field(doctype, fieldname)
+	standard = _is_standard_docfield(doctype, fieldname)
+
+	if not standard:
+		# Already migrated / never present as standard field
+		if custom:
+			return "already-custom"
+		return "absent"
+
+	label = label or fieldname.replace("_", " ").title()
+	table = _table_name(doctype)
+	tmp_col = "_{0}_mig".format(fieldname)
+	value_count = _nonempty_value_count(doctype, fieldname)
+
+	if value_count:
+		# Move valued column aside so DocType save / later sync cannot drop data
+		if frappe.db.has_column(doctype, tmp_col):
+			frappe.db.sql_ddl("ALTER TABLE `{0}` DROP COLUMN `{1}`".format(table, tmp_col))
+
+		frappe.db.sql_ddl(
+			"ALTER TABLE `{0}` CHANGE `{1}` `{2}` varchar(140)".format(
+				table, fieldname, tmp_col
+			)
+		)
+
+		_remove_standard_docfield(doctype, fieldname)
+
+		# Custom Field insert recreates `fieldname` column
+		if get_custom_field(doctype, fieldname):
+			remove_custom_field(doctype, fieldname)
+
+		create_custom_field(
+			doctype,
+			fieldname,
+			"Data",
+			label=label,
+			module=ERPNEXT_CF_MODULE,
+		)
+
+		if frappe.db.has_column(doctype, fieldname) and frappe.db.has_column(doctype, tmp_col):
+			frappe.db.sql(
+				"UPDATE `{0}` SET `{1}` = `{2}`".format(table, fieldname, tmp_col)
+			)
+			frappe.db.sql_ddl("ALTER TABLE `{0}` DROP COLUMN `{1}`".format(table, tmp_col))
+
+		return "preserved-as-data"
+
+	# Empty column: safe to remove standard field (sync would drop it anyway)
+	_remove_standard_docfield(doctype, fieldname)
+	return "removed-empty"
+
+
+def ensure_erpnext_link_custom_field(doctype, fieldname, spec):
+	"""Ensure a Link Custom Field exists (upgrade Data → Link when enabling)."""
+	options = spec.get("options")
+	label = spec.get("label") or fieldname
+	insert_after = spec.get("insert_after")
+
+	custom = get_custom_field(doctype, fieldname)
+	if custom:
+		changed = False
+		if custom.fieldtype != "Link":
+			custom.fieldtype = "Link"
+			changed = True
+		if custom.options != options:
+			custom.options = options
+			changed = True
+		if label and custom.label != label:
+			custom.label = label
+			changed = True
+		if insert_after and custom.insert_after != insert_after:
+			custom.insert_after = insert_after
+			changed = True
+		if changed:
+			custom.save(ignore_permissions=True)
+			frappe.clear_cache(doctype=doctype)
+			return "upgraded-to-link"
+		return "exists"
+
+	if _is_standard_docfield(doctype, fieldname):
+		# Should have been migrated already; do not create a conflicting CF
+		return "blocked-by-standard"
+
+	kwargs = {"module": ERPNEXT_CF_MODULE}
+	if insert_after:
+		kwargs["insert_after"] = insert_after
+
+	created = create_custom_field(
+		doctype,
+		fieldname,
+		"Link",
+		options=options,
+		label=label,
+		**kwargs
+	)
+	return "created" if created else "skipped"
+
+
+def retire_erpnext_link_custom_field(doctype, fieldname):
+	"""
+	When disabling ERPNext links:
+	- valued Link/Data Custom Field → keep as Data
+	- empty Custom Field → delete
+	"""
+	custom = get_custom_field(doctype, fieldname)
+	if not custom:
+		return "absent"
+
+	value_count = _nonempty_value_count(doctype, fieldname)
+	if value_count:
+		if custom.fieldtype != "Data" or custom.options:
+			custom.fieldtype = "Data"
+			custom.options = ""
+			custom.save(ignore_permissions=True)
+			frappe.clear_cache(doctype=doctype)
+			return "converted-to-data"
+		return "kept-as-data"
+
+	remove_custom_field(doctype, fieldname)
+	return "deleted-empty"
+
+
+def sync_erpnext_custom_fields(doctypes=None):
+	"""
+	Create / upgrade / retire managed ERPNext Custom Fields from settings.
+
 	Args:
-		doctype: The doctype
-		fieldname: The fieldname to remove
+		doctypes: optional iterable of DocType names; default all managed ones.
 	"""
-	custom_field_name = "{0}-{1}".format(doctype, fieldname)
-	
-	# Check if it's a standard field (not custom)
-	meta = frappe.get_meta(doctype)
-	if meta.has_field(fieldname):
-		# It's a standard field, we can't delete it
-		# But we can hide it via depends_on
-		return False
-	
-	# Try to delete custom field
-	try:
-		frappe.delete_doc("Custom Field", custom_field_name, force=True)
-		return True
-	except frappe.DoesNotExistError:
-		return False
-	except Exception as e:
-		frappe.log_error("Error deleting custom field {0}: {1}".format(custom_field_name, str(e)))
-		return False
+	managed = MANAGED_ERPNEXT_CUSTOM_FIELDS
+	if doctypes is not None:
+		managed = {dt: managed[dt] for dt in doctypes if dt in managed}
+
+	enabled = use_erpnext_link_fields()
+	results = []
+
+	for doctype, fields in managed.items():
+		if not frappe.db.exists("DocType", doctype):
+			continue
+		for fieldname, spec in fields.items():
+			try:
+				if enabled:
+					action = ensure_erpnext_link_custom_field(doctype, fieldname, spec)
+				else:
+					action = retire_erpnext_link_custom_field(doctype, fieldname)
+				results.append("{0}.{1}: {2}".format(doctype, fieldname, action))
+			except Exception:
+				frappe.log_error(
+					title="ERPNext custom field sync failed for {0}.{1}".format(
+						doctype, fieldname
+					)
+				)
+				results.append("{0}.{1}: error".format(doctype, fieldname))
+
+	return results
 
 
-# FormMeta.add_search_fields() (Frappe v15) throws when a Link field's options
-# DocType is missing. depends_on/hidden do NOT skip that check.
-# Neutralize options to "[Select]" (excluded by FormMeta) when ERPNext is absent.
+def migrate_managed_erpnext_standard_fields(doctypes=None):
+	"""Run data-safe standard-field migration for managed DocTypes."""
+	managed = MANAGED_ERPNEXT_CUSTOM_FIELDS
+	if doctypes is not None:
+		managed = {dt: managed[dt] for dt in doctypes if dt in managed}
+
+	results = []
+	for doctype, fields in managed.items():
+		for fieldname, spec in fields.items():
+			try:
+				action = migrate_standard_erpnext_link_field(
+					doctype, fieldname, label=spec.get("label")
+				)
+				results.append("{0}.{1}: {2}".format(doctype, fieldname, action))
+			except Exception:
+				frappe.log_error(
+					title="ERPNext standard field migration failed for {0}.{1}".format(
+						doctype, fieldname
+					)
+				)
+				results.append("{0}.{1}: error".format(doctype, fieldname))
+	return results
+
+
+# ---------------------------------------------------------------------------
+# Legacy Property Setter neutralization for DocTypes not yet on Custom Fields
+# ---------------------------------------------------------------------------
+
 ERPNEXT_LINK_PS_MODULE = "IT Management"
 NEUTRALIZED_LINK_OPTIONS = "[Select]"
 NEUTRALIZED_DEPENDS_ON = "eval:False"
@@ -195,10 +465,13 @@ _ERPNEXT_LINK_PS_PROPERTIES = ("options", "depends_on")
 
 
 def _iter_erpnext_link_fields():
-	"""Yield (doctype, fieldname) pairs from the integration mapping."""
+	"""Yield (doctype, fieldname) pairs still managed via Property Setters."""
 	mapping = get_erpnext_doctype_fields_mapping()
+	managed = MANAGED_ERPNEXT_CUSTOM_FIELDS
 	for doctype, config in mapping.items():
 		for fieldname in config.get("erpnext_fields", []):
+			if doctype in managed and fieldname in managed[doctype]:
+				continue
 			yield doctype, fieldname
 
 
@@ -250,12 +523,7 @@ def _upsert_property_setter(doctype, fieldname, property_name, value, property_t
 
 
 def neutralize_erpnext_link_field(doctype, fieldname):
-	"""
-	Clear invalid ERPNext Link targets so form meta can load without ERPNext.
-
-	Sets options to [Select] (skipped by FormMeta.add_search_fields) and hides
-	the field via depends_on.
-	"""
+	"""Neutralize invalid ERPNext Link targets for non-migrated DocTypes."""
 	if not frappe.db.exists("DocType", doctype):
 		return False
 
@@ -264,7 +532,6 @@ def neutralize_erpnext_link_field(doctype, fieldname):
 	if not field or field.fieldtype != "Link":
 		return False
 
-	# Already neutralized
 	if field.options == NEUTRALIZED_LINK_OPTIONS and field.depends_on == NEUTRALIZED_DEPENDS_ON:
 		return False
 
@@ -303,10 +570,9 @@ def restore_erpnext_link_field(doctype, fieldname):
 
 def sync_erpnext_link_fields():
 	"""
-	Ensure ERPNext Link fields are safe for the current install.
+	Property Setter neutralization for DocTypes not yet on Custom Fields.
 
-	- ERPNext missing: neutralize options/depends_on via Property Setters
-	- ERPNext present: remove those setters so standard Link targets work
+	Managed DocTypes (ITM Host Item) are skipped — use sync_erpnext_custom_fields.
 	"""
 	erpnext_installed = is_erpnext_installed()
 	changed = []
