@@ -6,6 +6,8 @@ frappe.provide("it_management.landscape_graph");
 (function () {
 	"use strict";
 
+	const CYTOSCAPE_SRC = "/assets/it_management/js/lib/cytoscape.min.js";
+
 	const HEALTH_COLORS = {
 		Healthy: "#2e7d32",
 		Warning: "#ef6c00",
@@ -18,6 +20,58 @@ frappe.provide("it_management.landscape_graph");
 		Running: "#2e7d32",
 		Storage: "#9e9e9e",
 		Obsolete: "#546e7a",
+	};
+
+	/**
+	 * Cytoscape's UMD build calls define() when RequireJS is present (Frappe Desk),
+	 * which skips setting window.cytoscape. Load via a classic script tag with AMD
+	 * temporarily disabled so the browser-global export runs.
+	 */
+	it_management.landscape_graph.ensure_cytoscape = function () {
+		if (typeof window.cytoscape === "function") {
+			return Promise.resolve(window.cytoscape);
+		}
+
+		if (it_management.landscape_graph._cytoscape_loading) {
+			return it_management.landscape_graph._cytoscape_loading;
+		}
+
+		it_management.landscape_graph._cytoscape_loading = new Promise(
+			(resolve, reject) => {
+				const previous_define = window.define;
+				const restore_define = () => {
+					if (previous_define !== undefined) {
+						window.define = previous_define;
+					}
+				};
+
+				// Force the UMD browser branch: (global).cytoscape = factory()
+				if (typeof window.define === "function" && window.define.amd) {
+					window.define = undefined;
+				}
+
+				const script = document.createElement("script");
+				script.src = CYTOSCAPE_SRC;
+				script.async = true;
+				script.onload = () => {
+					restore_define();
+					if (typeof window.cytoscape === "function") {
+						resolve(window.cytoscape);
+					} else {
+						reject(new Error("Cytoscape loaded but global was not set"));
+					}
+				};
+				script.onerror = () => {
+					restore_define();
+					reject(new Error("Failed to fetch " + CYTOSCAPE_SRC));
+				};
+				document.head.appendChild(script);
+			}
+		).finally(() => {
+			it_management.landscape_graph._cytoscape_loading = null;
+		});
+
+		return it_management.landscape_graph._cytoscape_loading;
 	};
 
 	function escapeHtml(value) {
@@ -48,18 +102,23 @@ frappe.provide("it_management.landscape_graph");
 		}
 
 		init() {
-			if (typeof cytoscape !== "function") {
-				frappe.msgprint({
-					title: __("Missing library"),
-					message: __("Cytoscape.js failed to load."),
-					indicator: "red",
+			return it_management.landscape_graph
+				.ensure_cytoscape()
+				.then(() => {
+					this.render_layout();
+					this.bind_events();
+					return this.load_filter_options().then(() => this.load_graph_data());
+				})
+				.catch((err) => {
+					console.error(err);
+					frappe.msgprint({
+						title: __("Missing library"),
+						message: __(
+							"Cytoscape.js failed to load. Hard-refresh the page or run bench clear-cache / bench build if assets are missing."
+						),
+						indicator: "red",
+					});
 				});
-				return;
-			}
-
-			this.render_layout();
-			this.bind_events();
-			this.load_filter_options().then(() => this.load_graph_data());
 		}
 
 		render_layout() {
@@ -471,6 +530,6 @@ frappe.provide("it_management.landscape_graph");
 		const graph = new it_management.landscape_graph.ITLandscapeGraph({
 			wrapper: root,
 		});
-		graph.init();
+		return graph.init();
 	};
 })();

@@ -12,8 +12,9 @@ frappe.pages["it-landscape-graph"].on_page_load = function (wrapper) {
 		<div class="it-landscape-graph-mount"></div>
 	`);
 
+	// Load app JS/CSS only. Cytoscape is resolved via ensure_cytoscape()
+	// because its UMD build does not set window.cytoscape under RequireJS.
 	const assets = [
-		"/assets/it_management/js/lib/cytoscape.min.js",
 		"/assets/it_management/js/it_landscape_graph.js",
 		"/assets/it_management/css/it_landscape_graph.css",
 	];
