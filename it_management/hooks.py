@@ -31,7 +31,10 @@ add_to_apps_screen = [
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/it_management/css/it_management.css"
-app_include_js = ["/assets/it_management/js/itm_utils.js"]
+app_include_js = [
+	"/assets/it_management/js/itm_utils.js",
+	"/assets/it_management/js/map_view.js",
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/it_management/css/it_management.css"
@@ -42,16 +45,17 @@ page_js = {"it-landscape-graph": "public/js/it_landscape_graph.js"}
 
 # include js in doctype views
 doctype_js = {
-    "Communication" : "public/js/communication.js",
-    "Issue" : "public/js/issue.js",
-    "Task" : "public/js/task.js",
-    "Project" : "public/js/project.js",
-    "Sales Invoice" : "public/js/sales_invoice.js",
-    "Sales Invoice Timesheet" : "public/js/sales_invoice_timesheets.js",
-    "Maintenance Visit" : "public/js/maintenance_visit.js",
-    "Event" : "public/js/event.js",
-    "Item" : "public/js/item.js",
-    "Customer" : "public/js/customer.js"
+	"Communication": "public/js/communication.js",
+	"Issue": "public/js/issue.js",
+	"Task": "public/js/task.js",
+	"Project": "public/js/project.js",
+	"Sales Invoice": "public/js/sales_invoice.js",
+	"Sales Invoice Timesheet": "public/js/sales_invoice_timesheets.js",
+	"Maintenance Visit": "public/js/maintenance_visit.js",
+	"Event": "public/js/event.js",
+	"Item": "public/js/item.js",
+	"Customer": "public/js/customer.js",
+	"Address": "public/js/address.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -81,7 +85,8 @@ doctype_js = {
 # ------------
 
 # before_install = "it_management.install.before_install"
-# after_install = "it_management.install.after_install"
+after_install = "it_management.install.after_install"
+after_migrate = "it_management.install.after_migrate"
 
 # Uninstalatiom
 
@@ -109,13 +114,11 @@ before_uninstall = "it_management.it_management.server_script.delete_custom_fiel
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Address": {
+		"on_update": "it_management.it_management.utils.geocoding.geocode_address_on_update",
+	},
+}
 
 # Scheduled Tasks
 # ---------------

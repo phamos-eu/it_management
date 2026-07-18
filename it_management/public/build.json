@@ -1,5 +1,8 @@
 {
 	"js/itm_utils.js": [
 		"public/js/itm_utils.js"
+	],
+	"js/map_view.js": [
+		"public/js/map_view.js"
 	]
 }
