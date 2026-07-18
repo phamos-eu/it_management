@@ -9,15 +9,69 @@
  "engine": "InnoDB",
  "field_order": [
   "itm_location_name",
+  "location_type",
+  "itm_landscape",
   "itm_location_address",
+  "itm_parent_location",
   "is_group",
+  "disabled",
   "lft",
   "rgt",
-  "itm_old_parent",
-  "itm_parent_location",
-  "disabled"
+  "itm_old_parent"
  ],
  "fields": [
+  {
+   "fieldname": "itm_location_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Location Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "Site",
+   "fieldname": "location_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Location Type",
+   "options": "Site\nBuilding\nFloor\nRoom",
+   "reqd": 1
+  },
+  {
+   "description": "Set on Site only; inherited by Building, Floor, and Room.",
+   "fieldname": "itm_landscape",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Landscape",
+   "options": "ITM Landscape"
+  },
+  {
+   "depends_on": "eval:doc.location_type=='Site' || doc.location_type=='Building'",
+   "fieldname": "itm_location_address",
+   "fieldtype": "Link",
+   "label": "Location Address",
+   "options": "Address"
+  },
+  {
+   "depends_on": "eval:doc.location_type!='Site'",
+   "description": "Required for Building (Site), Floor (Building), and Room (Floor).",
+   "fieldname": "itm_parent_location",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Parent Location",
+   "mandatory_depends_on": "eval:doc.location_type!='Site'",
+   "options": "ITM Location"
+  },
+  {
+   "default": "1",
+   "description": "Set automatically: groups for Site/Building/Floor; leaf for Room.",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Location Group",
+   "read_only": 1
+  },
   {
    "default": "0",
    "fieldname": "disabled",
@@ -41,36 +95,10 @@
    "read_only": 1
   },
   {
-   "default": "0",
-   "fieldname": "is_group",
-   "fieldtype": "Check",
-   "label": "Is Location Group"
-  },
-  {
-   "fieldname": "itm_location_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Location Name",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
-   "fieldname": "itm_location_address",
-   "fieldtype": "Link",
-   "label": "Location Address",
-   "options": "Address"
-  },
-  {
    "fieldname": "itm_old_parent",
    "fieldtype": "Link",
    "hidden": 1,
    "label": "Old Parent",
-   "options": "ITM Location"
-  },
-  {
-   "fieldname": "itm_parent_location",
-   "fieldtype": "Link",
-   "label": "Parent Location",
    "options": "ITM Location"
   }
  ],
@@ -82,7 +110,7 @@
    "link_fieldname": "itm_location"
   }
  ],
- "modified": "2026-04-06 12:19:24.082572",
+ "modified": "2026-07-18 22:30:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Location",
@@ -99,6 +127,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
    "share": 1,
    "write": 1
   }
