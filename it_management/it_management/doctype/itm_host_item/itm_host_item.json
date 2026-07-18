@@ -32,7 +32,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "\nImplementing\nRunning\nIssue\nStorage\nObsolet"
+   "options": "\nImplementing\nRunning\nIssue\nStorage\nObsolete"
   },
   {
    "fieldname": "serial_number",
