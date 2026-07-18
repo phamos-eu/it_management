@@ -17,6 +17,9 @@ WORKSPACE = "IT Management"
 CARD_LABEL = "Networking"
 
 NETWORK_LINKS = [
+	"ITM Landscape",
+	"ITM Location",
+	"ITM Host Item",
 	"ITM Local Area Network",
 	"ITM Subnet",
 	"ITM IP Address",
@@ -36,8 +39,8 @@ NETWORKING_SECTION_BLOCKS = [
 		"type": "paragraph",
 		"data": {
 			"text": (
-				"Manage local area networks, subnets, IP addresses, network "
-				"interfaces, wall sockets, and host domains for each ITM Landscape."
+				"Networking for each ITM Landscape: locations, LANs, subnets, "
+				"IP addresses, host NICs, wall sockets, and host domains."
 			),
 			"col": 12,
 		},

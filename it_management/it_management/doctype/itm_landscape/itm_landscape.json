@@ -30,9 +30,41 @@
   {
    "link_doctype": "ITM Host Item",
    "link_fieldname": "itm_landscape"
+  },
+  {
+   "link_doctype": "ITM Location",
+   "link_fieldname": "itm_landscape"
+  },
+  {
+   "link_doctype": "ITM Local Area Network",
+   "link_fieldname": "itm_landscape"
+  },
+  {
+   "link_doctype": "ITM Subnet",
+   "link_fieldname": "itm_landscape"
+  },
+  {
+   "link_doctype": "ITM IP Address",
+   "link_fieldname": "itm_landscape"
+  },
+  {
+   "link_doctype": "ITM Network Interface Controller",
+   "link_fieldname": "itm_landscape"
+  },
+  {
+   "link_doctype": "ITM Socket",
+   "link_fieldname": "itm_landscape"
+  },
+  {
+   "link_doctype": "ITM Host Domain",
+   "link_fieldname": "itm_landscape"
+  },
+  {
+   "link_doctype": "ITM Solution",
+   "link_fieldname": "itm_landscape"
   }
  ],
- "modified": "2024-01-30 10:25:19.464775",
+ "modified": "2026-07-18 23:55:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Landscape",
