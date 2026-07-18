@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+import os
 
 
 def execute():
@@ -19,7 +20,7 @@ def execute():
 			"title": "IT Landscape Graph",
 			"route": "/it-landscape-graph",
 			"module": "IT Management",
-			"is_virtual_page": 0,
+			"is_virtual_page": 1,  # Set to 1 to prevent asset loading
 			"script": """
 // Redirect to the actual HTML file
 window.location.href = '/assets/it_management/www/it_landscape_graph.html';
