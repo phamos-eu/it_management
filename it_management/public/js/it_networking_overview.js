@@ -181,6 +181,7 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 			__("Purpose"),
 			__("Size"),
 			__("Address"),
+			__("VLAN"),
 			__("Infrastructure"),
 			__("Review"),
 		];
@@ -194,6 +195,8 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 			lan_title: "",
 			itm_location: null,
 			lan_created_in_wizard: false,
+			vlan_needed: null,
+			vlan_hint: null,
 			vlan_tag: null,
 			network_address: null,
 			design: null,
@@ -357,18 +360,35 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 		if (this.step === 2) {
 			const network = ($body.find("[name=network_address]").val() || "").trim();
 			const prefix = cint($body.find("[name=prefix_length]").val());
-			const vlan = $body.find("[name=vlan_tag]").val();
 			if (!network || !prefix) {
 				frappe.msgprint(__("Network address and prefix are required."));
 				return false;
 			}
 			this.state.network_address = network;
 			this.state.prefix_length = prefix;
-			this.state.vlan_tag = vlan === "" ? null : cint(vlan);
 			await this.recalculate_design();
 			return !!this.state.design;
 		}
 		if (this.step === 3) {
+			const needed = $body.find("[name=vlan_needed]:checked").val();
+			if (!needed) {
+				frappe.msgprint(__("Choose whether a VLAN is needed."));
+				return false;
+			}
+			this.state.vlan_needed = needed;
+			if (needed === "no") {
+				this.state.vlan_tag = null;
+				return true;
+			}
+			const vlan = $body.find("[name=vlan_tag]").val();
+			if (vlan === "" || vlan === undefined || vlan === null) {
+				frappe.msgprint(__("Enter a VLAN tag, or choose No if you do not need a VLAN."));
+				return false;
+			}
+			this.state.vlan_tag = cint(vlan);
+			return true;
+		}
+		if (this.step === 4) {
 			["gateway", "dhcp", "dns_1", "dns_2", "ntp_1", "ntp_2"].forEach((field) => {
 				const ctrl = this.role_controls && this.role_controls[field];
 				this.state[field] = ctrl ? ctrl.get_value() : null;
@@ -392,7 +412,7 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 		this.state.design = msg.design;
 		this.state.conflicts = msg.conflicts || [];
 		this.state.profile_notes = msg.profile_notes || "";
-		this.state.vlan_tag = this.state.vlan_tag != null ? this.state.vlan_tag : msg.vlan_hint;
+		this.state.vlan_hint = msg.vlan_hint != null ? msg.vlan_hint : null;
 		if (msg.design) {
 			this.state.network_address = msg.design.network_address;
 			this.state.prefix_length = msg.design.prefix_length;
@@ -444,6 +464,8 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 		} else if (this.step === 2) {
 			content = this.html_address();
 		} else if (this.step === 3) {
+			content = this.html_vlan();
+		} else if (this.step === 4) {
 			content = this.html_infra();
 		} else {
 			content = this.html_review();
@@ -459,6 +481,10 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 		}
 
 		if (this.step === 3) {
+			this.bind_vlan_ui();
+		}
+
+		if (this.step === 4) {
 			this.role_controls = {};
 			["gateway", "dhcp", "dns_1", "dns_2", "ntp_1", "ntp_2"].forEach((field) => {
 				const label = {
@@ -664,9 +690,19 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 			)
 			.join(", ");
 		return `
-			<p class="itm-net-wizard__hint">${frappe.utils.escape_html(
-				this.state.profile_notes || ""
-			)}</p>
+			<div class="itm-net-wizard__help">
+				<strong>${__("Step 3 — Address")}</strong>
+				${__(
+					"We suggest a free IPv4 block in this Landscape. Network address + prefix form the CIDR (e.g. 10.40.0.0/23). VLAN is asked in the next step."
+				)}
+			</div>
+			${
+				this.state.profile_notes
+					? `<p class="itm-net-wizard__hint">${frappe.utils.escape_html(
+							this.state.profile_notes
+					  )}</p>`
+					: ""
+			}
 			${
 				conflicts
 					? `<div class="itm-net-wizard__warn">${__(
@@ -679,18 +715,18 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 				<input class="form-control" name="network_address" value="${frappe.utils.escape_html(
 					this.state.network_address || d.network_address || ""
 				)}"/>
+				<span class="itm-net-wizard__field-help">${__(
+					"First address of the block. Each part must be 0–255. Example: 10.40.0.0"
+				)}</span>
 			</div>
 			<div class="form-group">
 				<label>${__("Prefix length")}</label>
 				<input class="form-control" type="number" min="0" max="32" name="prefix_length" value="${
 					this.state.prefix_length != null ? this.state.prefix_length : d.prefix_length || 24
 				}"/>
-			</div>
-			<div class="form-group">
-				<label>${__("VLAN tag")}</label>
-				<input class="form-control" type="number" name="vlan_tag" value="${
-					this.state.vlan_tag != null ? this.state.vlan_tag : ""
-				}"/>
+				<span class="itm-net-wizard__field-help">${__(
+					"The /xx in CIDR. Example: 24 for a typical /24."
+				)}</span>
 			</div>
 			<pre class="itm-net-wizard__design">${__("Mask")}: ${frappe.utils.escape_html(
 				d.subnet_mask || "—"
@@ -700,6 +736,79 @@ ${__("Usable")}: ${frappe.utils.escape_html(String(d.first_usable || "—"))} �
 				String(d.last_usable || "—")
 			)} (${d.usable_hosts != null ? d.usable_hosts : "—"})</pre>
 		`;
+	}
+
+	html_vlan() {
+		const needed = this.state.vlan_needed || "";
+		const suggested =
+			this.state.vlan_hint != null
+				? __("Suggested tag for this purpose profile: {0}", [this.state.vlan_hint])
+				: "";
+		const tag_value =
+			this.state.vlan_tag != null
+				? this.state.vlan_tag
+				: this.state.vlan_hint != null
+				? this.state.vlan_hint
+				: "";
+		return `
+			<div class="itm-net-wizard__help">
+				<strong>${__("Step 4 — VLAN")}</strong>
+				${__(
+					"A VLAN (Virtual LAN) is a logical network segment on a switch. Use it when the same physical LAN must isolate traffic — for example guest Wi-Fi from corporate PCs, or a DMZ from the office network."
+				)}
+				<br/><br/>
+				${__(
+					"You can skip a VLAN if this is a simple flat network (one broadcast domain) or VLAN tagging is handled outside ITM. Choosing No leaves the VLAN tag empty."
+				)}
+				<br/><br/>
+				${__(
+					"Example: Guest Wi-Fi often uses VLAN 40 so visitor devices cannot reach internal servers, even though they share the same switches."
+				)}
+			</div>
+			<p class="itm-net-wizard__hint">${__("Do you need a VLAN for this subnet?")}</p>
+			<label style="display:block;margin:0.35rem 0;">
+				<input type="radio" name="vlan_needed" value="yes" ${
+					needed === "yes" ? "checked" : ""
+				}/>
+				<strong>${__("Yes")}</strong>
+				<span class="text-muted"> — ${__("I will set a VLAN tag for isolation or switch config.")}</span>
+			</label>
+			<label style="display:block;margin:0.35rem 0;">
+				<input type="radio" name="vlan_needed" value="no" ${
+					needed === "no" ? "checked" : ""
+				}/>
+				<strong>${__("No")}</strong>
+				<span class="text-muted"> — ${__("No VLAN tag; continue without one.")}</span>
+			</label>
+			<div class="itm-net-wizard__vlan-tag" style="margin-top:1rem;${
+				needed === "yes" ? "" : "display:none;"
+			}">
+				${suggested ? `<p class="itm-net-wizard__hint">${frappe.utils.escape_html(suggested)}</p>` : ""}
+				<div class="form-group">
+					<label>${__("VLAN tag")}</label>
+					<input class="form-control" type="number" min="1" max="4094" name="vlan_tag" value="${tag_value}"/>
+					<span class="itm-net-wizard__field-help">${__(
+						"Usually 1–4094. Example: 10 for corporate, 40 for guest Wi-Fi."
+					)}</span>
+				</div>
+			</div>
+		`;
+	}
+
+	bind_vlan_ui() {
+		const $wrap = this.dialog.fields_dict.body.$wrapper;
+		const $tag = $wrap.find(".itm-net-wizard__vlan-tag");
+		$wrap.find("[name=vlan_needed]").on("change", (e) => {
+			if (e.target.value === "yes") {
+				$tag.show();
+				const $input = $tag.find("[name=vlan_tag]");
+				if (!$input.val() && this.state.vlan_hint != null) {
+					$input.val(this.state.vlan_hint);
+				}
+			} else {
+				$tag.hide();
+			}
+		});
 	}
 
 	html_infra() {
@@ -735,7 +844,11 @@ ${__("Usable")}: ${frappe.utils.escape_html(String(d.first_usable || "—"))} �
 			)}
 ${__("LAN")}: ${frappe.utils.escape_html(lan_label)}
 ${__("CIDR")}: ${frappe.utils.escape_html(d.cidr || "")}
-${__("VLAN")}: ${this.state.vlan_tag != null ? this.state.vlan_tag : "—"}
+${__("VLAN")}: ${
+				this.state.vlan_needed === "yes" && this.state.vlan_tag != null
+					? this.state.vlan_tag
+					: __("None")
+			}
 ${__("Gateway")}: ${frappe.utils.escape_html(this.state.gateway || "—")}
 ${__("DHCP")}: ${frappe.utils.escape_html(this.state.dhcp || "—")}
 ${__("DNS")}: ${frappe.utils.escape_html(this.state.dns_1 || "—")} / ${frappe.utils.escape_html(
