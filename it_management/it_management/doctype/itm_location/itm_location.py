@@ -3,6 +3,7 @@
 
 import frappe
 from frappe import _
+from frappe.desk.treeview import make_tree_args
 from frappe.utils.nestedset import NestedSet
 
 # Child type → required parent type
@@ -12,11 +13,18 @@ PARENT_TYPE = {
 	"Room": "Floor",
 }
 
+# Parent type → child created under it in the tree
+CHILD_TYPE = {
+	"Site": "Building",
+	"Building": "Floor",
+	"Floor": "Room",
+}
+
 GROUP_TYPES = frozenset(("Site", "Building", "Floor"))
 
 
 class ITMLocation(NestedSet):
-	nsm_parent_field = "itm_parent_location"
+	nsm_parent_field = "parent_itm_location"
 
 	def validate(self):
 		self._normalize_location_type()
@@ -39,7 +47,7 @@ class ITMLocation(NestedSet):
 
 	def _validate_hierarchy(self):
 		if self.location_type == "Site":
-			if self.itm_parent_location:
+			if self.parent_itm_location:
 				frappe.throw(
 					_("A Site cannot have a parent location."),
 					title=_("Invalid Hierarchy"),
@@ -47,7 +55,7 @@ class ITMLocation(NestedSet):
 			return
 
 		expected_parent_type = PARENT_TYPE.get(self.location_type)
-		if not self.itm_parent_location:
+		if not self.parent_itm_location:
 			frappe.throw(
 				_("{0} must have a parent {1}.").format(
 					_(self.location_type), _(expected_parent_type)
@@ -55,14 +63,14 @@ class ITMLocation(NestedSet):
 				title=_("Missing Parent Location"),
 			)
 
-		if self.itm_parent_location == self.name:
+		if self.parent_itm_location == self.name:
 			frappe.throw(
 				_("A location cannot be its own parent."),
 				title=_("Invalid Hierarchy"),
 			)
 
 		parent_type = frappe.db.get_value(
-			"ITM Location", self.itm_parent_location, "location_type"
+			"ITM Location", self.parent_itm_location, "location_type"
 		)
 		if parent_type != expected_parent_type:
 			frappe.throw(
@@ -85,7 +93,7 @@ class ITMLocation(NestedSet):
 			return
 
 		parent_landscape = frappe.db.get_value(
-			"ITM Location", self.itm_parent_location, "itm_landscape"
+			"ITM Location", self.parent_itm_location, "itm_landscape"
 		)
 		self.itm_landscape = parent_landscape
 
@@ -108,3 +116,42 @@ class ITMLocation(NestedSet):
 			""",
 			(self.itm_landscape, self.lft, self.rgt),
 		)
+
+
+@frappe.whitelist()
+def add_node():
+	"""Create an ITM Location from Tree View with hierarchy-aware defaults."""
+	args = make_tree_args(**frappe.form_dict)
+	_apply_tree_create_defaults(args)
+	doc = frappe.get_doc(args)
+	doc.insert()
+	return doc.name
+
+
+def _apply_tree_create_defaults(args):
+	"""Ensure parent + location_type match Site → Building → Floor → Room."""
+	parent = args.get("parent_itm_location")
+
+	# Tree root is labeled with the DocType name; treat as no parent
+	if parent in (None, "", args.get("doctype"), "ITM Location"):
+		parent = None
+		args["parent_itm_location"] = None
+		args["location_type"] = "Site"
+		return
+
+	parent_type = frappe.db.get_value("ITM Location", parent, "location_type")
+	if not parent_type:
+		frappe.throw(
+			_("Parent location {0} was not found.").format(parent),
+			title=_("Missing Parent Location"),
+		)
+
+	child_type = CHILD_TYPE.get(parent_type)
+	if not child_type:
+		frappe.throw(
+			_("Cannot add a child under a {0}.").format(_(parent_type)),
+			title=_("Invalid Hierarchy"),
+		)
+
+	args["parent_itm_location"] = parent
+	args["location_type"] = child_type
