@@ -517,11 +517,11 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 		const mode = force_new ? "new" : this.state.lan_mode || "existing";
 		const mode_picker = force_new
 			? `<p class="itm-net-wizard__hint">${__(
-					"No Local Area Network exists in this Landscape yet. Enter the details below to create one here."
+					"No Local Area Network exists in this Landscape yet. Enter a title (and optional location) below — the LAN is created here so you stay in the wizard."
 			  )}</p>`
 			: `
 			<p class="itm-net-wizard__hint" style="margin-top:1rem;">${__(
-				"Local Area Network for this subnet"
+				"Which Local Area Network should own this subnet? Pick an existing LAN or create a new one without leaving the wizard."
 			)}</p>
 			<label style="margin-right:1rem;">
 				<input type="radio" name="lan_mode" value="existing" ${
@@ -535,9 +535,17 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 			</label>`;
 
 		return `
-			<p class="itm-net-wizard__hint">${__(
-				"Choose what kind of network you are planning. Suggestions can be changed in later steps."
-			)}</p>
+			<div class="itm-net-wizard__help">
+				<strong>${__("Step 1 — Purpose")}</strong>
+				${__(
+					"Pick the kind of network you are designing. Each profile suggests a typical size, private address range, and VLAN hint. You can change every value in later steps."
+				)}
+				<br/><br/>
+				${__(
+					"Example: choose Guest Wi-Fi for visitor access; the next steps will lean toward a larger subnet (more clients) and an isolated VLAN."
+				)}
+			</div>
+			<p class="itm-net-wizard__hint">${__("Network purpose")}</p>
 			${options}
 			<div class="itm-net-wizard__lan-section" style="margin-top:1rem;">
 				${mode_picker}
@@ -635,20 +643,45 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 
 	html_size() {
 		return `
-			<p class="itm-net-wizard__hint">${__(
-				"How many clients do you expect? We will suggest a prefix with growth headroom."
-			)}</p>
+			<div class="itm-net-wizard__help">
+				<strong>${__("Step 2 — Size")}</strong>
+				${__(
+					"Tell us how many devices (clients) need addresses. We use that to suggest a subnet size, with some room to grow."
+				)}
+				<br/><br/>
+				<strong>${__("What is Prefix length?")}</strong>
+				${__(
+					"In CIDR notation the prefix is the number after the slash (e.g. /24 in 192.168.1.0/24). A smaller number means a larger network (more addresses)."
+				)}
+				<br/><br/>
+				${__("Common examples:")}
+				<ul style="margin:0.35rem 0 0;padding-left:1.2rem;">
+					<li><code>/24</code> — ${__("about 254 usable addresses (typical office VLAN)")}</li>
+					<li><code>/23</code> — ${__("about 510 usable addresses (busy guest Wi-Fi)")}</li>
+					<li><code>/16</code> — ${__("about 65,534 usable addresses (very large site)")}</li>
+				</ul>
+				<br/>
+				${__(
+					"Leave Prefix length empty to let us choose from expected clients. Only set it if you already know the size you want."
+				)}
+			</div>
 			<div class="form-group">
 				<label>${__("Expected clients")}</label>
 				<input class="form-control" type="number" min="1" name="expected_clients" value="${
 					this.state.expected_clients || 50
 				}"/>
+				<span class="itm-net-wizard__field-help">${__(
+					"Example: 40 PCs and printers → enter 40 (or a bit more for growth)."
+				)}</span>
 			</div>
 			<div class="form-group">
 				<label>${__("Prefix length (optional override)")}</label>
 				<input class="form-control" type="number" min="8" max="32" name="prefix_length" value="${
 					this.state.prefix_length != null ? this.state.prefix_length : ""
 				}" placeholder="${__("Auto")}"/>
+				<span class="itm-net-wizard__field-help">${__(
+					"Optional. Example: enter 24 for a classic /24. Leave blank for automatic sizing."
+				)}</span>
 			</div>
 		`;
 	}
@@ -664,9 +697,23 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 			)
 			.join(", ");
 		return `
-			<p class="itm-net-wizard__hint">${frappe.utils.escape_html(
-				this.state.profile_notes || ""
-			)}</p>
+			<div class="itm-net-wizard__help">
+				<strong>${__("Step 3 — Address")}</strong>
+				${__(
+					"We suggest a free IPv4 block in this Landscape. Network address + prefix together form the CIDR (e.g. 10.40.0.0 + 23 → 10.40.0.0/23). Mask and usable range are calculated for you."
+				)}
+				<br/><br/>
+				${__(
+					"Example: network 192.168.10.0 with prefix 24 means addresses 192.168.10.1–192.168.10.254 for hosts."
+				)}
+			</div>
+			${
+				this.state.profile_notes
+					? `<p class="itm-net-wizard__hint">${frappe.utils.escape_html(
+							this.state.profile_notes
+					  )}</p>`
+					: ""
+			}
 			${
 				conflicts
 					? `<div class="itm-net-wizard__warn">${__(
@@ -679,18 +726,27 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 				<input class="form-control" name="network_address" value="${frappe.utils.escape_html(
 					this.state.network_address || d.network_address || ""
 				)}"/>
+				<span class="itm-net-wizard__field-help">${__(
+					"First address of the block. Each part must be 0–255. Example: 10.40.0.0"
+				)}</span>
 			</div>
 			<div class="form-group">
 				<label>${__("Prefix length")}</label>
 				<input class="form-control" type="number" min="0" max="32" name="prefix_length" value="${
 					this.state.prefix_length != null ? this.state.prefix_length : d.prefix_length || 24
 				}"/>
+				<span class="itm-net-wizard__field-help">${__(
+					"Same meaning as on the Size step (the /xx in CIDR). Example: 24"
+				)}</span>
 			</div>
 			<div class="form-group">
 				<label>${__("VLAN tag")}</label>
 				<input class="form-control" type="number" name="vlan_tag" value="${
 					this.state.vlan_tag != null ? this.state.vlan_tag : ""
 				}"/>
+				<span class="itm-net-wizard__field-help">${__(
+					"Optional switch/VLAN id for this subnet. Example: 40 for guest Wi-Fi."
+				)}</span>
 			</div>
 			<pre class="itm-net-wizard__design">${__("Mask")}: ${frappe.utils.escape_html(
 				d.subnet_mask || "—"
@@ -716,9 +772,24 @@ ${__("Usable")}: ${frappe.utils.escape_html(String(d.first_usable || "—"))} �
 			)
 			.join("");
 		return `
-			<p class="itm-net-wizard__hint">${__(
-				"Optionally assign infrastructure hosts. You can create a minimal Host Item inline."
-			)}</p>
+			<div class="itm-net-wizard__help">
+				<strong>${__("Step 4 — Infrastructure")}</strong>
+				${__(
+					"Optionally link the Host Items that will provide network services for this subnet. All fields are optional — you can finish planning and assign hosts later."
+				)}
+				<br/><br/>
+				${__("Typical roles:")}
+				<ul style="margin:0.35rem 0 0;padding-left:1.2rem;">
+					<li><strong>${__("Gateway")}</strong> — ${__("router / default gateway for clients")}</li>
+					<li><strong>${__("DHCP")}</strong> — ${__("hands out IP addresses automatically")}</li>
+					<li><strong>${__("DNS")}</strong> — ${__("name resolution (primary / secondary)")}</li>
+					<li><strong>${__("NTP")}</strong> — ${__("time sync (primary / secondary)")}</li>
+				</ul>
+				<br/>
+				${__(
+					"Example: pick your firewall as Gateway, and an existing domain controller as DNS 1. Use “New host” only when the device is not in ITM yet."
+				)}
+			</div>
 			${rows}
 		`;
 	}
@@ -727,9 +798,12 @@ ${__("Usable")}: ${frappe.utils.escape_html(String(d.first_usable || "—"))} �
 		const d = this.state.design || {};
 		const lan_label = this.state.lan_title || this.state.itm_local_area_network || "";
 		return `
-			<p class="itm-net-wizard__hint">${__(
-				"Review and create the subnet as Implementing. Overlaps warn but do not block."
-			)}</p>
+			<div class="itm-net-wizard__help">
+				<strong>${__("Step 5 — Review")}</strong>
+				${__(
+					"Check the summary, then create the subnet with lifecycle Implementing. Address or VLAN overlaps only warn — you can still create the record for planning."
+				)}
+			</div>
 			<pre class="itm-net-wizard__design">${__("Purpose")}: ${frappe.utils.escape_html(
 				this.state.purpose_profile
 			)}
