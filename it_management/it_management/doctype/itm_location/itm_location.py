@@ -3,6 +3,7 @@
 
 import frappe
 from frappe import _
+from frappe.desk.treeview import make_tree_args
 from frappe.utils.nestedset import NestedSet
 
 # Child type → required parent type
@@ -10,6 +11,13 @@ PARENT_TYPE = {
 	"Building": "Site",
 	"Floor": "Building",
 	"Room": "Floor",
+}
+
+# Parent type → child created under it in the tree
+CHILD_TYPE = {
+	"Site": "Building",
+	"Building": "Floor",
+	"Floor": "Room",
 }
 
 GROUP_TYPES = frozenset(("Site", "Building", "Floor"))
@@ -108,3 +116,42 @@ class ITMLocation(NestedSet):
 			""",
 			(self.itm_landscape, self.lft, self.rgt),
 		)
+
+
+@frappe.whitelist()
+def add_node():
+	"""Create an ITM Location from Tree View with hierarchy-aware defaults."""
+	args = make_tree_args(**frappe.form_dict)
+	_apply_tree_create_defaults(args)
+	doc = frappe.get_doc(args)
+	doc.insert()
+	return doc.name
+
+
+def _apply_tree_create_defaults(args):
+	"""Ensure parent + location_type match Site → Building → Floor → Room."""
+	parent = args.get("parent_itm_location")
+
+	# Tree root is labeled with the DocType name; treat as no parent
+	if parent in (None, "", args.get("doctype"), "ITM Location"):
+		parent = None
+		args["parent_itm_location"] = None
+		args["location_type"] = "Site"
+		return
+
+	parent_type = frappe.db.get_value("ITM Location", parent, "location_type")
+	if not parent_type:
+		frappe.throw(
+			_("Parent location {0} was not found.").format(parent),
+			title=_("Missing Parent Location"),
+		)
+
+	child_type = CHILD_TYPE.get(parent_type)
+	if not child_type:
+		frappe.throw(
+			_("Cannot add a child under a {0}.").format(_(parent_type)),
+			title=_("Invalid Hierarchy"),
+		)
+
+	args["parent_itm_location"] = parent
+	args["location_type"] = child_type
