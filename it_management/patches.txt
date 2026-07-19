@@ -17,3 +17,4 @@ it_management.patches.0_4.set_itm_location_type_site
 it_management.patches.0_4.reload_itm_workspace_network_card
 it_management.patches.0_4.add_address_map_geo_fields
 it_management.patches.0_4.rename_itm_location_nestedset_fields
+it_management.patches.0_4.migrate_itm_subnet_lan_link

@@ -11,9 +11,7 @@
   "title",
   "itm_landscape",
   "itm_location",
-  "note",
-  "section_subnets",
-  "itm_subnet_table"
+  "note"
  ],
  "fields": [
   {
@@ -45,22 +43,16 @@
    "fieldname": "note",
    "fieldtype": "Small Text",
    "label": "Note"
-  },
-  {
-   "fieldname": "section_subnets",
-   "fieldtype": "Section Break",
-   "label": "Subnets"
-  },
-  {
-   "fieldname": "itm_subnet_table",
-   "fieldtype": "Table",
-   "label": "Subnets",
-   "options": "ITM Subnet Table"
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2026-07-18 23:00:00.000000",
+ "links": [
+  {
+   "link_doctype": "ITM Subnet",
+   "link_fieldname": "itm_local_area_network"
+  }
+ ],
+ "modified": "2026-07-19 08:10:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Local Area Network",

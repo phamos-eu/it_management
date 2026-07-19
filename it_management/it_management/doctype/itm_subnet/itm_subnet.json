@@ -9,6 +9,7 @@
  "engine": "InnoDB",
  "field_order": [
   "subnet",
+  "itm_local_area_network",
   "itm_landscape",
   "itm_location",
   "column_break_1",
@@ -38,15 +39,28 @@
    "reqd": 1
   },
   {
+   "fieldname": "itm_local_area_network",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Local Area Network",
+   "options": "ITM Local Area Network",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "itm_local_area_network.itm_landscape",
    "fieldname": "itm_landscape",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Landscape",
    "options": "ITM Landscape",
+   "read_only": 1,
    "reqd": 1
   },
   {
+   "fetch_from": "itm_local_area_network.itm_location",
+   "fetch_if_empty": 1,
    "fieldname": "itm_location",
    "fieldtype": "Link",
    "in_standard_filter": 1,
@@ -150,7 +164,7 @@
    "link_fieldname": "itm_subnet"
   }
  ],
- "modified": "2026-07-18 23:00:00.000000",
+ "modified": "2026-07-19 08:10:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Subnet",
