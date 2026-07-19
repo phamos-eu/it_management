@@ -6,6 +6,58 @@
 from __future__ import unicode_literals
 
 import ipaddress
+import re
+
+
+_OCTET_PARTS_RE = re.compile(r"^\s*([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\s*$")
+
+
+def explain_ipv4_address_error(network_address):
+	"""
+	Return a user-facing explanation for an invalid IPv4 address, or None if OK.
+
+	Guides on octet ranges (0–255) and dotted-quad shape.
+	"""
+	if network_address in (None, ""):
+		return "Network address is required"
+
+	raw = str(network_address).strip()
+	match = _OCTET_PARTS_RE.match(raw)
+	if not match:
+		return (
+			f"'{raw}' is not a valid IPv4 address. "
+			"Use four numbers separated by dots, e.g. 192.168.0.0. "
+			"Each number (octet) must be between 0 and 255."
+		)
+
+	bad = []
+	for index, part in enumerate(match.groups(), start=1):
+		try:
+			value = int(part)
+		except ValueError:
+			bad.append(f"octet {index} ('{part}') is not a number")
+			continue
+		# Leading zeros like 00 are ok for int(); reject out of range
+		if value < 0 or value > 255:
+			bad.append(
+				f"octet {index} is {value}, but each octet must be between 0 and 255"
+			)
+
+	if bad:
+		return (
+			f"'{raw}' is not a valid IPv4 address: "
+			+ "; ".join(bad)
+			+ ". Example of a valid network address: 192.168.0.0."
+		)
+
+	return None
+
+
+def is_complete_ipv4_address(network_address):
+	"""True when the value has four numeric dotted parts (may still be out of range)."""
+	if network_address in (None, ""):
+		return False
+	return bool(_OCTET_PARTS_RE.match(str(network_address).strip()))
 
 
 def parse_cidr(value):
@@ -25,16 +77,31 @@ def design_from_network_and_prefix(network_address, prefix_length):
 
 	Raises ValueError on invalid input.
 	"""
-	if network_address in (None, ""):
-		raise ValueError("Network address is required")
-	if prefix_length in (None, ""):
-		raise ValueError("Prefix length is required")
+	address_error = explain_ipv4_address_error(network_address)
+	if address_error:
+		raise ValueError(address_error)
 
-	prefix = int(prefix_length)
+	if prefix_length in (None, ""):
+		raise ValueError("Prefix length is required (0–32)")
+
+	try:
+		prefix = int(prefix_length)
+	except (TypeError, ValueError):
+		raise ValueError("Prefix length must be a whole number between 0 and 32")
+
 	if prefix < 0 or prefix > 32:
 		raise ValueError("Prefix length must be between 0 and 32")
 
-	network = ipaddress.ip_network(f"{str(network_address).strip()}/{prefix}", strict=False)
+	try:
+		network = ipaddress.ip_network(
+			f"{str(network_address).strip()}/{prefix}", strict=False
+		)
+	except ValueError as exc:
+		raise ValueError(
+			f"Could not build an IPv4 network from '{network_address}/{prefix}': {exc}. "
+			"Use a dotted IPv4 address (octets 0–255) and a prefix from 0 to 32."
+		) from exc
+
 	return network_to_design(network)
 
 

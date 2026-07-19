@@ -190,11 +190,15 @@ class ITMSubnet(Document):
 
 @frappe.whitelist()
 def calculate_address_design(network_address=None, prefix_length=None):
-	"""Return derived IPv4 design fields for the Subnet form."""
+	"""
+	Return derived IPv4 design fields for the Subnet form.
+
+	Does not throw on invalid input so live form feedback can stay non-blocking.
+	"""
 	try:
-		return design_from_network_and_prefix(network_address, prefix_length)
+		design = design_from_network_and_prefix(network_address, prefix_length)
 	except (ValueError, TypeError) as exc:
-		frappe.throw(
-			_("Invalid IPv4 network design: {0}").format(str(exc)),
-			title=_("Invalid Subnet"),
-		)
+		return {"ok": False, "error": str(exc)}
+
+	design["ok"] = True
+	return design

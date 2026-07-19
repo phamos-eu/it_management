@@ -1,6 +1,15 @@
 // Copyright (c) 2026, IT-Geräte und IT-Lösungen wie Server, Rechner, Netzwerke und E-Mailserver sowie auch Backups, and contributors
 // For license information, please see license.txt
 
+const ITM_SUBNET_ADDRESS_DEBOUNCE_MS = 650;
+
+function itm_subnet_is_complete_ipv4(value) {
+	if (!value) {
+		return false;
+	}
+	return /^\s*\d+\.\d+\.\d+\.\d+\s*$/.test(String(value));
+}
+
 frappe.ui.form.on('ITM Subnet', {
 	setup(frm) {
 		frm.set_query('itm_local_area_network', () => {
@@ -19,11 +28,11 @@ frappe.ui.form.on('ITM Subnet', {
 	},
 
 	network_address(frm) {
-		frm.trigger('recalculate_address_design');
+		frm.trigger('schedule_address_design');
 	},
 
 	prefix_length(frm) {
-		frm.trigger('recalculate_address_design');
+		frm.trigger('schedule_address_design');
 	},
 
 	itm_local_area_network(frm) {
@@ -46,6 +55,24 @@ frappe.ui.form.on('ITM Subnet', {
 		);
 	},
 
+	schedule_address_design(frm) {
+		if (frm._itm_subnet_design_timer) {
+			clearTimeout(frm._itm_subnet_design_timer);
+			frm._itm_subnet_design_timer = null;
+		}
+
+		const address = frm.doc.network_address;
+		// While typing an incomplete address, do not validate or call the server
+		if (address && !itm_subnet_is_complete_ipv4(address)) {
+			return;
+		}
+
+		frm._itm_subnet_design_timer = setTimeout(() => {
+			frm._itm_subnet_design_timer = null;
+			frm.trigger('recalculate_address_design');
+		}, ITM_SUBNET_ADDRESS_DEBOUNCE_MS);
+	},
+
 	recalculate_address_design(frm) {
 		if (
 			!frm.doc.network_address ||
@@ -53,6 +80,10 @@ frappe.ui.form.on('ITM Subnet', {
 			frm.doc.prefix_length === null ||
 			frm.doc.prefix_length === ''
 		) {
+			return;
+		}
+
+		if (!itm_subnet_is_complete_ipv4(frm.doc.network_address)) {
 			return;
 		}
 
@@ -70,10 +101,21 @@ frappe.ui.form.on('ITM Subnet', {
 			freeze: false,
 			callback(r) {
 				frm._itm_subnet_design_busy = false;
-				if (!r.message) {
+				const d = r.message;
+				if (!d) {
 					return;
 				}
-				const d = r.message;
+				if (d.ok === false) {
+					// Soft feedback after a complete address was entered — not while typing
+					frappe.show_alert(
+						{
+							message: d.error || __('Invalid IPv4 network address'),
+							indicator: 'orange',
+						},
+						8
+					);
+					return;
+				}
 				// Update model directly for normalized network to avoid event loops
 				frm.doc.network_address = d.network_address;
 				frm.doc.prefix_length = d.prefix_length;
