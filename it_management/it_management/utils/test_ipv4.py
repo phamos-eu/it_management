@@ -8,6 +8,8 @@ import unittest
 from it_management.it_management.utils.ipv4 import (
 	design_from_cidr,
 	design_from_network_and_prefix,
+	explain_ipv4_address_error,
+	is_complete_ipv4_address,
 	ranges_overlap,
 )
 
@@ -37,3 +39,20 @@ class TestIPv4Design(unittest.TestCase):
 		self.assertFalse(
 			ranges_overlap(a["network_int"], a["broadcast_int"], c["network_int"], c["broadcast_int"])
 		)
+
+	def test_complete_address_detection(self):
+		self.assertFalse(is_complete_ipv4_address("192.168."))
+		self.assertFalse(is_complete_ipv4_address("192.168.1"))
+		self.assertTrue(is_complete_ipv4_address("192.300.0.0"))
+		self.assertTrue(is_complete_ipv4_address("10.0.0.0"))
+
+	def test_octet_range_error_hint(self):
+		message = explain_ipv4_address_error("192.300.0.0")
+		self.assertIsNotNone(message)
+		self.assertIn("300", message)
+		self.assertIn("0 and 255", message)
+
+	def test_invalid_octet_raises_with_hint(self):
+		with self.assertRaises(ValueError) as ctx:
+			design_from_network_and_prefix("192.300.0.0", 24)
+		self.assertIn("0 and 255", str(ctx.exception))

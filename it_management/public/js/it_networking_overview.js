@@ -346,14 +346,19 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 					prefix_length: this.state.prefix_length,
 				},
 			});
-			this.state.design = r.message;
-			if (r.message) {
-				this.state.network_address = r.message.network_address;
-				this.state.prefix_length = r.message.prefix_length;
+			const d = r.message;
+			if (!d || d.ok === false) {
+				this.state.design = null;
+				if (d && d.error) {
+					frappe.show_alert({ message: d.error, indicator: "orange" }, 8);
+				}
+				return;
 			}
+			this.state.design = d;
+			this.state.network_address = d.network_address;
+			this.state.prefix_length = d.prefix_length;
 		} catch (e) {
 			this.state.design = null;
-			return;
 		}
 	}
 
