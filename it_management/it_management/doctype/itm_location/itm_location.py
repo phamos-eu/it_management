@@ -16,7 +16,7 @@ GROUP_TYPES = frozenset(("Site", "Building", "Floor"))
 
 
 class ITMLocation(NestedSet):
-	nsm_parent_field = "itm_parent_location"
+	nsm_parent_field = "parent_itm_location"
 
 	def validate(self):
 		self._normalize_location_type()
@@ -39,7 +39,7 @@ class ITMLocation(NestedSet):
 
 	def _validate_hierarchy(self):
 		if self.location_type == "Site":
-			if self.itm_parent_location:
+			if self.parent_itm_location:
 				frappe.throw(
 					_("A Site cannot have a parent location."),
 					title=_("Invalid Hierarchy"),
@@ -47,7 +47,7 @@ class ITMLocation(NestedSet):
 			return
 
 		expected_parent_type = PARENT_TYPE.get(self.location_type)
-		if not self.itm_parent_location:
+		if not self.parent_itm_location:
 			frappe.throw(
 				_("{0} must have a parent {1}.").format(
 					_(self.location_type), _(expected_parent_type)
@@ -55,14 +55,14 @@ class ITMLocation(NestedSet):
 				title=_("Missing Parent Location"),
 			)
 
-		if self.itm_parent_location == self.name:
+		if self.parent_itm_location == self.name:
 			frappe.throw(
 				_("A location cannot be its own parent."),
 				title=_("Invalid Hierarchy"),
 			)
 
 		parent_type = frappe.db.get_value(
-			"ITM Location", self.itm_parent_location, "location_type"
+			"ITM Location", self.parent_itm_location, "location_type"
 		)
 		if parent_type != expected_parent_type:
 			frappe.throw(
@@ -85,7 +85,7 @@ class ITMLocation(NestedSet):
 			return
 
 		parent_landscape = frappe.db.get_value(
-			"ITM Location", self.itm_parent_location, "itm_landscape"
+			"ITM Location", self.parent_itm_location, "itm_landscape"
 		)
 		self.itm_landscape = parent_landscape
 

@@ -12,12 +12,12 @@
   "location_type",
   "itm_landscape",
   "itm_location_address",
-  "itm_parent_location",
+  "parent_itm_location",
   "is_group",
   "disabled",
   "lft",
   "rgt",
-  "itm_old_parent"
+  "old_parent"
  ],
  "fields": [
   {
@@ -57,7 +57,7 @@
   {
    "depends_on": "eval:doc.location_type!='Site'",
    "description": "Required for Building (Site), Floor (Building), and Room (Floor).",
-   "fieldname": "itm_parent_location",
+   "fieldname": "parent_itm_location",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Parent Location",
@@ -95,7 +95,7 @@
    "read_only": 1
   },
   {
-   "fieldname": "itm_old_parent",
+   "fieldname": "old_parent",
    "fieldtype": "Link",
    "hidden": 1,
    "label": "Old Parent",
@@ -122,12 +122,12 @@
    "link_fieldname": "itm_location"
   }
  ],
- "modified": "2026-07-18 23:05:00.000000",
+ "modified": "2026-07-19 08:00:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Location",
  "naming_rule": "By fieldname",
- "nsm_parent_field": "itm_parent_location",
+ "nsm_parent_field": "parent_itm_location",
  "owner": "Administrator",
  "permissions": [
   {
@@ -158,5 +158,6 @@
  "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "itm_location_name"
 }

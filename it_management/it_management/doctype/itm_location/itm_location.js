@@ -3,7 +3,7 @@
 
 frappe.ui.form.on('ITM Location', {
 	setup(frm) {
-		frm.set_query('itm_parent_location', () => {
+		frm.set_query('parent_itm_location', () => {
 			const expected = {
 				Building: 'Site',
 				Floor: 'Building',
@@ -30,17 +30,17 @@ frappe.ui.form.on('ITM Location', {
 	location_type(frm) {
 		frm.trigger('toggle_location_fields');
 		if (frm.doc.location_type === 'Site') {
-			frm.set_value('itm_parent_location', null);
+			frm.set_value('parent_itm_location', null);
 		}
 	},
 
-	itm_parent_location(frm) {
-		if (frm.doc.location_type === 'Site' || !frm.doc.itm_parent_location) {
+	parent_itm_location(frm) {
+		if (frm.doc.location_type === 'Site' || !frm.doc.parent_itm_location) {
 			return;
 		}
 		frappe.db.get_value(
 			'ITM Location',
-			frm.doc.itm_parent_location,
+			frm.doc.parent_itm_location,
 			'itm_landscape',
 			(r) => {
 				if (r) {
@@ -57,7 +57,7 @@ frappe.ui.form.on('ITM Location', {
 
 		frm.set_df_property('itm_landscape', 'read_only', is_site ? 0 : 1);
 		frm.set_df_property('itm_location_address', 'hidden', show_address ? 0 : 1);
-		frm.set_df_property('itm_parent_location', 'hidden', is_site ? 1 : 0);
-		frm.set_df_property('itm_parent_location', 'reqd', is_site ? 0 : 1);
+		frm.set_df_property('parent_itm_location', 'hidden', is_site ? 1 : 0);
+		frm.set_df_property('parent_itm_location', 'reqd', is_site ? 0 : 1);
 	},
 });
