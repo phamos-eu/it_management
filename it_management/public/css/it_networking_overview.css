@@ -157,6 +157,37 @@
 	margin: 0 0 0.75rem;
 }
 
+.itm-net-wizard__help {
+	border-left: 3px solid var(--itm-net-accent);
+	background: #f0fdfa;
+	padding: 0.65rem 0.85rem;
+	margin: 0 0 1rem;
+	font-size: 0.85rem;
+	color: var(--itm-net-ink);
+	line-height: 1.45;
+}
+
+.itm-net-wizard__help strong {
+	display: block;
+	margin-bottom: 0.25rem;
+}
+
+.itm-net-wizard__help code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	font-size: 0.84em;
+	background: #e2e8f0;
+	padding: 0.05rem 0.3rem;
+	border-radius: 3px;
+}
+
+.itm-net-wizard__field-help {
+	display: block;
+	margin-top: 0.25rem;
+	font-size: 0.8rem;
+	color: var(--itm-net-muted);
+	line-height: 1.4;
+}
+
 .itm-net-wizard__warn {
 	border-left: 3px solid var(--itm-net-warn);
 	padding: 0.5rem 0.75rem;
