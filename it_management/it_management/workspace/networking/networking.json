@@ -1,0 +1,152 @@
+{
+ "app": "it_management",
+ "charts": [],
+ "content": "[{\"id\": \"netHero1\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">Networking</span>\", \"col\": 12}}, {\"id\": \"netPara1\", \"type\": \"paragraph\", \"data\": {\"text\": \"Plan and review LANs, subnets, and IP space for each ITM Landscape. Open the overview to see utilization and start the subnet planning wizard.\", \"col\": 12}}, {\"id\": \"netShort1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Networking Overview\", \"col\": 4}}, {\"id\": \"netShort2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"ITM Local Area Network\", \"col\": 4}}, {\"id\": \"netShort3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"ITM Subnet\", \"col\": 4}}, {\"id\": \"netHdrDocs\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Network DocTypes</span>\", \"col\": 12}}, {\"id\": \"netCard1\", \"type\": \"card\", \"data\": {\"card_name\": \"Network DocTypes\", \"col\": 6}}]",
+ "creation": "2026-07-19 15:40:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "globe",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Networking",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Network DocTypes",
+   "link_type": "DocType",
+   "link_count": 8,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Networking Overview",
+   "link_to": "it-networking-overview",
+   "link_type": "Page",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 1
+  },
+  {
+   "type": "Link",
+   "label": "ITM Local Area Network",
+   "link_to": "ITM Local Area Network",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Subnet",
+   "link_to": "ITM Subnet",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM IP Address",
+   "link_to": "ITM IP Address",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Network Interface Controller",
+   "link_to": "ITM Network Interface Controller",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Socket",
+   "link_to": "ITM Socket",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Host Domain",
+   "link_to": "ITM Host Domain",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Location",
+   "link_to": "ITM Location",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "ITM Host Item",
+   "link_to": "ITM Host Item",
+   "link_type": "DocType",
+   "link_count": 0,
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0
+  }
+ ],
+ "modified": "2026-07-19 15:40:00.000000",
+ "modified_by": "Administrator",
+ "module": "IT Management",
+ "name": "Networking",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "IT Management",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 40.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Networking Overview",
+   "link_to": "it-networking-overview",
+   "type": "Page"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "ITM Local Area Network",
+   "link_to": "ITM Local Area Network",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "ITM Subnet",
+   "link_to": "ITM Subnet",
+   "type": "DocType"
+  }
+ ],
+ "title": "Networking",
+ "type": "Workspace"
+}

@@ -72,6 +72,30 @@
    "icon": "globe",
    "indent": 0,
    "keep_closed": 0,
+   "label": "Networking",
+   "link_to": "Networking",
+   "link_type": "Workspace",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "globe",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Networking Overview",
+   "link_to": "it-networking-overview",
+   "link_type": "Page",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "globe",
+   "indent": 0,
+   "keep_closed": 0,
    "label": "ITM Local Area Network",
    "link_to": "ITM Local Area Network",
    "link_type": "DocType",
@@ -139,7 +163,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-07-18 23:55:00.000000",
+ "modified": "2026-07-19 15:45:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "IT Management",
