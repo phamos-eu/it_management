@@ -41,7 +41,10 @@ app_include_js = [
 # web_include_js = "/assets/it_management/js/it_management.js"
 
 # include js in page
-page_js = {"it-landscape-graph": "public/js/it_landscape_graph.js"}
+page_js = {
+	"it-landscape-graph": "public/js/it_landscape_graph.js",
+	"it-networking-overview": "public/js/it_networking_overview.js",
+}
 
 # include js in doctype views
 doctype_js = {
