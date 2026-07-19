@@ -259,6 +259,62 @@ def suggest_subnet_design(
 
 
 @frappe.whitelist()
+def get_lan_options(itm_landscape=None):
+	"""Return LAN count/options for the plan-subnet wizard."""
+	if not itm_landscape:
+		frappe.throw(_("Landscape is required."), title=_("Missing Landscape"))
+
+	lans = frappe.get_all(
+		"ITM Local Area Network",
+		filters={"itm_landscape": itm_landscape},
+		fields=["name", "title", "itm_location"],
+		order_by="title asc",
+	)
+	return {"count": len(lans), "lans": lans}
+
+
+@frappe.whitelist()
+def quick_create_lan(
+	title=None,
+	itm_landscape=None,
+	itm_location=None,
+	name=None,
+	note=None,
+):
+	"""Create or update a LAN inline from the plan-subnet wizard."""
+	if not title:
+		frappe.throw(_("LAN title is required."), title=_("Missing Title"))
+	if not itm_landscape:
+		frappe.throw(_("Landscape is required."), title=_("Missing Landscape"))
+
+	if name and frappe.db.exists("ITM Local Area Network", name):
+		doc = frappe.get_doc("ITM Local Area Network", name)
+		if doc.itm_landscape != itm_landscape:
+			frappe.throw(
+				_("That Local Area Network belongs to another landscape."),
+				title=_("Invalid LAN"),
+			)
+		doc.title = title
+		doc.itm_location = itm_location
+		if note is not None:
+			doc.note = note
+		doc.save()
+	else:
+		doc = frappe.get_doc(
+			{
+				"doctype": "ITM Local Area Network",
+				"title": title,
+				"itm_landscape": itm_landscape,
+				"itm_location": itm_location,
+				"note": note,
+			}
+		)
+		doc.insert()
+
+	return {"name": doc.name, "title": doc.title, "itm_location": doc.itm_location}
+
+
+@frappe.whitelist()
 def quick_create_host_item(title=None, itm_landscape=None, itm_location=None):
 	"""Minimal Host Item create for wizard infra step."""
 	if not title:

@@ -184,12 +184,16 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 			__("Infrastructure"),
 			__("Review"),
 		];
+		this.lan_count = null;
 		this.state = {
 			purpose_profile: "Corporate",
 			expected_clients: 50,
 			prefix_length: null,
+			lan_mode: "existing",
 			itm_local_area_network: null,
+			lan_title: "",
 			itm_location: null,
+			lan_created_in_wizard: false,
 			vlan_tag: null,
 			network_address: null,
 			design: null,
@@ -205,7 +209,7 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 		};
 	}
 
-	show() {
+	async show() {
 		this.dialog = new frappe.ui.Dialog({
 			title: __("Plan a subnet"),
 			size: "large",
@@ -217,7 +221,25 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 		});
 		this.dialog.$wrapper.addClass("itm-net-wizard");
 		this.dialog.show();
+		this.dialog.fields_dict.body.$wrapper.html(
+			`<p class="text-muted">${__("Loading…")}</p>`
+		);
+		await this.load_lan_context();
 		this.render_step();
+	}
+
+	async load_lan_context() {
+		const r = await frappe.call({
+			method: "it_management.it_management.utils.networking.get_lan_options",
+			args: { itm_landscape: this.landscape },
+		});
+		const msg = r.message || {};
+		this.lan_count = msg.count || 0;
+		if (this.lan_count === 0) {
+			this.state.lan_mode = "new";
+		} else if (!this.state.lan_mode) {
+			this.state.lan_mode = "existing";
+		}
 	}
 
 	set_footer() {
@@ -272,12 +294,53 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 				return false;
 			}
 			this.state.purpose_profile = purpose;
-			const lan = this.lan_control && this.lan_control.get_value();
-			if (!lan) {
-				frappe.msgprint(__("Select a Local Area Network."));
+
+			const lan_mode =
+				this.lan_count === 0
+					? "new"
+					: $body.find("[name=lan_mode]:checked").val() || this.state.lan_mode;
+			this.state.lan_mode = lan_mode;
+
+			if (lan_mode === "existing") {
+				const lan = this.lan_control && this.lan_control.get_value();
+				if (!lan) {
+					frappe.msgprint(__("Select a Local Area Network."));
+					return false;
+				}
+				this.state.itm_local_area_network = lan;
+				this.state.lan_created_in_wizard = false;
+				return true;
+			}
+
+			const title = (this.lan_title_control && this.lan_title_control.get_value()) || "";
+			if (!title.trim()) {
+				frappe.msgprint(__("Enter a title for the new Local Area Network."));
 				return false;
 			}
-			this.state.itm_local_area_network = lan;
+			this.state.lan_title = title.trim();
+			this.state.itm_location =
+				(this.lan_location_control && this.lan_location_control.get_value()) || null;
+
+			const r = await frappe.call({
+				method: "it_management.it_management.utils.networking.quick_create_lan",
+				args: {
+					title: this.state.lan_title,
+					itm_landscape: this.landscape,
+					itm_location: this.state.itm_location,
+					name: this.state.lan_created_in_wizard
+						? this.state.itm_local_area_network
+						: null,
+				},
+				freeze: true,
+				freeze_message: __("Saving Local Area Network…"),
+			});
+			if (!r.message || !r.message.name) {
+				return false;
+			}
+			this.state.itm_local_area_network = r.message.name;
+			this.state.lan_title = r.message.title || this.state.lan_title;
+			this.state.lan_created_in_wizard = true;
+			this.lan_count = Math.max(this.lan_count || 0, 1);
 			return true;
 		}
 		if (this.step === 1) {
@@ -392,24 +455,7 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 		`);
 
 		if (this.step === 0) {
-			this.lan_control = frappe.ui.form.make_control({
-				parent: this.dialog.fields_dict.body.$wrapper.find(".itm-net-wizard__lan")[0],
-				df: {
-					fieldtype: "Link",
-					options: "ITM Local Area Network",
-					label: __("Local Area Network"),
-					fieldname: "itm_local_area_network",
-					reqd: 1,
-					default: this.state.itm_local_area_network,
-					get_query: () => ({
-						filters: { itm_landscape: this.landscape },
-					}),
-				},
-				render_input: true,
-			});
-			if (this.state.itm_local_area_network) {
-				this.lan_control.set_value(this.state.itm_local_area_network);
-			}
+			this.bind_lan_mode_ui();
 		}
 
 		if (this.step === 3) {
@@ -467,13 +513,124 @@ it_management.networking.PlanSubnetWizard = class PlanSubnetWizard {
 			)
 			.join("");
 
+		const force_new = this.lan_count === 0;
+		const mode = force_new ? "new" : this.state.lan_mode || "existing";
+		const mode_picker = force_new
+			? `<p class="itm-net-wizard__hint">${__(
+					"No Local Area Network exists in this Landscape yet. Enter the details below to create one here."
+			  )}</p>`
+			: `
+			<p class="itm-net-wizard__hint" style="margin-top:1rem;">${__(
+				"Local Area Network for this subnet"
+			)}</p>
+			<label style="margin-right:1rem;">
+				<input type="radio" name="lan_mode" value="existing" ${
+					mode === "existing" ? "checked" : ""
+				}/> ${__("Existing")}
+			</label>
+			<label>
+				<input type="radio" name="lan_mode" value="new" ${
+					mode === "new" ? "checked" : ""
+				}/> ${__("New")}
+			</label>`;
+
 		return `
 			<p class="itm-net-wizard__hint">${__(
 				"Choose what kind of network you are planning. Suggestions can be changed in later steps."
 			)}</p>
 			${options}
-			<div class="itm-net-wizard__lan" style="margin-top:1rem;"></div>
+			<div class="itm-net-wizard__lan-section" style="margin-top:1rem;">
+				${mode_picker}
+				<div class="itm-net-wizard__lan-existing" style="margin-top:0.75rem;"></div>
+				<div class="itm-net-wizard__lan-new" style="margin-top:0.75rem;"></div>
+			</div>
 		`;
+	}
+
+	bind_lan_mode_ui() {
+		const $wrap = this.dialog.fields_dict.body.$wrapper;
+		const force_new = this.lan_count === 0;
+		const apply_mode = (mode) => {
+			this.state.lan_mode = mode;
+			const $existing = $wrap.find(".itm-net-wizard__lan-existing");
+			const $new = $wrap.find(".itm-net-wizard__lan-new");
+			if (mode === "existing") {
+				$existing.show();
+				$new.hide();
+				this.mount_existing_lan_control($existing);
+			} else {
+				$existing.hide();
+				$new.show();
+				this.mount_new_lan_controls($new);
+			}
+		};
+
+		if (!force_new) {
+			$wrap.find("[name=lan_mode]").on("change", (e) => {
+				apply_mode(e.target.value);
+			});
+		}
+		apply_mode(force_new ? "new" : this.state.lan_mode || "existing");
+	}
+
+	mount_existing_lan_control($parent) {
+		$parent.empty();
+		this.lan_control = frappe.ui.form.make_control({
+			parent: $parent.get(0),
+			df: {
+				fieldtype: "Link",
+				options: "ITM Local Area Network",
+				label: __("Local Area Network"),
+				fieldname: "itm_local_area_network",
+				reqd: 1,
+				get_query: () => ({
+					filters: { itm_landscape: this.landscape },
+				}),
+			},
+			render_input: true,
+		});
+		if (this.state.itm_local_area_network && !this.state.lan_created_in_wizard) {
+			this.lan_control.set_value(this.state.itm_local_area_network);
+		}
+	}
+
+	mount_new_lan_controls($parent) {
+		$parent.empty();
+		this.lan_title_control = frappe.ui.form.make_control({
+			parent: $parent.get(0),
+			df: {
+				fieldtype: "Data",
+				label: __("LAN Title"),
+				fieldname: "lan_title",
+				reqd: 1,
+				default: this.state.lan_title || "",
+			},
+			render_input: true,
+		});
+		if (this.state.lan_title) {
+			this.lan_title_control.set_value(this.state.lan_title);
+		}
+
+		const $loc = $('<div style="margin-top:0.5rem;"></div>').appendTo($parent);
+		this.lan_location_control = frappe.ui.form.make_control({
+			parent: $loc.get(0),
+			df: {
+				fieldtype: "Link",
+				options: "ITM Location",
+				label: __("Location"),
+				fieldname: "itm_location",
+				get_query: () => ({
+					filters: {
+						location_type: ["in", ["Site", "Building"]],
+						disabled: 0,
+					},
+				}),
+			},
+			render_input: true,
+		});
+		if (this.state.itm_location) {
+			this.lan_location_control.set_value(this.state.itm_location);
+		}
 	}
 
 	html_size() {
@@ -568,6 +725,7 @@ ${__("Usable")}: ${frappe.utils.escape_html(String(d.first_usable || "—"))} �
 
 	html_review() {
 		const d = this.state.design || {};
+		const lan_label = this.state.lan_title || this.state.itm_local_area_network || "";
 		return `
 			<p class="itm-net-wizard__hint">${__(
 				"Review and create the subnet as Implementing. Overlaps warn but do not block."
@@ -575,7 +733,7 @@ ${__("Usable")}: ${frappe.utils.escape_html(String(d.first_usable || "—"))} �
 			<pre class="itm-net-wizard__design">${__("Purpose")}: ${frappe.utils.escape_html(
 				this.state.purpose_profile
 			)}
-${__("LAN")}: ${frappe.utils.escape_html(this.state.itm_local_area_network || "")}
+${__("LAN")}: ${frappe.utils.escape_html(lan_label)}
 ${__("CIDR")}: ${frappe.utils.escape_html(d.cidr || "")}
 ${__("VLAN")}: ${this.state.vlan_tag != null ? this.state.vlan_tag : "—"}
 ${__("Gateway")}: ${frappe.utils.escape_html(this.state.gateway || "—")}
