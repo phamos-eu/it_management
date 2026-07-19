@@ -19,7 +19,6 @@
   "itm_location",
   "section_break_7",
   "description",
-  "itm_solution_table",
   "itm_user_account_table",
   "host_items_section",
   "itm_host_item_solution_table"
@@ -108,12 +107,6 @@
    "options": "ITM Location"
   },
   {
-   "fieldname": "itm_solution_table",
-   "fieldtype": "Table",
-   "label": "Solution Relationships",
-   "options": "ITM Solution Table"
-  },
-  {
    "fieldname": "itm_user_account_table",
    "fieldtype": "Table",
    "hidden": 1,
@@ -135,7 +128,7 @@
   }
  ],
  "links": [],
- "modified": "2026-07-18 22:00:00.000000",
+ "modified": "2026-07-19 17:55:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Solution",
