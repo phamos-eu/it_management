@@ -20,3 +20,4 @@ it_management.patches.0_4.rename_itm_location_nestedset_fields
 it_management.patches.0_4.migrate_itm_subnet_lan_link
 it_management.patches.0_4.migrate_itm_subnet_address_model
 it_management.patches.0_4.setup_itm_networking_workspace
+it_management.patches.0_4.remove_itm_solution_relationships_table
