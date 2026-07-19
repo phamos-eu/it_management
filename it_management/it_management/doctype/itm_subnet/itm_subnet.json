@@ -1,18 +1,27 @@
 {
  "actions": [],
- "allow_rename": 1,
- "autoname": "format:{subnet}-{itm_landscape}",
+ "allow_rename": 0,
+ "autoname": "hash",
  "creation": "2026-07-18 23:00:00.000000",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "subnet",
+  "network_address",
+  "prefix_length",
+  "subnet_mask",
+  "cidr",
+  "column_break_addr",
+  "lifecycle_status",
+  "first_usable",
+  "last_usable",
+  "broadcast",
+  "usable_hosts",
+  "context_section",
   "itm_local_area_network",
   "itm_landscape",
   "itm_location",
-  "column_break_1",
   "information_section",
   "gateway",
   "dhcp",
@@ -31,12 +40,81 @@
  ],
  "fields": [
   {
-   "description": "CIDR, e.g. 192.168.1.0/24",
-   "fieldname": "subnet",
+   "description": "IPv4 network address, e.g. 10.40.0.0",
+   "fieldname": "network_address",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Subnet",
+   "label": "Network Address",
    "reqd": 1
+  },
+  {
+   "default": "24",
+   "description": "CIDR prefix length (0–32)",
+   "fieldname": "prefix_length",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Prefix Length",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "subnet_mask",
+   "fieldtype": "Data",
+   "label": "Subnet Mask",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "cidr",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "CIDR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_addr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Implementing",
+   "fieldname": "lifecycle_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Lifecycle Status",
+   "options": "Planned\nImplementing\nRunning\nStorage\nObsolete",
+   "reqd": 1
+  },
+  {
+   "fieldname": "first_usable",
+   "fieldtype": "Data",
+   "label": "First Usable",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_usable",
+   "fieldtype": "Data",
+   "label": "Last Usable",
+   "read_only": 1
+  },
+  {
+   "fieldname": "broadcast",
+   "fieldtype": "Data",
+   "label": "Broadcast",
+   "read_only": 1
+  },
+  {
+   "fieldname": "usable_hosts",
+   "fieldtype": "Int",
+   "label": "Usable Hosts",
+   "read_only": 1
+  },
+  {
+   "fieldname": "context_section",
+   "fieldtype": "Section Break",
+   "label": "Context"
   },
   {
    "fieldname": "itm_local_area_network",
@@ -66,10 +144,6 @@
    "in_standard_filter": 1,
    "label": "Location",
    "options": "ITM Location"
-  },
-  {
-   "fieldname": "column_break_1",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "information_section",
@@ -164,11 +238,11 @@
    "link_fieldname": "itm_subnet"
   }
  ],
- "modified": "2026-07-19 08:10:00.000000",
+ "modified": "2026-07-19 15:30:00.000000",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Subnet",
- "naming_rule": "Expression",
+ "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [
   {
@@ -197,8 +271,11 @@
   }
  ],
  "row_format": "Dynamic",
+ "search_fields": "cidr,network_address,itm_landscape,lifecycle_status",
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
+ "title_field": "cidr",
  "track_changes": 1
 }
