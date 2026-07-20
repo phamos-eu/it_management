@@ -146,3 +146,86 @@ def network_to_design(network):
 def ranges_overlap(a_start, a_end, b_start, b_end):
 	"""Inclusive integer range overlap."""
 	return a_start <= b_end and b_start <= a_end
+
+
+def parse_ipv4_host(value):
+	"""
+	Parse a host IPv4 address.
+
+	Raises ValueError with a user-facing message when invalid.
+	"""
+	address_error = explain_ipv4_address_error(value)
+	if address_error:
+		# explain_ipv4_address_error says "Network address" for empty — rephrase for hosts
+		if value in (None, ""):
+			raise ValueError("IP address is required")
+		raise ValueError(address_error.replace("network address", "IP address", 1))
+
+	try:
+		host = ipaddress.ip_address(str(value).strip())
+	except ValueError as exc:
+		raise ValueError(
+			"'{0}' is not a valid IPv4 address. "
+			"Use four numbers separated by dots, e.g. 192.168.1.10.".format(str(value).strip())
+		) from exc
+
+	if host.version != 4:
+		raise ValueError("Only IPv4 addresses are supported")
+
+	return host
+
+
+def explain_ip_not_in_subnet(ip_address, network_address, prefix_length):
+	"""
+	Return a user-facing error if the host IP cannot be used in the subnet.
+
+	Returns None when the IP is a usable host address in the subnet.
+	Network and broadcast addresses are rejected for prefixes shorter than /31.
+	"""
+	try:
+		host = parse_ipv4_host(ip_address)
+	except ValueError as exc:
+		return str(exc)
+
+	try:
+		design = design_from_network_and_prefix(network_address, prefix_length)
+	except ValueError as exc:
+		return "Linked subnet is invalid: {0}".format(str(exc))
+
+	network = ipaddress.ip_network(design["cidr"], strict=False)
+	if host not in network:
+		return (
+			"IP address {0} is outside subnet {1}. "
+			"Usable host range is {2} – {3}."
+		).format(
+			host,
+			design["cidr"],
+			design["first_usable"],
+			design["last_usable"],
+		)
+
+	# /31 and /32 treat both addresses as usable
+	if network.prefixlen >= 31:
+		return None
+
+	if host == network.network_address:
+		return (
+			"IP address {0} is the network address of {1} and cannot be assigned to a host. "
+			"Use an address from {2} to {3}."
+		).format(host, design["cidr"], design["first_usable"], design["last_usable"])
+
+	if host == network.broadcast_address:
+		return (
+			"IP address {0} is the broadcast address of {1} and cannot be assigned to a host. "
+			"Use an address from {2} to {3}."
+		).format(host, design["cidr"], design["first_usable"], design["last_usable"])
+
+	return None
+
+
+def assert_ip_in_subnet(ip_address, network_address, prefix_length):
+	"""Raise ValueError when the host IP is not usable in the subnet."""
+	message = explain_ip_not_in_subnet(ip_address, network_address, prefix_length)
+	if message:
+		raise ValueError(message)
+	return True
