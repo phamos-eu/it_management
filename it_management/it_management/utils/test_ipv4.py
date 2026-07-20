@@ -56,3 +56,18 @@ class TestIPv4Design(unittest.TestCase):
 		with self.assertRaises(ValueError) as ctx:
 			design_from_network_and_prefix("192.300.0.0", 24)
 		self.assertIn("0 and 255", str(ctx.exception))
+
+	def test_host_membership_in_subnet(self):
+		from it_management.it_management.utils.ipv4 import (
+			assert_ip_in_subnet,
+			explain_ip_not_in_subnet,
+		)
+
+		self.assertIsNone(explain_ip_not_in_subnet("192.168.1.10", "192.168.1.0", 24))
+		outside = explain_ip_not_in_subnet("10.0.0.5", "192.168.1.0", 24)
+		self.assertIn("outside subnet", outside)
+		self.assertIn("network address", explain_ip_not_in_subnet("192.168.1.0", "192.168.1.0", 24))
+		self.assertIn("broadcast address", explain_ip_not_in_subnet("192.168.1.255", "192.168.1.0", 24))
+		self.assertIsNone(explain_ip_not_in_subnet("10.0.0.0", "10.0.0.0", 31))
+		with self.assertRaises(ValueError):
+			assert_ip_in_subnet("8.8.8.8", "192.168.0.0", 24)

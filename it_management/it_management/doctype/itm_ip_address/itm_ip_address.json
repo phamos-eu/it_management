@@ -16,6 +16,7 @@
  ],
  "fields": [
   {
+   "description": "Must be a usable host address inside the selected Subnet (not the network or broadcast address).",
    "fieldname": "ip_address",
    "fieldtype": "Data",
    "in_list_view": 1,
