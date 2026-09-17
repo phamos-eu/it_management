@@ -75,16 +75,16 @@
    "label": "Hosting"
   },
   {
-   "depends_on": "eval:doc.deployment=='Virtual'",
+   "depends_on": "eval:doc.deployment=='Virtual';",
    "description": "Software Instance that provides hosting for this virtual host (e.g. Hyper-V, ESXi, Proxmox).",
    "fieldname": "hosted_by_software_instance",
    "fieldtype": "Link",
    "label": "Hosted by Software Instance",
-   "mandatory_depends_on": "eval:doc.deployment=='Virtual'",
+   "mandatory_depends_on": "eval:doc.deployment=='Virtual';",
    "options": "ITM Software Instance"
   },
   {
-   "depends_on": "eval:doc.deployment=='Virtual'",
+   "depends_on": "eval:doc.deployment=='Virtual';",
    "description": "Parent host derived from the hosting Software Instance.",
    "fetch_from": "hosted_by_software_instance.itm_host_item",
    "fieldname": "hosted_on",
@@ -94,10 +94,10 @@
    "read_only": 1
   },
   {
+   "collapsible": 1,
    "fieldname": "customer_section",
    "fieldtype": "Section Break",
-   "label": "Customer",
-   "collapsible": 1
+   "label": "Customer"
   },
   {
    "fieldname": "itm_customer",
@@ -106,10 +106,10 @@
    "options": "ITM Customer"
   },
   {
+   "collapsible": 1,
    "fieldname": "item_section",
    "fieldtype": "Section Break",
-   "label": "Item",
-   "collapsible": 1
+   "label": "Item"
   },
   {
    "fieldname": "itm_item",
@@ -130,10 +130,10 @@
    "options": "ITM Landscape"
   },
   {
+   "collapsible": 1,
    "fieldname": "solution_section",
    "fieldtype": "Section Break",
-   "label": "Solutions",
-   "collapsible": 1
+   "label": "Solutions"
   },
   {
    "fieldname": "itm_host_item_solution_table",
@@ -161,7 +161,7 @@
    "link_fieldname": "itm_host_item"
   }
  ],
- "modified": "2026-07-18 23:05:00.000000",
+ "modified": "2026-09-14 14:17:10.455060",
  "modified_by": "Administrator",
  "module": "IT Management",
  "name": "ITM Host Item",
