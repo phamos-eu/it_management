@@ -28,9 +28,6 @@ classifiers = [
     "Topic :: Office/Business :: ERP",
     "Topic :: System :: Systems Administration",
 ]
-dependencies = [
-    "frappe>=13.0.0",
-]
 
 [project.optional-dependencies]
 dev = [
@@ -47,7 +44,7 @@ Repository = "https://github.com/phamos-eu/it_management"
 Issues = "https://github.com/phamos-eu/it_management/issues"
 
 [tool.bench.frappe-dependencies]
-frappe = ">=13.0.0,<16.0.0"
+frappe = ">=16.0.0,<18.0.0"
 
 [tool.setuptools]
 packages = ["it_management"]
